@@ -17,6 +17,16 @@ Panduza levels are defined as follow
 - **attribut**  : defines the specific element of the interface to monitor.
 
 
+Payload Info
+--------------------------------------------
+
+.. code-block:: json
+
+    {
+        "type": "example", "version": "x.y"
+    }
+
+
 pza/[machine]/[driver]/[interface]/info
 --------------------------------------------
 
