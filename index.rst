@@ -25,10 +25,12 @@ If you want to test quickly Panduza and start understanding how it works, try on
    :caption: API
 
    api/all
+   api/platform
    api/io
    api/serial
    api/can
-   api/spi
+   api/spi_master
+   api/spi_slave
 
 .. toctree::
    :maxdepth: 1
