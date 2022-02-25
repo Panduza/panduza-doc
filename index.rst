@@ -1,19 +1,13 @@
-
 Welcome to Panduza's documentation!
 =======================================
 
-**Your Lab IoT !!!**
+Panduza aims to create an IoT network with all of the devices in your electronic laboratory !
 
-On embeded systems, acceptance tests are often based on stimulation of physical interfaces of the Device Under Test (DUT).
-
-However there is a great diversity of laboratory equipements and electronic devices used to interface the test computer with the DUT. Moreover each equipement have often different communication protocols, sometimes to do the same thing.
-
-This fact rises a problem: it's very complexe to interface all those equipements to a test framework and automate easily the acceptance tests.
-
-Panduza aims to provide a generic API through MQTT to standardize the laboratory equipements control.
+Go to this page to learn more about the :ref:`Panduza Concept`
 
 .. image:: panduza_logo.png
    :align: center
+
 
 
 
