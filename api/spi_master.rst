@@ -46,4 +46,17 @@ Spi Master Payload Data
 Spi Master Payload Data Transfert
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO
++------------+----------------------------+---------------------------+
+| Key        | Type                       | Description               |
++============+============================+===========================+
+| in_request | integer                    | Number of bytes to read   |
++------------+----------------------------+---------------------------+
+| out_buffer | string (base64 byte array) | Data that must be written |
++------------+----------------------------+---------------------------+
+
+.. code-block:: json
+
+    {
+        "buffer": "dGhpcyBpcyBhIHRlc3Q="
+    }
+
