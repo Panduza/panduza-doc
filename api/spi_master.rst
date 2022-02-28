@@ -30,33 +30,34 @@ Spi Master Payloads
 Spi Master Payload Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-+--------+--------+-----------------------------------------+
-| Key    | Type   | Description                             |
-+========+========+=========================================+
-| buffer | string | Data bytes converted into base64 string |
-+--------+--------+-----------------------------------------+
++---------------+--------+-----------------------------------------+
+| Key           | Type   | Description                             |
++===============+========+=========================================+
+| data_received | string | Data bytes converted into base64 string |
++---------------+--------+-----------------------------------------+
 
 .. code-block:: json
 
     {
-        "buffer": "dGhpcyBpcyBhIHRlc3Q="
+        "data_received": "dGhpcyBpcyBhIHRlc3Q="
     }
 
 
 Spi Master Payload Data Transfert
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-+------------+----------------------------+---------------------------+
-| Key        | Type                       | Description               |
-+============+============================+===========================+
-| in_request | integer                    | Number of bytes to read   |
-+------------+----------------------------+---------------------------+
-| out_buffer | string (base64 byte array) | Data that must be written |
-+------------+----------------------------+---------------------------+
++-----------------+----------------------------+---------------------------+
+| Key             | Type                       | Description               |
++=================+============================+===========================+
+| size_to_receive | integer                    | Number of bytes to read   |
++-----------------+----------------------------+---------------------------+
+| data_to_send    | string (base64 byte array) | Data that must be written |
++-----------------+----------------------------+---------------------------+
 
 .. code-block:: json
 
     {
-        "buffer": "dGhpcyBpcyBhIHRlc3Q="
+        "size_to_receive": 4,
+        "data_to_send": "dGhpcyBpcyBhIHRlc3Q="
     }
 
