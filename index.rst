@@ -8,9 +8,6 @@ Go to this page to learn more about the :ref:`Panduza Concept`
 .. image:: panduza_logo.png
    :align: center
 
-
-
-
 If you want to test quickly Panduza and start understanding how it works, try one of the following quick start:
 
 .. toctree::
@@ -24,12 +21,18 @@ If you want to test quickly Panduza and start understanding how it works, try on
    :maxdepth: 1
    :caption: API
 
+   about/about
+
    api/all
+   api/platform
    api/io
    api/serial
+   api/memory
+   api/spi_master
+   api/spi_slave
+   api/subprocess
    api/can
    
-
 .. toctree::
    :maxdepth: 1
    :caption: Python Client
