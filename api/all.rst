@@ -17,30 +17,48 @@ Panduza levels are defined as follow
 - **attribut**  : defines the specific element of the interface to monitor.
 
 
-Payload Info
---------------------------------------------
+Common Topics
+--------------------
 
-.. code-block:: json
+Here are the common interface topics
 
-    {
-        "type": "example", "version": "x.y"
-    }
++--------+-----+--------+------------------------------+----------------------+
+| Suffix | QOS | Retain | Payload                      | Description          |
++========+=====+========+==============================+======================+
+| info   | 0   | false  | :ref:`Common Payload Info`   | Interface heart beat |
++--------+-----+--------+------------------------------+----------------------+
+| status | 0   | true   | :ref:`Common Payload Status` | Interface status     |
++--------+-----+--------+------------------------------+----------------------+
 
 
-pza/[machine]/[driver]/[interface]/info
+Common Payload Info
 --------------------------------------------
 
 This topic must be published by every interface every 2s. It provides a way to get all the reachable interfaces.
 
-+-----+--------+---------+
-| QOS | Retain | Payload |
-+=====+========+=========+
-| 0   | false  | json    |
-+-----+--------+---------+
-
 .. code-block:: json
 
     {
         "type": "example", "version": "x.y"
     }
+
+
+Common Payload Status
+--------------------------------------------
+
++---------+--------+-----------------------------------------------+
+| Key     | Type   | Description                                   |
++=========+========+===============================================+
+| status  | string | Status of the interface (see standart status) |
++---------+--------+-----------------------------------------------+
+| comment | string | Context information for the status            |
++---------+--------+-----------------------------------------------+
+
+.. code-block:: json
+
+    {
+        "status": "ready",
+        "comment": "context for the status"
+    }
+
 
