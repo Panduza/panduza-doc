@@ -1,31 +1,36 @@
-Buffin
+Io Capture
 ===============
 
 MQTT specifications for Panduza 
 
 .. code-block::
 
-    TYPE: "buffin"
+    TYPE: "digital/capture"
     VERSION: "1.0"
 
-Buffin Topics
------------------
+Io Capture Topics
+-------------------
 
 +----------------------+-----+--------+----------------------------+-----------------------+
 | Suffix               | QOS | Retain | Payload                    | Description           |
 +======================+=====+========+============================+=======================+
 | info                 | 0   | false  | :ref:`Common Payload Info` | Interface heart beat  |
++--------------------+-----+--------+----------------------------+----------------------+
+| atts/context  | 0   | true   |                            |                      |
 +----------------------+-----+--------+----------------------------+-----------------------+
 | atts/buffer          | 0   | false  |                            | Capture buffer        |
 +----------------------+-----+--------+----------------------------+-----------------------+
-| atts/capture         | 0   | true   |                            | Capture configuration |
+| atts/scenario         | 0   | true   |                            | Capture configuration |
 +----------------------+-----+--------+----------------------------+-----------------------+
-| cmds/capture/set     | 0   | false  |                            |                       |
+| cmds/scenario/set     | 0   | false  |                            |                       |
 +----------------------+-----+--------+----------------------------+-----------------------+
-| cmds/capture/trigger | 0   | false  |                            |                       |
+| cmds/scenario/trigger | 0   | false  |                            |                       |
 +----------------------+-----+--------+----------------------------+-----------------------+
 
-Buffin Payloads
--------------------
+Io Capture Payloads
+---------------------
+
+
+duration + freq
 
 

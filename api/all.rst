@@ -27,24 +27,12 @@ Here are the common interface topics
 +========+=====+========+==============================+======================+
 | info   | 0   | false  | :ref:`Common Payload Info`   | Interface heart beat |
 +--------+-----+--------+------------------------------+----------------------+
-| status | 0   | true   | :ref:`Common Payload Status` | Interface status     |
-+--------+-----+--------+------------------------------+----------------------+
 
 
 Common Payload Info
 --------------------------------------------
 
 This topic must be published by every interface every 2s. It provides a way to get all the reachable interfaces.
-
-.. code-block:: json
-
-    {
-        "type": "example", "version": "x.y"
-    }
-
-
-Common Payload Status
---------------------------------------------
 
 +---------+--------+-----------------------------------------------+
 | Key     | Type   | Description                                   |
@@ -54,11 +42,14 @@ Common Payload Status
 | comment | string | Context information for the status            |
 +---------+--------+-----------------------------------------------+
 
+
 .. code-block:: json
 
     {
-        "status": "ready",
-        "comment": "context for the status"
+        "type": "example",
+        "version": "x.y",
+        "status": "ready", // booting
+        "error": "context for the status" (optional)
     }
 
 

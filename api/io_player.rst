@@ -1,11 +1,11 @@
-Buffout
+Io Player
 ===============
 
 MQTT specifications for Panduza 
 
 .. code-block::
 
-    TYPE: "output"
+    TYPE: "io/player"
     VERSION: "1.0"
 
 Buffout Topics
@@ -15,15 +15,23 @@ Buffout Topics
 | Suffix              | QOS | Retain | Payload                    | Description          |
 +=====================+=====+========+============================+======================+
 | info                | 0   | false  | :ref:`Common Payload Info` | Interface heart beat |
++--------------------+-----+--------+----------------------------+----------------------+
+| atts/context   | 0   | true   |                            |                      |
 +---------------------+-----+--------+----------------------------+----------------------+
-| atts/player         | 0   | true   |                            | Player configuration |
+| atts/scenario        | 0   | true   |                            | Scenario configuration |
 +---------------------+-----+--------+----------------------------+----------------------+
-| cmds/player/set     | 0   | false  |                            |                      |
+| cmds/scenario/set     | 0   | false  |                            |                      |
 +---------------------+-----+--------+----------------------------+----------------------+
-| cmds/player/trigger | 0   | false  |                            |                      |
+| cmds/scenario/enable | 0   | false  |                            |   mode : continue / oneshot               |
++---------------------+-----+--------+----------------------------+----------------------+
+| cmds/scenario/disable | 0   | false  |                            |                      |
 +---------------------+-----+--------+----------------------------+----------------------+
 
 Buffout Payloads
 -------------------
+
+
+
+scenario  = [ [ value, duration ], ... ]
 
 
