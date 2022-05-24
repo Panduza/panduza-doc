@@ -17,30 +17,39 @@ Panduza levels are defined as follow
 - **attribut**  : defines the specific element of the interface to monitor.
 
 
-Payload Info
---------------------------------------------
+Common Topics
+--------------------
 
-.. code-block:: json
+Here are the common interface topics
 
-    {
-        "type": "example", "version": "x.y"
-    }
++--------+-----+--------+------------------------------+----------------------+
+| Suffix | QOS | Retain | Payload                      | Description          |
++========+=====+========+==============================+======================+
+| info   | 0   | false  | :ref:`Common Payload Info`   | Interface heart beat |
++--------+-----+--------+------------------------------+----------------------+
 
 
-pza/[machine]/[driver]/[interface]/info
+Common Payload Info
 --------------------------------------------
 
 This topic must be published by every interface every 2s. It provides a way to get all the reachable interfaces.
 
-+-----+--------+---------+
-| QOS | Retain | Payload |
-+=====+========+=========+
-| 0   | false  | json    |
-+-----+--------+---------+
++---------+--------+-----------------------------------------------+
+| Key     | Type   | Description                                   |
++=========+========+===============================================+
+| status  | string | Status of the interface (see standart status) |
++---------+--------+-----------------------------------------------+
+| comment | string | Context information for the status            |
++---------+--------+-----------------------------------------------+
+
 
 .. code-block:: json
 
     {
-        "type": "example", "version": "x.y"
+        "type": "example",
+        "version": "x.y",
+        "status": "ready", // booting
+        "error": "context for the status" (optional)
     }
+
 
