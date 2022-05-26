@@ -5,39 +5,42 @@ MQTT specifications for Panduza Subprocess interfaces.
 
 .. code-block::
 
-  base topic : pza/[machine]/[driver]/[subprocess]
+    TYPE: "shell"
+    VERSION: "1.0"
 
 
-xxx/info
----------
+Subprocess Topics
+--------------------
 
-Info is the most basic topic for a Panduza Interface. It explains that this interface will run a process in a subshell.
++----------------+-----+--------+----------------------------+----------------------+
+| Suffix         | QOS | Retain | Payload                    | Description          |
++================+=====+========+============================+======================+
+| info           | 0   | false  | :ref:`Common Payload Info` | Interface heart beat |
++----------------+-----+--------+----------------------------+----------------------+
+| cmds/run       | 0   | true   |                            | To run a subprocess  |
++----------------+-----+--------+----------------------------+----------------------+
 
-+-----+--------+---------+
-| QOS | Retain | Payload |
-+=====+========+=========+
-| 0   | false  | json    |
-+-----+--------+---------+
 
-+---------+--------+-----------------------------------------------------------------+
-| Key     | Type   | Description                                                     |
-+=========+========+=================================================================+
-| type    | string | Defines which topics and payloads can be used on this interface |
-+---------+--------+-----------------------------------------------------------------+
-| version | string | To control the revision of the specification type               |
-+---------+--------+-----------------------------------------------------------------+
 
-.. code-block:: json
+- atts/subprocess/retcode
+- atts/subprocess/stdout
+- atts/subprocess/stderr
+- cmds/subprocess/run
 
-    {
-        "type": "shell", "version": "1.0"
-    }
+
+Subprocess Payloads
+---------------------
+
+
+Io Payload Run
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 xxx/cmds/run
 -------------
 
-To run a subprocess
+
 
 +-----+--------+---------+
 | QOS | Retain | Payload |
