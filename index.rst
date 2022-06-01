@@ -32,6 +32,7 @@ If you want to test quickly Panduza and start understanding how it works, try on
    api/spi_slave
    api/subprocess
    api/can
+   api/power_supply
    
 .. toctree::
    :maxdepth: 1
