@@ -25,9 +25,11 @@ If you want to test quickly Panduza and start understanding how it works, try on
 
    api/all
    api/platform
+   api/reset
    api/io
    api/serial
-   api/memory
+   api/mmap
+   api/register
    api/spi_master
    api/spi_slave
    api/subprocess
