@@ -14,6 +14,7 @@ If you want to test quickly Panduza and start understanding how it works, try on
    :maxdepth: 1
    :caption: Quick Starts (5min)
 
+   quick_starts/fake_overview
    quick_starts/raspberry
 
 
