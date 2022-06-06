@@ -30,7 +30,7 @@ If you want to test quickly Panduza and start understanding how it works, try on
    api/io
    api/serial
    api/mmap
-   api/register
+   api/rmap
    api/spi_master
    api/spi_slave
    api/subprocess
