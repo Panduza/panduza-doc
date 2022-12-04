@@ -9,6 +9,13 @@
 
 **atts** to read the psu configuration, the payload **must** always be complete !
 
+This api has 4 state attributes:
+
+- state
+- volts
+- current
+- settings
+
 ```json
     {
         "state": {
@@ -32,4 +39,22 @@
         }
     }
 ```
+
+When using the **cmds/set**, if the payload of an attribute is NOT a json. Then the payload is supposed to be the "value" of this attributes.
+So the 2 following notations are equivalent:
+
+```json
+    {
+        "state": "on"
+    }
+```json
+
+
+```json
+    {
+        "state": {
+            "value": "on"
+        },
+    }
+```json
 
