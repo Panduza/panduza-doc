@@ -47,7 +47,7 @@ So the 2 following notations are equivalent:
     {
         "state": "on"
     }
-```json
+```
 
 
 ```json
@@ -56,5 +56,5 @@ So the 2 following notations are equivalent:
             "value": "on"
         },
     }
-```json
+```
 
