@@ -43,13 +43,13 @@ Each value is represented in amps unit.
 
 ### Settings
 
-| Field name |                   Description                   |  Type   | Read-only |
-| :--------- | :---------------------------------------------: | :-----: | :-------: |
-| serial_port      |                 Serial port                  |  String  |   False   |
-| ovp        |        Over Voltage Protection         |  Boolean  |   False    |
-| ocp        |        Over Current Protection        |  Boolean  |   False    |
-| silent      | Silent mode | Boolean |   True    |
-| refresh_period      | Refresh period in milliseconds (0 == disabled) | Integer |   False    |
+| Field name     |                  Description                   |  Type   | Read-only |
+| :------------- | :--------------------------------------------: | :-----: | :-------: |
+| serial_port    |                  Serial port                   | String  |   True    |
+| ovp            |            Over Voltage Protection             | Boolean |   False   |
+| ocp            |            Over Current Protection             | Boolean |   False   |
+| silent         |                  Silent mode                   | Boolean |   False   |
+| refresh_period | Refresh period in milliseconds (0 == disabled) | Integer |   False   |
 
 ## Examples
 
