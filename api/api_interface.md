@@ -43,6 +43,28 @@ All the interfaces support those common topics
 
 This topic contains the json representation of the attribute called {ATTRIBUTE_NAME}.
 
+For example for the attribute "attribute_1"
+
+```json
+{
+    "attribute_1": {
+        "field_1": "do the change dude !",
+    }
+}
+```
+
+In the topic : {INTERFACE_PREFIX}/atts/attribute_1
+
+there is:
+
+```json
+{
+    "field_1": "do the change dude !",
+}
+```
+
+because "attribute_1" is inside the topic name
+
 ### {INTERFACE_PREFIX}/cmds/set
 
 This topic allow the user to change attributes.
