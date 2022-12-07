@@ -1,60 +1,87 @@
-# API Power SUpply (PSU)
+# Power Supply Unit (PSU) API
 
-| Topic                       | QOS | Retain |
-| :-------------------------- | :-: | :----: |
-| {INTERFACE_PREFIX}/cmds/set |  0  | false  |
-| {INTERFACE_PREFIX}/atts     |  0  |  true  |
+This document describes the specific attributes and commands of the Power Supply Unit API.
 
-**cmds/set** to change a configuration, the payload can be partial with only the element that need to change
+Please refer to [API interface](api_interface.md) for a generic descipriton of interface APIs.
 
-**atts** to read the psu configuration, the payload **must** always be complete !
+## Attributes
 
-This api has 4 state attributes:
+| Attribute name |    Description    |
+| :------------- | :---------------: |
+| state          | State (on or off) |
+| volts          |      Voltage      |
+| amps           |     Amperage      |
+| settings       |     Settings      |
 
-- state
-- volts
-- current
-- settings
+### State
+
+| Field name |  Description  |  Type  | Read-only |
+| :--------- | :-----------: | :----: | :-------: |
+| state      | "on" or "off" | String |   False   |
+
+### Volts
+
+Each value is represented in volts unit.
+
+| Field name |                  Description                   |  Type   | Read-only |
+| :--------- | :--------------------------------------------: | :-----: | :-------: |
+| value      |                 voltage value                  |  Float  |   False   |
+| min        |        minimal voltage value supported         |  Float  |   True    |
+| max        |        maximal voltage value supported         |  Float  |   True    |
+| decimals   | number of decimals supported for voltage value | Integer |   True    |
+
+### Amps
+
+Each value is represented in amps unit.
+
+| Field name |                   Description                   |  Type   | Read-only |
+| :--------- | :---------------------------------------------: | :-----: | :-------: |
+| value      |                 amperage value                  |  Float  |   False   |
+| min        |        minimal amperage value supported         |  Float  |   True    |
+| max        |        maximal amperage value supported         |  Float  |   True    |
+| scale      | number of decimals supported for amperage value | Integer |   True    |
+
+### Settings
+
+| Field name |                   Description                   |  Type   | Read-only |
+| :--------- | :---------------------------------------------: | :-----: | :-------: |
+| serial_port      |                 Serial port                  |  String  |   False   |
+| ovp        |        Over Voltage Protection         |  Boolean  |   False    |
+| ocp        |        Over Current Protection        |  Boolean  |   False    |
+| silent      | Silent mode | Boolean |   True    |
+| refresh_period      | Refresh period in milliseconds (0 == disabled) | Integer |   False    |
+
+## Examples
+
+### Atts for volts
+
+`<interface>/atts/volts`
 
 ```json
-    {
-        "state": {
-            "value": "on"
-        },
-        "volts": {
-            "value": 3.3,
-            "min":  0,
-            "max": 50,
-            "scale": 0.01
-        },
-        "current": {
-            "value": 0.1,
-            "min":  0,
-            "max": 50,
-            "scale": 0.01
-        },
-        "settings": {
-            "ovp": true,
-            "silent": false,
-        }
+{
+    "volts" : {
+        "value" : 3.30,
+        "min" : 0,
+        "max" : 30,
+        "scale" : 2
     }
+}
 ```
 
-When using the **cmds/set**, if the payload of an attribute is NOT a json. Then the payload is supposed to be the "value" of this attributes.
-So the 2 following notations are equivalent:
+### Commands
+
+`<interface>/cmds/set`
 
 ```json
-    {
-        "state": "on"
+{
+    "state" : "on",
+    "volts": 3.3,
+    "amps" : 0.5,
+    "settings" : {
+        "ovp" : true,
+        "ocp" : true,
+        "silent" : false,
+        "refresh_period" : 0
     }
+}
 ```
-
-
-```json
-    {
-        "state": {
-            "value": "on"
-        },
-    }
-```
-
