@@ -4,13 +4,14 @@
 
 All the interfaces support those common topics.
 
-| Topic                                    | QOS | Retain |
-| :--------------------------------------- | :-: | :----: |
-| \<interface>/atts/info             |  0  | false  |
-| \<interface>/atts/\<name> |  0  |  true  |
-| \<interface>/cmds/set              |  0  | false  |
+| Topic                         |  QOS  | Retain |
+| :---------------------------- | :---: | :----: |
+| \<interface>/atts/info        |   0   | false  |
+| \<interface>/atts/misc        |   0   |  true  |
+| \<interface>/atts/\<name> (1) |   0   |  true  |
+| \<interface>/cmds/set         |   0   | false  |
 
-Interfaces may have as many \<name> attributes as they want.
+(1) Interfaces may have as many \<name> attributes as they want.
 
 ## Attributes
 
@@ -33,25 +34,52 @@ An attribute is represented as a JSON payload, containing its name and an object
 }
 ```
 
-If the attribute payload has only one field, it can be simplified.
+If the attribute payload has only one field, the field **must** still be present with its corresponding payload as JSON object.
+**It cannot be simplified.**
 
 ```json
 {
-    "attribute_name": "hello"
+    "attribute_name": {
+        "field" : "value"
+    }
 }
 ```
 
-Note: Each field supported by an attribute **must** be present in the payload.
-This means an attribute payload is always determinist and free-standing.
+**Important**: An attribute payload contains all the fields supported for the specific interface.
+A specific device may support only certain fields of it's generic interface attribute, In this case, other fields are not part of the payload.
+- This principle allows to limit the payload to only useful information. The client API will then know what fields are supported and notify the user in case of misusage.
+- If some fields are not supported, they are not part of the payload. This means the content of attribute payload may differ from one interface to another.
 
-### Special attribute 'info'
+Example:
+The PSU interface API supports a various number of settings in the attribute named settings.
 
-This attribute is special and must be supported in read-only by all the interfaces.
+Let's take the setting OVP (Over Voltage Protection) for example. Even though it is a common feature on most power supplies, one may not support it.
+Therefore, the payload will vary from these power supplies. The ones that supports it will contain the field "ovp" in their settings attribute payload, and the one that doesn't won't.
 
-It is special because it must not be retained.
+This way, it is very easy for client APIs to distinguish what is allowed or not, and notify the user accordingly.
+
+### Info Attribute
+
+This attribute is special. It must be supported in read-only by all the interfaces and **must not be retained**.
 
 When '*' is published inside the topic 'pza' then this attribute must be published.
 
+It contains the type of the interface, and the version of the meta driver.
+
+```json
+{
+    "type": "serial",
+    "version": "1.0"
+}
+```
+
+### Misc Attribute
+
+This attribute is used to gather all miscellaneous information. Any interface API can specify their own misc payload content.
+
+This misc attribute contains only fields that cannot be considered specific to an interface family.
+
+For example, a serial port or a polling timing might be useful for the power supply interface, but they don't describe a specific attribute of power supplies.
 
 ## Commands
 

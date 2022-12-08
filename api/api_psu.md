@@ -17,11 +17,11 @@ Please refer to [API interface](api_interface.md) for a generic descipriton of i
 
 | Field name |  Description  |  Type  | Read-only |
 | :--------- | :-----------: | :----: | :-------: |
-| state      | "on" or "off" | String |   False   |
+| value      | "on" or "off" | String |   False   |
 
 ### Volts
 
-Each value is represented in volts unit.
+Each value is represented in volts.
 
 | Field name |                  Description                   |  Type   | Read-only |
 | :--------- | :--------------------------------------------: | :-----: | :-------: |
@@ -32,7 +32,7 @@ Each value is represented in volts unit.
 
 ### Amps
 
-Each value is represented in amps unit.
+Each value is represented in amperes.
 
 | Field name |                   Description                   |  Type   | Read-only |
 | :--------- | :---------------------------------------------: | :-----: | :-------: |
@@ -43,13 +43,31 @@ Each value is represented in amps unit.
 
 ### Settings
 
-| Field name     |                  Description                   |  Type   | Read-only |
-| :------------- | :--------------------------------------------: | :-----: | :-------: |
-| serial_port    |                  Serial port                   | String  |   True    |
-| ovp            |            Over Voltage Protection             | Boolean |   False   |
-| ocp            |            Over Current Protection             | Boolean |   False   |
-| silent         |                  Silent mode                   | Boolean |   False   |
-| refresh_period | Refresh period in milliseconds (0 == disabled) | Integer |   False   |
+| Field name |       Description       |  Type   | Read-only |
+| :--------- | :---------------------: | :-----: | :-------: |
+| ovp        | Over Voltage Protection | Boolean |   False   |
+| ocp        | Over Current Protection | Boolean |   False   |
+| silent     |       Silent mode       | Boolean |   False   |
+
+### Misc
+
+| Field name   |   Description    |    Type     | Read-only |
+| :----------- | :--------------: | :---------: | :-------: |
+| serial_port  |   Serial port    |   String    |   True    |
+| polling_time | Polling time (1) | JSON object |     -     |
+
+(1) When a power supply setting is changed manually, it may not be able to notify the driver.
+Therefore, the driver has to poll information.
+
+The JSON object of polling_time is as described:
+
+Each value is represented in milliseconds.
+
+| Field name |                      Description                      |  Type   | Read-only |
+| :--------- | :---------------------------------------------------: | :-----: | :-------: |
+| value      |                    refresh period                     | Integer |   False   |
+| min        | shortest refresh period supported<br>(0 == unlimited) | Integer |   True    |
+| max        | longest refresh period supported<br>(0 == unlimited)  | Integer |   True    |
 
 ## Examples
 
@@ -80,8 +98,12 @@ Each value is represented in amps unit.
     "settings" : {
         "ovp" : true,
         "ocp" : true,
-        "silent" : false,
-        "refresh_period" : 0
+        "silent" : false
+    },
+    "misc" : {
+        "polling_time" : {
+            "value" : 500 //milliseconds
+        }
     }
 }
 ```
