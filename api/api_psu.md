@@ -1,60 +1,109 @@
-# API Power SUpply (PSU)
+# Power Supply Unit (PSU) API
 
-| Topic                       | QOS | Retain |
-| :-------------------------- | :-: | :----: |
-| {INTERFACE_PREFIX}/cmds/set |  0  | false  |
-| {INTERFACE_PREFIX}/atts     |  0  |  true  |
+This document describes the specific attributes and commands of the Power Supply Unit API.
 
-**cmds/set** to change a configuration, the payload can be partial with only the element that need to change
+Please refer to [API interface](api_interface.md) for a generic descipriton of interface APIs.
 
-**atts** to read the psu configuration, the payload **must** always be complete !
+## Attributes
 
-This api has 4 state attributes:
+| Attribute name |    Description    |
+| :------------- | :---------------: |
+| state          | State (on or off) |
+| volts          |      Voltage      |
+| amps           |     Amperage      |
+| settings       |     Settings      |
 
-- state
-- volts
-- current
-- settings
+### State
+
+| Field name |  Description  |  Type  | Read-only |
+| :--------- | :-----------: | :----: | :-------: |
+| value      | "on" or "off" | String |   False   |
+
+### Volts
+
+Each value is represented in volts.
+
+| Field name |                  Description                   |  Type   | Read-only |
+| :--------- | :--------------------------------------------: | :-----: | :-------: |
+| value      |                 voltage value                  |  Float  |   False   |
+| min        |        minimal voltage value supported         |  Float  |   True    |
+| max        |        maximal voltage value supported         |  Float  |   True    |
+| decimals   | number of decimals supported for voltage value | Integer |   True    |
+
+### Amps
+
+Each value is represented in amperes.
+
+| Field name |                   Description                   |  Type   | Read-only |
+| :--------- | :---------------------------------------------: | :-----: | :-------: |
+| value      |                 amperage value                  |  Float  |   False   |
+| min        |        minimal amperage value supported         |  Float  |   True    |
+| max        |        maximal amperage value supported         |  Float  |   True    |
+| scale      | number of decimals supported for amperage value | Integer |   True    |
+
+### Settings
+
+| Field name |       Description       |  Type   | Read-only |
+| :--------- | :---------------------: | :-----: | :-------: |
+| ovp        | Over Voltage Protection | Boolean |   False   |
+| ocp        | Over Current Protection | Boolean |   False   |
+| silent     |       Silent mode       | Boolean |   False   |
+
+### Misc
+
+| Field name   |   Description    |    Type     | Read-only |
+| :----------- | :--------------: | :---------: | :-------: |
+| serial_port  |   Serial port    |   String    |   True    |
+| polling_time | Polling time (1) | JSON object |     -     |
+
+(1) When a power supply setting is changed manually, it may not be able to notify the driver.
+Therefore, the driver has to poll information.
+
+The JSON object of polling_time is as described:
+
+Each value is represented in milliseconds.
+
+| Field name |                      Description                      |  Type   | Read-only |
+| :--------- | :---------------------------------------------------: | :-----: | :-------: |
+| value      |                    refresh period                     | Integer |   False   |
+| min        | shortest refresh period supported<br>(0 == unlimited) | Integer |   True    |
+| max        | longest refresh period supported<br>(0 == unlimited)  | Integer |   True    |
+
+## Examples
+
+### Atts for volts
+
+`<interface>/atts/volts`
 
 ```json
-    {
-        "state": {
-            "value": "on"
-        },
-        "volts": {
-            "value": 3.3,
-            "min":  0,
-            "max": 50,
-            "scale": 0.01
-        },
-        "current": {
-            "value": 0.1,
-            "min":  0,
-            "max": 50,
-            "scale": 0.01
-        },
-        "settings": {
-            "ovp": true,
-            "silent": false,
+{
+    "volts" : {
+        "value" : 3.30,
+        "min" : 0,
+        "max" : 30,
+        "scale" : 2
+    }
+}
+```
+
+### Commands
+
+`<interface>/cmds/set`
+
+```json
+{
+    "state" : "on",
+    "volts": 3.3,
+    "amps" : 0.5,
+    "settings" : {
+        "ovp" : true,
+        "ocp" : true,
+        "silent" : false
+    },
+    "misc" : {
+        "polling_time" : {
+            "value" : 500 //milliseconds
         }
     }
+}
 ```
-
-When using the **cmds/set**, if the payload of an attribute is NOT a json. Then the payload is supposed to be the "value" of this attributes.
-So the 2 following notations are equivalent:
-
-```json
-    {
-        "state": "on"
-    }
-```
-
-
-```json
-    {
-        "state": {
-            "value": "on"
-        },
-    }
-```
-
