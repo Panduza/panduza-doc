@@ -2,7 +2,7 @@
 
 This document describes the specific attributes and commands of the IO API.
 
-Please refer to [API interface](api_interface.md) for a generic descipriton of interface APIs.
+Please refer to [API interface](api_interface.md) for a generic description of interface APIs.
 
 ## Attributes
 
