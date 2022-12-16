@@ -10,7 +10,6 @@ Please refer to [API interface](api_interface.md) for a generic description of i
 
 | Attribute name |                     Description                     |
 | :------------- | :-------------------------------------------------: |
-| coils          |                                                     |
 | out_coils      |                    Output Coils                     |
 | discret_in     |                   Discrete Inputs                   |
 | input_regs     |                   Input Registers                   |
@@ -27,8 +26,10 @@ Please refer to [API interface](api_interface.md) for a generic description of i
 ```json
 "holding_regs": {
     "values": {
-        "0": 350,
-        "1": 450
+        "1": {
+            "0": 350,
+            "1": 450
+        }
     }
 }
 ```
@@ -42,7 +43,7 @@ Please refer to [API interface](api_interface.md) for a generic description of i
 ```json
 "watchlist": {
     "configs": [
-        { "type": "holding_regs", "address": 0, "size": 10, "polling_time_s": 2.5 }
+        { "type": "holding_regs", "address": 0, "size": 10, "unit": 1,"polling_time_s": 2.5 }
     ]
 }
 ```
@@ -54,12 +55,14 @@ Please refer to [API interface](api_interface.md) for a generic description of i
 
 `<interface>/cmds/set`
 
-To write the register 12 with value 42
+To write the register 12 with value 42 of the unit 1
 
 ```json
 "holding_regs": {
-    "values": [
-        { "12": 42 }
-    ]
+    "values": {
+        "1": {
+            "12": 42
+        }
+    }
 }
 ```
