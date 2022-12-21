@@ -2,7 +2,7 @@
 
 This document describes the specific attributes and commands of the Modbus Client API.
 
-Please refer to [API interface](api_interface.md) for a generic description of interface APIs.
+Please refer to [API interface](api/api_interface.md) for a generic description of interface APIs.
 
 **"type": "modbus.client"**
 
