@@ -14,10 +14,12 @@ Please refer to [API interface](api_interface.md) for a generic description of i
 
 ### Data
 
-| Field name |      Description      | Type  | Read-only |
-| :--------- | :-------------------: | :---: | :-------: |
-| tx         | Data you want to send | bytes |   False   |
-| rx         |   Data you recieve    | bytes |   True    |
+| Field name |      Description      |     Type      | Read-only |
+| :--------- | :-------------------: | :-----------: | :-------: |
+| tx         | Data you want to send | base64 string |   False   |
+| rx         |   Data you recieve    | base64 string |   True    |
+
+
 
 
 ### Settings
