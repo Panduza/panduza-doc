@@ -4,7 +4,7 @@
 
 
 - Python Client
-  - [Quick Start]()
+  - [Quick Start](pyc/quick.md)
 
 - Platforms
 
