@@ -39,7 +39,7 @@ Each value is represented in amperes.
 | value      |                 amperage value                  |  Float  |   False   |
 | min        |        minimal amperage value supported         |  Float  |   True    |
 | max        |        maximal amperage value supported         |  Float  |   True    |
-| scale      | number of decimals supported for amperage value | Integer |   True    |
+| decimals   | number of decimals supported for amperage value | Integer |   True    |
 
 ### Settings
 
@@ -81,7 +81,7 @@ Each value is represented in milliseconds.
         "value" : 3.30,
         "min" : 0,
         "max" : 30,
-        "scale" : 2
+        "decimals" : 2
     }
 }
 ```
