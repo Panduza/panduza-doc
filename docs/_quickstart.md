@@ -65,7 +65,7 @@ services:
 
 
   panduza-py-platform:
-    #image: ghcr.io/panduza/panduza-py-platform:latest
+    
     # To use your local platform build
     image: local/panduza-py-platform
     privileged: true
