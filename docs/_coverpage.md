@@ -1,7 +1,7 @@
 <!-- _coverpage.md -->
 
 
-# GPIO driver :eyes: <small>1.0</small>
+# Panduza server :eyes: <small>1.0</small>
 
 > A simple to start a Panduza server.
 
