@@ -6,13 +6,14 @@ It is an **open-source** and **collaborative** project.
 
 ![](_media/slide_1.png)
 
+## They talk about us !
+
+- [ADVANS LAB](https://www.elsys-design.com/fr/panduza-pour-un-labo-connecte-2-0/)
+
+
 ## Goals
 
 Goals of Panduza are:
-
-- Allow remote control of devices
-- Standardize device interfaces
-- Improve cyber security
 
 ### Allow remote control of devices
 
@@ -34,6 +35,8 @@ With this point Panduza provides a solution to
 
 Panduza provides a abstraction layer to standardize access to devices
 
+![](_media/slide_3.png)
+
 **Situations Solved**
 
 With this point Panduza provides a solution to
@@ -41,19 +44,24 @@ With this point Panduza provides a solution to
 - engineers that want to improve their test bench
 - enginneers that are tired of all those imcompatible devices
 
+### Improve Test Bench Creation
 
-### Improve Cyber Security
+Panduza provides support for Testers
 
-Panduza provides tools to 
+![](_media/slide_4.png)
+
+With this point Panduza provides a solution to
+
+- engineers that want to use lab devices with test framework
+- engineers that want to see interfaces status on a graphic app an the same time
+
+### Ensure cyber security
+
+Panduza provides tools to ensure security
+
+![](_media/slide_5.png)
 
 **Situations Solved**
 
-
-
-
-
-
-## They talk about us !
-
-- [ADVANS LAB](https://www.elsys-design.com/fr/panduza-pour-un-labo-connecte-2-0/)
+- engineers that set network connection on its lab with no cyber security knowledge
 
