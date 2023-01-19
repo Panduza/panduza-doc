@@ -4,7 +4,7 @@ Panduza is a gateway between embedded engineers and their Lab.
 
 It is an **open-source** and **collaborative** project.
 
-TODO : SCHEMA ingénieur / pza / lab
+![](_media/slide_1.png)
 
 ## Goals
 
@@ -18,6 +18,7 @@ Goals of Panduza are:
 
 Panduza provides a way to access the lab from the network.
 
+![](_media/slide_2.png)
 
 **Situations Solved**
 
