@@ -2,7 +2,7 @@
 
 # Panduza
 
-> Control your Lab !
+> Connected Lab 2.0
 
 [GitHub](https://github.com/Panduza)
 
