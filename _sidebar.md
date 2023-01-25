@@ -2,6 +2,8 @@
 
 - [Home](/)
 
+- Panduza Server
+  - [Quick Start](pzas/_quickstart.md)
 
 - Python Client
   - [Quick Start](pyc/quick.md)
