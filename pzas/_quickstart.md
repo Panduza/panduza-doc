@@ -5,8 +5,6 @@ This quick guide will show you how to implement a Panduza server.
 ## Prerequisites
 
 - A virtual machine with Ubuntu 22.04
-- python3
-- pip 
 
 ## Installation
 
@@ -16,12 +14,6 @@ Click on the following link to install docker: https://docs.docker.com/engine/in
 
 Click on the following link to install docker compose: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
 
-Install MQTT explorer with the following command:
-
-``` bash
-    sudo snap install mqtt-explorer
-
-```
 
 Add your username to the docker group:
 
@@ -29,25 +21,16 @@ Add your username to the docker group:
     sudo usermod -aG docker $USER 
 
 ```
+## On your server
 
-
-## Clone the panduza repository and updtate files
-
-You will need to update files of the panduza repository to launch your server.
-
-
-In /Documents, clone the Panduza-py repository on the branch "update-ftdi-io":
-
+Create the repository /etc/panduza:
 
 ``` bash
-    git clone -b update-ftdi-io  git@github.com:Panduza/panduza-py.git
+    sudo mkdir -p /etc/panduza
 
 ```
+Inside this repository, create the file docker-compose.yml:
 
-
-## Update the files
-
-Modify the /panduza-py/platform/deploy/etc_panduza/docker-compose.yml to match the following picture:
 
 ``` yml
 version: '3'
@@ -67,17 +50,17 @@ services:
   panduza-py-platform:
     
     # To use your local platform build
-    image: local/panduza-py-platform
+    image: ghcr.io/panduza/panduza-py-platform:latest
     privileged: true
     network_mode: host
     volumes:
       - .:/etc/panduza
       - /run/udev:/run/udev:ro
-    # command: bash
+    
 
 ```
 
-Modify the file /panduza-py/platform/deploy/etc_panduza/tree.json to match the following code: 
+In the same repository, create a file "tree.json": 
 
 ``` json
 {
@@ -89,66 +72,61 @@ Modify the file /panduza-py/platform/deploy/etc_panduza/tree.json to match the f
             "interfaces": [
                 
                 {
-                    "name": "ftdi5",
-                    "driver": "ftdi_io",
+                    "name": "fake_io",
+                    "driver": "fake_io",
                     "settings" : {
                         "mode": 1,
                         "port_name" : "/2"
                     },
-                    "pin" : 4
+                    "pin" : num_pin
                 },
-                {
-                    "name": "fake_io",
-                    "driver": "fake_io"
-                }
+
             ]
         }
     }
 }
 
 ```
-Please note that you should fill the parameters such as « name » « driver » and « settings » according to what you want to do using the panduza platform. 
+Note that you should fill the parameters such as « name » « driver » and « settings » according to what you want to do using the panduza platform. 
 
-In the file /panduza-py/platform/Dockerfile, add the following line in the pip installation section :
-
-``` bash
-RUN pip install pyftdi
-```
-
-In the file /panduza-py/platform/Dockerfile, under the installation of udev, add:
+Create the repository /etc/panduza/data:
 
 ``` bash
-RUN apt-get -y install udev libusb-1.0-0
+    sudo mkdir -p /etc/panduza/data
+
 ```
 
-In the import section (at the top of the file) of the file panduza_platform/connectors/ftdi.py add:
+In the /etc/panduza/data repository, create the file mosquitto.conf:
 
-``` python
-from pyftdi.gpio import GpioController
+``` bash
+#
+allow_anonymous true
+
+#
+listener 1883 0.0.0.0
+
+#
+listener 9001 0.0.0.0
+protocol websockets
+
 ```
 
-In the constructor of the class "ConnectorFtdiGpio", replace 
 
-``` python
-self.__internal_driver=Ftdi()
-```
-by 
 
-``` python
-self.__internal_driver=GpioController()
-```
 
-## Generate the Panduza image
+## Clone the panduza repository
 
-In the directory /panduza-py/platform/ generate the panduza-py-platform:latest with the following command:
+ Clone the Panduza-py repository.
 
-```bash
-./docker.build-local.sh
+
+``` bash
+    git clone git@github.com:Panduza/panduza-py.git
+
 ```
 
 ## Launch the docker containers
 
-In the repository /panduza-py/platform/deploy/etc_panduza :
+In your repository /etc/panduza, enter the following command:
 
 ```bash
 docker-compose up
