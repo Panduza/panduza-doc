@@ -25,9 +25,10 @@ Each value is represented in volts.
 
 | Field name |                  Description                   |  Type   | Read-only |
 | :--------- | :--------------------------------------------: | :-----: | :-------: |
-| value      |                 voltage value                  |  Float  |   False   |
-| min        |        minimal voltage value supported         |  Float  |   True    |
-| max        |        maximal voltage value supported         |  Float  |   True    |
+| real       |             current voltage value              |  Float  |   True    |
+| goal       |               voltage goal value               |  Float  |   False   |
+| min        |         minimal voltage goal supported         |  Float  |   True    |
+| max        |         maximal voltage goal supported         |  Float  |   True    |
 | decimals   | number of decimals supported for voltage value | Integer |   True    |
 
 ### Amps
@@ -36,9 +37,10 @@ Each value is represented in amperes.
 
 | Field name |                   Description                   |  Type   | Read-only |
 | :--------- | :---------------------------------------------: | :-----: | :-------: |
-| value      |                 amperage value                  |  Float  |   False   |
-| min        |        minimal amperage value supported         |  Float  |   True    |
-| max        |        maximal amperage value supported         |  Float  |   True    |
+| real       |             current amperage value              |  Float  |   True    |
+| goal       |               amperage goal value               |  Float  |   False   |
+| min        |         minimal amperage goal supported         |  Float  |   True    |
+| max        |         maximal amperage goal supported         |  Float  |   True    |
 | decimals   | number of decimals supported for amperage value | Integer |   True    |
 
 ### Settings
