@@ -2,16 +2,16 @@
 
 This document describes the specific attributes and commands of the Power Supply Unit API.
 
-Please refer to [API interface](api_interface.md) for a generic description of interface APIs.
+Please refer to [API interface](api/api_interface.md) for a generic description of interface APIs.
 
 ## Attributes
 
-| Attribute name |    Description    |
-| :------------- | :---------------: |
-| state          | State (on or off) |
-| volts          |      Voltage      |
-| amps           |     Amperage      |
-| settings       |     Settings      |
+| Attribute name |    Description    | Retain Topic  |
+| :------------- | :---------------: | :-----------: |
+| state          | State (on or off) | true          |
+| volts          |      Voltage      | true          |
+| amps           |     Amperage      | true          |
+| settings       |     Settings      | true          |
 
 ### State
 
