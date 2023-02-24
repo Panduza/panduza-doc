@@ -6,70 +6,63 @@ Please refer to [API interface](api/api_interface.md) for a generic description 
 
 ## Attributes
 
-| Attribute name |    Description    | Retain Topic  |
-| :------------- | :---------------: | :-----------: |
-| state          | State (on or off) | true          |
-| volts          |      Voltage      | true          |
-| amps           |     Amperage      | true          |
-| settings       |     Settings      | true          |
+| Attribute name |     Description     | Retain Topic |
+|:---------------|:-------------------:|:------------:|
+| enable         | State of the output |     true     |
+| volts          |       Voltage       |     true     |
+| amps           |      Amperage       |     true     |
+| settings       |      Settings       |     true     |
 
-### State
+### Enable
 
-| Field name |  Description  |  Type  | Read-only |
-| :--------- | :-----------: | :----: | :-------: |
-| value      | "on" or "off" | String |   False   |
+Manage the state of the power supply output
+
+| Field name   |                Description                 |  Type   | Read-only | pollable |
+|:-------------|:------------------------------------------:|:-------:|:---------:|:--------:|
+| value        |          True="on" or False="off"          | Boolean |   False   |   True   |
+| polling_time | Polling time  in milliseconds (0=disabled) | Integer |   False   |    NA    |
 
 ### Volts
 
 Each value is represented in volts.
 
-| Field name |                  Description                   |  Type   | Read-only |
-| :--------- | :--------------------------------------------: | :-----: | :-------: |
-| real       |             current voltage value              |  Float  |   True    |
-| goal       |               voltage goal value               |  Float  |   False   |
-| min        |         minimal voltage goal supported         |  Float  |   True    |
-| max        |         maximal voltage goal supported         |  Float  |   True    |
-| decimals   | number of decimals supported for voltage value | Integer |   True    |
+| Field name   |                  Description                   |  Type   | Read-only | pollable |
+|:-------------|:----------------------------------------------:|:-------:|:---------:|:--------:|
+| real         |             current voltage value              |  Float  |   True    |   True   |
+| goal         |               voltage goal value               |  Float  |   False   |   True   |
+| min          |         minimal voltage goal supported         |  Float  |   True    |  false   |
+| max          |         maximal voltage goal supported         |  Float  |   True    |  false   |
+| decimals     | number of decimals supported for voltage value | Integer |   True    |  false   |
+| polling_time |   Polling time  in milliseconds (0=disabled)   |  Integer|   False   |    NA    |
 
 ### Amps
 
 Each value is represented in amperes.
 
-| Field name |                   Description                   |  Type   | Read-only |
-| :--------- | :---------------------------------------------: | :-----: | :-------: |
-| real       |             current amperage value              |  Float  |   True    |
-| goal       |               amperage goal value               |  Float  |   False   |
-| min        |         minimal amperage goal supported         |  Float  |   True    |
-| max        |         maximal amperage goal supported         |  Float  |   True    |
-| decimals   | number of decimals supported for amperage value | Integer |   True    |
+| Field name   |                   Description                   |  Type   | Read-only | pollable |
+|:-------------|:-----------------------------------------------:|:-------:|:---------:|:--------:|
+| real         |             current amperage value              |  Float  |   True    |   True   |
+| goal         |               amperage goal value               |  Float  |   False   |   True   |
+| min          |         minimal amperage goal supported         |  Float  |   True    |  false   |
+| max          |         maximal amperage goal supported         |  Float  |   True    |  false   |
+| decimals     | number of decimals supported for amperage value | Integer |   True    |  false   |
+| polling_time |   Polling time  in milliseconds (0=disabled)    | Integer |   False   |    NA    |
 
 ### Settings
 
-| Field name |       Description       |  Type   | Read-only |
-| :--------- | :---------------------: | :-----: | :-------: |
-| ovp        | Over Voltage Protection | Boolean |   False   |
-| ocp        | Over Current Protection | Boolean |   False   |
-| silent     |       Silent mode       | Boolean |   False   |
+| Field name   |                Description                 |  Type   | Read-only | pollable |
+|:-------------|:------------------------------------------:|:-------:|:---------:|:--------:|
+| ovp          |          Over Voltage Protection           | Boolean |   False   |   True   |
+| ocp          |          Over Current Protection           | Boolean |   False   |   True   |
+| silent       |                Silent mode                 | Boolean |   False   |   True   |
+| polling_time | Polling time  in milliseconds (0=disabled) | Integer |   False   |    NA    |
 
 ### Misc
 
 | Field name   |   Description    |    Type     | Read-only |
 | :----------- | :--------------: | :---------: | :-------: |
 | serial_port  |   Serial port    |   String    |   True    |
-| polling_time | Polling time (1) | JSON object |     -     |
 
-(1) When a power supply setting is changed manually, it may not be able to notify the driver.
-Therefore, the driver has to poll information.
-
-The JSON object of polling_time is as described:
-
-Each value is represented in milliseconds.
-
-| Field name |                      Description                      |  Type   | Read-only |
-| :--------- | :---------------------------------------------------: | :-----: | :-------: |
-| value      |                    refresh period                     | Integer |   False   |
-| min        | shortest refresh period supported<br>(0 == unlimited) | Integer |   True    |
-| max        | longest refresh period supported<br>(0 == unlimited)  | Integer |   True    |
 
 ## Examples
 
