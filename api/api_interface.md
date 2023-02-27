@@ -81,6 +81,15 @@ This misc attribute contains only fields that cannot be considered specific to a
 
 For example, a serial port or a polling timing might be useful for the power supply interface, but they don't describe a specific attribute of power supplies.
 
+### Attribute Polling Cycle
+
+Some attribute need to be monitored cyclicly by the driver. A polling cycle is the time in which each element is monitored once.
+
+The 'polling_cycle' is an Integer. It is the number of millisecond between two read of the value.
+
+-  0 : read as fast as possible
+- -1 : disable the polling
+
 ## Commands
 
 In order to pilot an interface, the client must send orders to the driver.
