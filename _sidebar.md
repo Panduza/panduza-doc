@@ -9,3 +9,7 @@
 - Python Client
   - [Quick Start](pyc/quick.md)
 
+- Drivers
+  - DIO
+    - [PZA Modbus](drivers/dio/pza_modbus.md)
+
