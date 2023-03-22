@@ -47,8 +47,8 @@ Create a tree.json
             "port": 1883,
             "interfaces": [
                 {
-                    "name": "My Power Supply",
-                    "driver": "hm310t"
+                    "name": "My_Input_Output",
+                    "driver": "pza_modbus_dio"
                 }
             ]
         }
@@ -56,18 +56,20 @@ Create a tree.json
 }
 ```
 
-Test the psu
+Test the DIO. Make sure Mosquitto service is disabled
 
 ```bash
-pip install https://github.com/Panduza/panduza-py
-
-
-git clone https://github.com/Panduza/panduza-py
-
-
-cd panduza-py
-python3 tools/psu_test.py -a 192.168.X.X -p 1883
+service mosquitto status
 
 ```
+Build image
 
+```bash
+./docker.build-local.sh 
+```
+Run docker compose
+
+```bash
+docker compose up
+```
 
