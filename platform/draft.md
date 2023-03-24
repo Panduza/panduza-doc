@@ -15,10 +15,7 @@ sudo touch /etc/panduza
 fill it with the given content
 
 ```yml
-version: '3'
-
-services:
-
+  # docker compose run --service-ports mosquitto
   mosquitto:
     image: eclipse-mosquitto
     ports:
@@ -27,13 +24,20 @@ services:
     volumes:
       - ./data/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
+
   panduza-py-platform:
-    image: ghcr.io/panduza/panduza-py-platform:latest
+    # image: ghcr.io/panduza/panduza-py-platform:latest
+    # To use your local platform build
+    image: local/panduza-py-platform
     privileged: true
+    depends_on:
+      - mosquitto
     network_mode: host
     volumes:
       - .:/etc/panduza
       - /run/udev:/run/udev:ro
+    # command: bash
+
 ```
 
 Create a tree.json
@@ -54,6 +58,7 @@ Create a tree.json
         }
     }
 }
+
 ```
 
 Test the DIO. Make sure Mosquitto service is disabled
@@ -65,7 +70,8 @@ service mosquitto status
 Build image
 
 ```bash
-./docker.build-local.sh 
+docker build --no-cache --tag local/panduza-py-platform:latest . 
+
 ```
 Run docker compose
 
