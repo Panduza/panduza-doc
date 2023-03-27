@@ -52,7 +52,10 @@ Create a tree.json
             "interfaces": [
                 {
                     "name": "My_Input_Output",
-                    "driver": "pza_modbus_dio"
+                    "driver": "pza_modbus_dio",
+                    "settings":{
+                        "port":"/dev/ttyACM0"
+                    }
                 }
             ]
         }
