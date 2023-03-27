@@ -67,6 +67,7 @@ Create a tree.json
 Test the DIO. Make sure Mosquitto service is disabled
 
 ```bash
+service mosquitto stop
 service mosquitto status
 
 ```
