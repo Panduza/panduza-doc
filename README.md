@@ -62,7 +62,7 @@ Panduza provides tools to ensure security
 
 - engineers that set network connection on its lab with no cyber security knowledge
 
-## Manual installation
+### Manual installation
 
 Create the directory /etc/panduza on your server
 
