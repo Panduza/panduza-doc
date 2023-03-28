@@ -62,4 +62,4 @@ Panduza provides tools to ensure security
 
 - engineers that set network connection on its lab with no cyber security knowledge
 
-[Link to Docs directory](./platform)
+[Link to Docs directory](platform/draft.md)
