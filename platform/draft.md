@@ -1,16 +1,5 @@
 ## Manual installation
 
-Create the directory /etc/panduza on your server
-
-```bash
-sudo mkdir -p /etc/panduza
-```
-
-Create the file for docker-compose
-
-```bash
-sudo touch /etc/panduza
-```
 
 fill it with the given content
 
