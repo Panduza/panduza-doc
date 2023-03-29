@@ -1,8 +1,5 @@
 ## Manual installation
 
-
-fill it with the given content
-
 ```yml
   # docker compose run --service-ports mosquitto
   mosquitto:
