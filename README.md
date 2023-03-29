@@ -61,4 +61,3 @@ Panduza provides tools to ensure security
 **Situations Solved**
 
 - engineers that set network connection on its lab with no cyber security knowledge
-tt
