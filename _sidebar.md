@@ -11,4 +11,4 @@
   - [Quick Start](pyc/quick.md)
  
 - MQTT SETUP
-  - [SETUP DIO driver](platform/setup.md)
+  - [SETUP DIO driver](platform/README.md)
