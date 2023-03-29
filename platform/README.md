@@ -64,3 +64,41 @@ docker build --no-cache --tag local/panduza-py-platform:latest .
 docker compose up
 ```
 
+## use the following script to test communication with MQTT broker
+
+```bash
+# Import
+import time 
+import argparse
+from panduza import Client, Dio, Psu
+
+# CONFIGURATION
+BROKER_ADDR="localhost"
+BROKER_PORT=1883
+CHECK_USER_INPUT=True
+RUN_TEST=False
+TOPIC="pza/paul_lab/pico/dio"
+
+testClient = Client(url=BROKER_ADDR, port=1883)
+testClient.connect()
+testClient.scan_interfaces()
+
+d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=TOPIC)
+
+d.direction.value.set("input pull up")
+```
+
+## in topic 
+```bash
+pza/paul_lab/pico/dio/cmds/set
+```
+
+### you must see the following json file
+
+```json
+{
+  "direction": {
+    "value": "input pull up"
+    }
+}
+```
