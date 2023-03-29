@@ -18,7 +18,7 @@ LAYOUT:
 ---
 | OFFSET | REGISTER NAME |  SIZE   |
 | :----: | :-----------: | :-----: |
-|   0    |     PULLS     | 32 bits |
+|   32    |     PULLS     | 32 bits |
 
 DESCRIPTION:  
 This register hold the pulls value for all available DIOs. One bit for one DIO. A 1 means the DIO is set in pull-up, and 0 as a pull-down. This register takes effect only if the corresponfing DIO is set as an input.
@@ -32,7 +32,7 @@ LAYOUT:
 ---
 | OFFSET | REGISTER NAME |  SIZE   |
 | :----: | :-----------: | :-----: |
-|   0    | OUTPUT VALUES | 32 bits |
+|   64    | OUTPUT VALUES | 32 bits |
 
 DESCRIPTION:
 This register hold the output value for all available DIOs. One bit for one DIO. A 1 means the DIO is set to HIGH, and 0 set to LOW. This register takes effect only if the corresponding DIO is set as an output.
