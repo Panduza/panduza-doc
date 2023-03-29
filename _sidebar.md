@@ -12,3 +12,7 @@
 - Platform
   - [Tree](platform/tree.md)
 
+- Drivers
+  - DIO
+    - [PZA Modbus](drivers/dio/pza_modbus.md)
+
