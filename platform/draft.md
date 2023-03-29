@@ -15,10 +15,7 @@ sudo touch /etc/panduza
 fill it with the given content
 
 ```yml
-version: '3'
-
-services:
-
+  # docker compose run --service-ports mosquitto
   mosquitto:
     image: eclipse-mosquitto
     ports:
@@ -27,13 +24,20 @@ services:
     volumes:
       - ./data/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
+
   panduza-py-platform:
-    image: ghcr.io/panduza/panduza-py-platform:latest
+    # image: ghcr.io/panduza/panduza-py-platform:latest
+    # To use your local platform build
+    image: local/panduza-py-platform
     privileged: true
+    depends_on:
+      - mosquitto
     network_mode: host
     volumes:
       - .:/etc/panduza
       - /run/udev:/run/udev:ro
+    # command: bash
+
 ```
 
 Create a tree.json
@@ -47,27 +51,35 @@ Create a tree.json
             "port": 1883,
             "interfaces": [
                 {
-                    "name": "My Power Supply",
-                    "driver": "hm310t"
+                    "name": "My_Input_Output",
+                    "driver": "pza_modbus_dio",
+                    "settings":{
+                        "port":"/dev/ttyACM0"
+                    }
                 }
             ]
         }
     }
 }
+
 ```
 
-Test the psu
+Test the DIO. Make sure Mosquitto service is inactive
 
 ```bash
-pip install https://github.com/Panduza/panduza-py
-
-
-git clone https://github.com/Panduza/panduza-py
-
-
-cd panduza-py
-python3 tools/psu_test.py -a 192.168.X.X -p 1883
+service mosquitto stop
+service mosquitto status
 
 ```
+Build image
 
+```bash
+docker build --no-cache --tag local/panduza-py-platform:latest . 
+
+```
+Run docker compose
+
+```bash
+docker compose up
+```
 
