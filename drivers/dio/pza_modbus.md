@@ -10,6 +10,7 @@ DESCRIPTION:
 This register hold the direction settings for all available DIOs. One bit for one DIO. A one means the DIO is set as an output, and 0 as an input.
 
 LAYOUT:
+
 |  31   |  30   |  29   |  28   |  27   |  26   |  25   |  24   |  23   |  22   |  21   |  20   |  19   |  18   |  17   |  16   |  15   |  14   |  13   |  12   |  11   |  10   |   9   |   8   |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | GP31  | GP30  | GP29   | GP28  | GP27  | GP26  | GP25  | GP24  | GP23  | GP22  | GP21  | GP20  | GP19  | GP18  | GP17  | GP16  | GP15  | GP14  | GP13  | GP12  | GP11  | GP10  |  GP9  |  GP8  |  GP7  |  GP6  |  GP5  |  GP4  |  GP3  |  GP2  | GP1 | GP0 |
@@ -23,6 +24,7 @@ DESCRIPTION:
 This register hold the pulls value for all available DIOs. One bit for one DIO. A 1 means the DIO is set in pull-up, and 0 as a pull-down. This register takes effect only if the corresponfing DIO is set as an input.
 
 LAYOUT:
+
 |  31   |  30   |  29   |  28   |  27   |  26   |  25   |  24   |  23   |  22   |  21   |  20   |  19   |  18   |  17   |  16   |  15   |  14   |  13   |  12   |  11   |  10   |   9   |   8   |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | GP31  | GP30  | GP29   | GP28  | GP27  | GP26  | GP25  | GP24  | GP23  | GP22  | GP21  | GP20  | GP19  | GP18  | GP17  | GP16  | GP15  | GP14  | GP13  | GP12  | GP11  | GP10  |  GP9  |  GP8  |  GP7  |  GP6  |  GP5  |  GP4  |  GP3  |  GP2  | GP1 | GP0 |
@@ -36,6 +38,7 @@ DESCRIPTION:
 This register hold the output value for all available DIOs. One bit for one DIO. A 1 means the DIO is set to HIGH, and 0 set to LOW. This register takes effect only if the corresponding DIO is set as an output.
 
 LAYOUT:
+
 |  31   |  30   |  29   |  28   |  27   |  26   |  25   |  24   |  23   |  22   |  21   |  20   |  19   |  18   |  17   |  16   |  15   |  14   |  13   |  12   |  11   |  10   |   9   |   8   |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | GP31  | GP30  | GP29   | GP28  | GP27  | GP26  | GP25  | GP24  | GP23  | GP22  | GP21  | GP20  | GP19  | GP18  | GP17  | GP16  | GP15  | GP14  | GP13  | GP12  | GP11  | GP10  |  GP9  |  GP8  |  GP7  |  GP6  |  GP5  |  GP4  |  GP3  |  GP2  | GP1 | GP0 |
@@ -50,6 +53,7 @@ DESCRIPTION:
 This register hold the actual value for all avaliable DIOs. One bit for one DIO. A 1 means the DIO is set to HIGH, and 0 set to LOW. This register is used to read an input or to verify the value of an output.
 
 LAYOUT:
+
 |  31   |  30   |  29   |  28   |  27   |  26   |  25   |  24   |  23   |  22   |  21   |  20   |  19   |  18   |  17   |  16   |  15   |  14   |  13   |  12   |  11   |  10   |   9   |   8   |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | GP31  | GP30  | GP29   | GP28  | GP27  | GP26  | GP25  | GP24  | GP23  | GP22  | GP21  | GP20  | GP19  | GP18  | GP17  | GP16  | GP15  | GP14  | GP13  | GP12  | GP11  | GP10  |  GP9  |  GP8  |  GP7  |  GP6  |  GP5  |  GP4  |  GP3  |  GP2  | GP1 | GP0 |
