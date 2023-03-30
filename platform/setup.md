@@ -88,7 +88,7 @@ d.direction.value.set("input pull up")
 
 ## in topic 
 ```bash
-pza/paul_lab/pico/dio/cmds/set
+pza/my_lab_server/pza_modbus_dio/My_Input_Output
 ```
 
 ### you must see the following json file
