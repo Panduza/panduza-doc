@@ -83,7 +83,20 @@ testClient.scan_interfaces()
 
 d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=TOPIC)
 
-d.direction.value.set("input pull up")
+for topic in inter:
+  print(f"- {topic} => {inter[topic]['type']}")
+
+d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=TOPIC, client=testClient)
+
+
+d.direction.value.set("out", ensure = False)
+d.direction.pull.set("open", ensure = False)
+d.direction.polling_cycle.set(15, ensure = False)
+
+d.state.active.set(False, ensure = False)
+d.state.active_low.set(False, ensure = False)
+d.state.polling_cycle.set(1, ensure = False)
+
 ```
 
 ## in topic 
@@ -95,8 +108,17 @@ pza/my_lab_server/pza_modbus_dio/My_Input_Output
 
 ```json
 {
-  "direction": {
-    "value": "input pull up"
-    }
+  "direction":{
+    "value":"in",
+    "pull": "down", 
+    "polling_cycle":5
+    },
+    "state":{
+      "active":True,
+      "active_low":True,
+      "polling_cycle":5
+    }  
 }
 ```
+
+
