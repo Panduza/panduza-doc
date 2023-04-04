@@ -9,6 +9,10 @@
 
 - Python Client
   - [Quick Start](pyc/quick.md)
- 
-- MQTT SETUP
-  - [SETUP DIO driver](platform/setup.md)
+
+
+- Quick Starts
+  - [DIO Control with Raspberry Pico](quick_starts/dio_control_with_raspberry_pico/index.md)
+
+
+
