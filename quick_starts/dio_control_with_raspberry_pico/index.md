@@ -1,4 +1,23 @@
-# Installation to control Digital Input Outputs
+# Tutorial to Control remote digital input output of a pico using panduza ecosystem
+
+This documentation will explain the following steps that you will have to configure in order to control remotely 
+pico IO using modbus protocol and MQTT witch is a protocol to publish and subscribe data
+
+To reach this goal, you will have to configure the PICO micro-controler, install the panduza eco-system and configure a client 
+to send data to the panduza platform. The panduza plateform will manage the connexion between the PICO and the panduza eco-system.
+
+![](_media/description.png)
+
+# Configuration needed
+
+For the configuration, it is recommended to use a Linux environment.
+
+Make sure you have installed the following packages : 
+
+```bash
+sudo pip3 install modbus # will install python modbus library
+su
+```
 
 
 ## use the following yml file :
