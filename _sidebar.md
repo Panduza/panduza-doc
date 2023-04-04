@@ -1,6 +1,9 @@
 
 - [Home](/)
 
+- Quick Starts
+  - [DIO Control with Raspberry Pico](quick_starts/dio_control_with_raspberry_pico/index.md)
+
 - MQTT API
   - [COMMON STRUCTURE](api/api_interface.md)
   - [DIO](api/api_dio.md)
@@ -20,6 +23,5 @@
 
 
  
-- MQTT SETUP
-  - [SETUP DIO driver](platform/setup.md)
+
 
