@@ -121,4 +121,21 @@ pza/my_lab_server/pza_modbus_dio/My_Input_Output
 }
 ```
 
+### Turn on the LED, call the connector function in driver
 
+
+```bash
+    def _PZADRV_DIO_set_direction_value(self, v):
+    self.log.info(f"set direction value : {v}")
+    self.__dir["direction"]["value"] = v
+    if v == "turn_on_25":
+      self.log.info("led should turn on")
+
+      # set GPIO 0 and 25 as OUTPUTS
+      self.modbus_connector.write_coil(25,True,1)
+      self.modbus_connector.write_coil(1,True,1)
+
+      # turn on the GPIO offset 64  
+      self.modbus_connector.write_coil(89,True,1) # gpio 25
+      self.modbus_connector.write_coil(65,True,1) # gpio 1
+```
