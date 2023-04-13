@@ -30,10 +30,10 @@ Modbus protocole has his own bank register mapping. Each register has there own 
 
 | Register                | access       | size (bits)| adress space |
 |-------------------------|--------------|------------|--------------|
-| coils register          | R/W          |   1        |00001 - 09999 |
+| coils register          | R/W          |    1       |00001 - 09999 |
 | Discrete input          |  R           |    1       |10001 - 19999 |
-| Input register          | R            |16          |30001 - 39999 |
-| holding register        | R/W          |16          |40001 - 49999 |
+| Input register          | R            |    16      |30001 - 39999 |
+| holding register        | R/W          |    16      |40001 - 49999 |
 
 
 For are purpose, we will manly be using coils and holdings register, because they have a read and write access.
@@ -160,7 +160,7 @@ The role of the client will be to configure various parameters to send the data 
 
 A digital input output is has various attributs and and fields attached to the those attributs.
 
-```bash
+```python
   # === DIRECTION ===
   self.add_attribute(
      Attribute( name = "direction" )
@@ -182,7 +182,6 @@ A digital input output is has various attributs and and fields attached to the t
   ).add_field(
     RwField( name = "polling_cycle" )
   )
-
 ```
 
 
@@ -194,7 +193,7 @@ There is a functionnal python script used to send data to the  gpio 16 of pico v
 We will set data to each fields by using the get() method.
 
 
-```bash
+```python
   from panduza import Client, Dio
   import time, logging
 
@@ -207,7 +206,6 @@ We will set data to each fields by using the get() method.
 
   # one topic per io
   TOPIC16="pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO16"
-  TOPIC18="pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO18"
 
 
   testClient = Client(url=BROKER_ADDR, port=1883)
@@ -240,6 +238,7 @@ We will set data to each fields by using the get() method.
     time.sleep(1)
 
 ```
+This script allows us to control io 16 of the PICO.
 
 There are various steps to configure the client.
 First we configure the parameters of the MQTT broker. the address will be "localhost and the listening port is 1883.
@@ -274,6 +273,7 @@ one docker-compose.yml
 one tree.json
 
 A docker-compose.yml file is a configuration file used by Docker compose. It will run container docker applications.
+
 ```yml
 version: '3'
 services:
@@ -442,7 +442,11 @@ But it must follow the following architecture.
 
 ![](../../_media/architecture_client.png)
 
+
 Note that one declaration of a topic and Dio interface is used to control a single IO. 
 Therefore, if you wish control multiple digital inputs outputs, you will jave to declare various topics and Dio interfaces
 
 The topics declared must match with the topics visible in the mqtt explorer.
+
+A script example is available in the client configuration and explication.
+
