@@ -1,6 +1,31 @@
-# Tutorial to Control remote digital input output of a pico using panduza ecosystem
+# Digital I/O Control with Raspberry Pico
 
-This documentation will explain the following steps that you will have to configure in order to control remotely 
+This tutorial explains, step by step, how to configure a Raspberry Pico and use Panduza to perform simple DIO control.
+
+`!!! OK POINT FIX DOC AFTER ONLY !!!`
+
+`TODO: Improve this picture, too small on half screen, add some verticality`
+![](_media/description.png)
+
+
+# Requirements
+
+This tutorial has been tested on Ubuntu 22.04.
+
+Make sure you have installed the following packages : 
+
+```bash
+  sudo apt install python3-pip # will install pip3 package
+  sudo pip3 install pymodbus # will install python modbus library
+  sudo pip3 install pyserial # will install python serial library
+  sudo apt install cmake # will install cmake. Needed to build pico binaries
+```
+
+`TODO: j'ai pas compris`
+The panduza ecosystem will be installed when the client need's to be configured
+
+
+`TODO: j'ai pas compris`
 pico IO using modbus protocol and mosquitto using MQTT witch is a protocol to publish and subscribe data using tcp/ip architecture.
 
 To reach this goal, you will have to configure the PICO micro-controler, install the panduza eco-system and configure a client 
@@ -13,8 +38,8 @@ The first step will be to configure the PICO correctly.
 But before, let's otherview what is the modbus protocol and the recommended configuration you will need to dispose.
 
 
-![](../../_media/description.png)
 
+`TODO: Remove sections about the modbus protocol, user that want to control io on pico does not care on this tutorial, or speak about modbus very very quickly here`
 
 In this document, we will explain the role of each block of the panduza chain from the client to the PICO.
 
@@ -76,20 +101,7 @@ If you want more information, and for debugging purposes, you can see the differ
 |    0x10 |      write multiple registers         |                   
 
 
-# Configuration needed
 
-For the configuration, it is recommended to use a Linux environment.
-
-Make sure you have installed the following packages : 
-
-```bash
-  sudo apt install python3-pip # will install pip3 package
-  sudo pip3 install pymodbus # will install python modbus library
-  sudo pip3 install pyserial # will install python serial library
-  sudo apt install cmake # will install cmake. Needed to build pico binaries
-```
-
-The panduza ecosystem will be installed when the client need's to be configured
 
 # MQTT configuration
 
@@ -138,12 +150,13 @@ Then ensure, that the mosquitto package is loaded by using the following command
 
 ## installation of MQTT explorer
 
+`TODO: Oui mais il faut montrer comment ça marche et comment on voit que ça fonctionne (mets le à la fin du tuto en bonus)`
+
 MQTT explorer is a practical graphical tool used to testing communication via MQTT broker. With this tool, you can test the different data you have send threw your topics.
 
 To install MQTT broker, you need to use the following commands :
 
 ```bash
-  sudo apt-get install snap # install the snap package.
   sudo snap install mqtt-explorer # installation of MQTT explorer
 ```
 
@@ -154,6 +167,8 @@ To launch MQTT, you can either search the application in the ubuntu envirronment
 ```
 
 # PANDUZA CLIENT
+
+`TODO: Oui mais il faut montrer comment ça marche et non pas comment il est construit`
 
 The panduza client will be the interface between the user and the panduza ecosystem.
 The role of the client will be to configure various parameters to send the data of the i/o's to the correct destination.
@@ -248,6 +263,9 @@ In this example, we will send data to four I/O. It means that we have to create 
 
 
 # PANDUZA PLATFORM
+
+`TODO: la platform il faut en parler plus tot et expliquer comment l'utiliser depuis docker, ici c'est trop complexe pour un utilisateur de partir du clone`
+
 
 The panduza platform is the motor of the panduza eco-system.
 
