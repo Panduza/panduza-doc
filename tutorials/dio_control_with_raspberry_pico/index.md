@@ -12,10 +12,11 @@ This tutorial explains, step by step, how to configure a Raspberry Pico and use 
 For this project, you will need to have the following components : 
   A raspberry PI PICO
   A USB cable to connect the PC to the PICO (micro USB cable)
-  One ou a couple of LED's
-  1 kOhms resistors
-  1 push button for the reset of the PICO
+  One or a couple of LED's
+  One or a couple kOhms resistors
+  One push button for the reset of the PICO
 
+In this example, we will control the I:O 1, 2, 16 and 18 of the PICO MCU
   
 
 
@@ -50,7 +51,7 @@ Using th MODBUS protocole to send data to the MCU, we have integrated a library 
 There is the following link of the library :
 
 ```bash
-  https://github.com/Jacajack/liblightmodbus
+  https://jacajack.github.io/liblightmodbus/
 
 ```
 
@@ -83,62 +84,172 @@ A serial port sould be opened in the /dev directory of your linux envirronment. 
 If you want to make sure, you can list all the serial ports of the /dev directory.
 
 
+# Panduza client
 
-# Modbus protocol
+The PICO client, is the panduza bloc from from the point of view of the user.
 
-The modbus protocol is a way to exchange communication between various electronic and industrial equipments. It is often used in industrial projects. Therethore, we think it will be interesting to remote io interfaces of a microcontroler using modbus protocol.
+This part will allow you to sent various informations of each I:O (I:O 1,2,16 and 18) to the PICO via the MQTT brocker.
 
-Modbus protocole has his own bank register mapping. Each register has there own specifications
+In this part we need to configure various informations.
 
-## Modbus register mapping
+The server configuration.
 
-| Register                | access       | size (bits)| adress space |
-|-------------------------|--------------|------------|--------------|
-| coils register          | R/W          |    1       |00001 - 09999 |
-| Discrete input          |  R           |    1       |10001 - 19999 |
-| Input register          | R            |    16      |30001 - 39999 |
-| holding register        | R/W          |    16      |40001 - 49999 |
+```python
+  # CONFIGURATION
+  BROKER_ADDR="localhost"
+  BROKER_PORT=1883
+  CHECK_USER_INPUT=True
+  RUN_TEST=False
+```
 
+Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
 
-For are purpose, we will manly be using coils and holdings register, because they have a read and write access.
-The two other registers can be used to get specify data of the PICO such as the serial number of the number of IO of the pico.
+```python
+  var1 = 1
+  var2 = 2
+  var16 = 16
+  var18 = 18
 
-There are two ways to communicate using modbus
-TCP/IP mode => ethernet
-RTU mode => serial
+  # one topic per io
+  pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
+  pzaTOPIC2=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var2}"
+  pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
+  pzaTOPIC18=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var18}"
 
-For this purpose, we will be using RTU mode.
+```
 
-To send data threw RTU mode, we have to send the following frame.
+Create a instance of the Client class. This will manage the connection between your client and the MQTT brocker.
+```python
+  pzaClient = Client(url=BROKER_ADDR, port=1883)
+  pzaClient.connect()
+```
 
-
-## RTU frame
-
-|Start    |Slave ID | function code| data    | CRC    | Stop      |
-|---------|---------|--------------|---------|--------|-----------|
-|3.5 bytes|1 byte   |1 byte        | n bytes | 2 bytes| 3.5 bytes |
-
-
-To send data, we will be using the pymodbus library. The user will only have to enter the data. The library thanks to there functions will create the frame and send them to the PICO.
-
-In the PICO, we have included a specific library that will reconize the frame caracteristics, and it will parse the frame.
-
-## Function codes pyModbus
-
-If you want more information, and for debugging purposes, you can see the different function codes of the modbus protocol
+Scanning the interfaces. This will make sure that all the topics have been created
 
 
-|function code |Operation |
-|---------     |--------- |
-|  0x01   |      Read coils         |                  
-|   0x02  |     Read discreate inputs          |                  
-|   0x03  |      Read holding registers         |                   
-|   0x04  |      Read Input registers         |                   
-|   0x05  |      Write single coil         |                   
-|   0x06  |      write single register         |                   
-|   0x0F  |      write multiple coils         |                   
-|    0x10 |      write multiple registers         |                   
 
+```python
+  # scan the interface
+  inter = pzaClient.scan_interfaces()
+
+  # list all the topics
+  print("scanning the interfaces..")
+  for topic in inter:
+      print(f"- {topic} => {inter[topic]['type']}")
+```
+
+create instances of Dio. This will allow you to use the Driver class from the platform and control and I:O's of the MCU.
+
+```python
+# declare instances of dio. One per io control
+  d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
+  d2 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC2, client=pzaClient)
+  d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=pzaClient)
+  d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=pzaClient)
+```
+Then we can send the data to the I:O using the set() function. The set() will write various information such as the type of output, the value or the polling_cycle of a I:O to the rigth topic of the MQTT broker.
+
+```python
+  print("setting the values for GPIO 1")
+  d1.direction.value.set("toggle_led_1", ensure = False)
+  time.sleep(1)
+  d1.direction.pull.set("open", ensure = False)
+  time.sleep(1)
+  d1.direction.polling_cycle.set(10, ensure = False)
+  time.sleep(1)
+
+  d1.state.active.set(False, ensure = False)
+  time.sleep(1)
+  d1.state.active_low.set(True, ensure = False)
+  time.sleep(1)
+  d1.state.polling_cycle.set(100, ensure = False)
+  time.sleep(1)
+
+  print("setting the values for GPIO 2")
+  d2.direction.value.set("toggle_led_2", ensure = False)
+  time.sleep(1)
+  d2.direction.pull.set("open", ensure = False)
+  time.sleep(1)
+  d2.direction.polling_cycle.set(10, ensure = False)
+  time.sleep(1)
+
+  d2.state.active.set(False, ensure = False)
+  time.sleep(1)
+  d2.state.active_low.set(True, ensure = False)
+  time.sleep(1)
+  d2.state.polling_cycle.set(100, ensure = False)
+  time.sleep(1)
+
+  print("setting the values for GPIO 16")
+  d16.direction.value.set("toggle_led_16", ensure = False)
+  time.sleep(1)
+  d16.direction.pull.set("open", ensure = False)
+  time.sleep(1)
+  d16.direction.polling_cycle.set(10, ensure = False)
+  time.sleep(1)
+
+  d16.state.active.set(False, ensure = False)
+  time.sleep(1)
+  d16.state.active_low.set(True, ensure = False)
+  time.sleep(1)
+  d16.state.polling_cycle.set(100, ensure = False)
+  time.sleep(1)
+
+  print("setting the values for GPIO 18")
+  d18.direction.value.set("toggle_led_18", ensure = False)
+  time.sleep(1)
+  d18.direction.pull.set("open", ensure = False)
+  time.sleep(1)
+  d18.direction.polling_cycle.set(10, ensure = False)
+  time.sleep(1)
+
+  d18.state.active.set(False, ensure = False)
+  time.sleep(1)
+  d18.state.active_low.set(True, ensure = False)
+  time.sleep(1)
+  d18.state.polling_cycle.set(100, ensure = False)
+  time.sleep(1)
+```
+
+There is a design of how the client works.
+
+![](_media/client.png)
+
+There are various steps to configure the client.
+First we configure the parameters of the MQTT broker. the address will be "localhost and the listening port is 1883.
+
+# mosquitto installation
+
+To use MQTT protocole, you will have to install the mosquitto server.
+
+This installation will install the broker MQTT packages.
+
+It is possible to use command lines to install the mosquitto server.
+
+```bash
+  sudo apt update # update the environment
+  sudo apt install -y mosquitto # install the mosquitto package
+```
+
+To make sure mosquitto is installed, you run the command : 
+
+```bash
+  mosquitto --version
+```
+you should have the following output in the terminal
+
+
+![](../../_media/mosquitto_version.png)
+
+Then ensure, that the mosquitto package is loaded by using the following command. 
+
+```bash
+  sudo systemctl status mosquitto
+```
+![](../../_media/mosquitto_loaded.png)
+
+
+# Panduza platform
 
 
 
