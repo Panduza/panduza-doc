@@ -11,13 +11,24 @@ This tutorial explains, step by step, how to configure a Raspberry Pico and use 
 # Hardware Requirements
 For this project, you will need to have the following components : 
   A raspberry PI PICO
+
   A USB cable to connect the PC to the PICO (micro USB cable)
+
   One or a couple of LED's
-  One or a couple kOhms resistors
+
+  One or a couple of resistors
+
   One push button for the reset of the PICO
 
-In this example, we will control the I:O 1, 2, 16 and 18 of the PICO MCU
-  
+In this example, we will control the I:O 1, 2, 16 and 18 of the PICO MCU 
+
+![](_media/schematic.png)
+
+The push button will allow you to reset the PICO without unpluging the cable
+.
+Also, there is the following pinout of the PICO
+
+![](_media/pinout.png)
 
 
 # Software Requirements
@@ -32,8 +43,10 @@ Make sure you have installed the following packages :
   sudo pip3 install pyserial # will install python serial library
   sudo apt install cmake # will install cmake. Needed to build pico binaries
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
-
 ```
+
+The panduza platform will also install additional packages during the build of the docker image.
+
 The installation of the packages will manage you to control the digital io's of the PICO remotly by using the panduza ecosystem.
 
 Panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
@@ -43,12 +56,13 @@ In this document, we will explain the role of each block of the panduza chain fr
 
 But first, let's look other of the modbus protocole.
 
+
 # Configuration of the Raspberry PI PICO
 
 The configuration of the PICO is a important step to control I:O. In this part, we will explain how to configure and program the PICO.
 
-Using th MODBUS protocole to send data to the MCU, we have integrated a library to the PICO. This library wil automaticely analyse each frame and decode them.
-There is the following link of the library :
+Using the MODBUS protocole to send data to the MCU, we have integrated a specific library to the PICO. This library will automaticely analyse each frame and decode them.
+If you wish to have more information about the library, you can check the following link :
 
 ```bash
   https://jacajack.github.io/liblightmodbus/
@@ -57,7 +71,7 @@ There is the following link of the library :
 
 To programme the PICO, you have to unsure, that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
 
-To verify that you are in USB mode, you can open a terminal and tape the following command : 
+To check this condition, you can open a terminal and run the following command : 
 
 ```bash
   lsusb
@@ -71,12 +85,12 @@ Raspberry Pi RP2 Boot show's that the PICO is in USB mode.
 
 To flash the PICO, you will have to copie a .uf2 file to the PICO.
 
-A .uf2 extension is a binary file witch will allow you to program a MCU over the USB port. Since the PICO is connected threw USB, you will have to flash the .uf2 file.
+A .uf2 extension is a binary file witch will allow you to program a MCU over the USB port. Since the PICO is connected threw USB, you will have to flash a .uf2 file.
 
 In our case you will have to copy the pza-pico-modbus-dio.uf2 to the PICO using the following command : 
 
 ```bash
-  pza-pico-modbus-dio.uf2 /media/<user_name>/RPI-RP2/
+  cp pza-pico-modbus-dio.uf2 /media/<user_name>/RPI-RP2/
 ```
 After this, the USB mode is disabled. 
 A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be ttyACM0 or ttyACM1.
@@ -94,14 +108,6 @@ In this part we need to configure various informations.
 
 The server configuration.
 
-```python
-  # CONFIGURATION
-  BROKER_ADDR="localhost"
-  BROKER_PORT=1883
-  CHECK_USER_INPUT=True
-  RUN_TEST=False
-```
-
 Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
 
 ```python
@@ -118,14 +124,13 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
 
 ```
 
-Create a instance of the Client class. This will manage the connection between your client and the MQTT brocker.
+Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
 ```python
   pzaClient = Client(url=BROKER_ADDR, port=1883)
   pzaClient.connect()
 ```
 
 Scanning the interfaces. This will make sure that all the topics have been created
-
 
 
 ```python
@@ -231,11 +236,12 @@ It is possible to use command lines to install the mosquitto server.
   sudo apt install -y mosquitto # install the mosquitto package
 ```
 
-To make sure mosquitto is installed, you run the command : 
+To make sure mosquitto is installed, you can run the command : 
 
 ```bash
   mosquitto --version
 ```
+
 you should have the following output in the terminal
 
 
@@ -249,7 +255,153 @@ Then ensure, that the mosquitto package is loaded by using the following command
 ![](../../_media/mosquitto_loaded.png)
 
 
+
 # Panduza platform
+
+The panduza platform, consists on getting the data from the brocker MQTT and send data to control the I:O's of the MCU.
+
+The platform has his own architecture, like the panduza client.
+
+
+![](/_media/pza_platform.png)
+
+
+The platform has three main blocks.
+
+The MetaDriver will manage the communication with the MQTT brocker, by reading and setting values to the MQTT brocker.
+The Driver class, that is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.
+
+Therethore, we have created a MetaDriver and Driver class to implement dio controls.
+
+The driver will call the connector functions. The functions of the connector are related to the protocol used.
+In our case, we will use the modbus functions from the pymodbus library.
+
+The panduza platform is available in the following repository.
+
+```bash
+  git clone https://github.com/Panduza/panduza-py.git
+```
+
+Before running our platform, the image needs to be build.
+To do this, you have to excecute the following command :
+
+```bash
+  ./docker.build-local.sh
+```
+This command will build all the commands from the DockerFile and configure our envirronment. It will create a local image that you will run when the platform is launch.
+
+
+## Configuration of platform
+
+In order to launch the platform, you need to create a workspace and put the following elements : 
+One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.
+One docker-compose.yml that will deploy docker applications.
+
+You can put the following json and docker-compose.yml
+
+```json
+{
+    "machine": "my_lab_server",
+    "brokers": {
+        "I/O driver": {
+            "addr": "localhost",
+            "port": 1883,
+            "interfaces": [
+                {
+                    "name": "My_Input_Output_GPIO%r",
+                    "driver": "pza_modbus_dio",
+                    "repeated": [1,2,16,18]
+                }
+            ]
+        }
+    }
+}
+
+```
+
+In the tree.json, we also specify witch I:O's we want to control with the attribut "repeated".
+
+```yml
+version: '3'
+services:
+  # docker compose run --service-ports mosquitto
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./data/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  panduza-py-platform:
+    # image: ghcr.io/panduza/panduza-py-platform:latest
+    # To use your local platform build
+    image: local/panduza-py-platform
+    privileged: true
+    depends_on: 
+      - mosquitto
+    network_mode: host
+    volumes:
+      - .:/etc/panduza
+      - /run/udev:/run/udev:ro
+    # command: bash
+```
+
+Make sure that you use the local image that bas been build as described above.
+
+## RUN panduza platform
+
+To run panduza platform, you have to put your self in the directory containing the tree.json and the docker-compose.yml.
+
+Then excecute the following command : 
+
+```bash
+  docker compose up
+```
+
+This command will do the following tasks,
+
+Excecute the mosquitto server
+
+List all of the available drivers
+
+Show the tree.json configuration
+
+Start the interfaces for each I:O
+
+Do the first update of the MQTT brocker
+
+You must have the following result : 
+
+![](../../_media/docker_compose_up.png)
+
+The docker compose will do a first init of the MQTT broker. This initiation was defined in the driver function.
+
+![](../../_media/log_first_init.png)
+
+
+
+# Additional installation
+
+If you wish do some debug or understand more the communication process.
+You can install the mqtt-explorer software. This will allow you to have a visual comprehension about the communication between panduza and the MQTT broker.
+
+To install MQTT broker, you need to use the following commands :
+
+```bash
+  sudo snap install mqtt-explorer # installation of MQTT explorer
+```
+
+To launch MQTT, you can either search the application in the ubuntu envirronment or use the following command line :
+
+```bash
+  mqtt-explorer
+```
+
+
+
+
+
+
 
 
 
