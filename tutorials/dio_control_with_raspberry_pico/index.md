@@ -125,13 +125,13 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
 ```
 
 Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
+
 ```python
   pzaClient = Client(url=BROKER_ADDR, port=1883)
   pzaClient.connect()
 ```
 
 Scanning the interfaces. This will make sure that all the topics have been created
-
 
 ```python
   # scan the interface
@@ -141,6 +141,7 @@ Scanning the interfaces. This will make sure that all the topics have been creat
   print("scanning the interfaces..")
   for topic in inter:
       print(f"- {topic} => {inter[topic]['type']}")
+
 ```
 
 create instances of Dio. This will allow you to use the Driver class from the platform and control and I:O's of the MCU.
@@ -151,7 +152,9 @@ create instances of Dio. This will allow you to use the Driver class from the pl
   d2 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC2, client=pzaClient)
   d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=pzaClient)
   d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=pzaClient)
+
 ```
+
 Then we can send the data to the I:O using the set() function. The set() will write various information such as the type of output, the value or the polling_cycle of a I:O to the rigth topic of the MQTT broker.
 
 ```python
@@ -223,11 +226,29 @@ There is a design of how the client works.
 There are various steps to configure the client.
 First we configure the parameters of the MQTT broker. the address will be "localhost and the listening port is 1883.
 
+## launch of panduza client
+
+to lauch panduza client, you can create a script in a directory of your choice.
+
+Run the script by using the following command : 
+
+```bash
+  python3 <script_name>.py
+```
+
+in the output command, you must have at least the following topics : 
+
+![](_media/run_client.png)
+
+Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
+
+![](_media/error_client.png)
+
 # mosquitto installation
 
 To use MQTT protocole, you will have to install the mosquitto server.
 
-This installation will install the broker MQTT packages.
+This installation will install the broker MQTT tool.
 
 It is possible to use command lines to install the mosquitto server.
 
@@ -262,9 +283,7 @@ The panduza platform, consists on getting the data from the brocker MQTT and sen
 
 The platform has his own architecture, like the panduza client.
 
-
 ![](/_media/pza_platform.png)
-
 
 The platform has three main blocks.
 
