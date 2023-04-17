@@ -8,9 +8,20 @@ This tutorial explains, step by step, how to configure a Raspberry Pico and use 
 ![](_media/description.png)
 
 
-# Requirements
+# Hardware Requirements
+For this project, you will need to have the following components : 
+  A raspberry PI PICO
+  A USB cable to connect the PC to the PICO (micro USB cable)
+  One ou a couple of LED's
+  1 kOhms resistors
+  1 push button for the reset of the PICO
 
-This tutorial has been tested on Ubuntu 22.04.
+  
+
+
+# Software Requirements
+
+This tutorial has been tested on Ubuntu 20.04.
 
 Make sure you have installed the following packages : 
 
@@ -19,31 +30,59 @@ Make sure you have installed the following packages :
   sudo pip3 install pymodbus # will install python modbus library
   sudo pip3 install pyserial # will install python serial library
   sudo apt install cmake # will install cmake. Needed to build pico binaries
+  pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
+
 ```
+The installation of the packages will manage you to control the digital io's of the PICO remotly by using the panduza ecosystem.
 
-`TODO: j'ai pas compris`
-The panduza ecosystem will be installed when the client need's to be configured
+Panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
 
-
-`TODO: j'ai pas compris`
-pico IO using modbus protocol and mosquitto using MQTT witch is a protocol to publish and subscribe data using tcp/ip architecture.
-
-To reach this goal, you will have to configure the PICO micro-controler, install the panduza eco-system and configure a client 
-to send data to the panduza platform. The panduza plateform will manage the connexion between the PICO and the panduza eco-system.
-
-
-Like you have seen bellow, there are various step to do before actually control I/O of the PICO
-The first step will be to configure the PICO correctly.
-
-But before, let's otherview what is the modbus protocol and the recommended configuration you will need to dispose.
-
-
-
-`TODO: Remove sections about the modbus protocol, user that want to control io on pico does not care on this tutorial, or speak about modbus very very quickly here`
 
 In this document, we will explain the role of each block of the panduza chain from the client to the PICO.
 
 But first, let's look other of the modbus protocole.
+
+# Configuration of the Raspberry PI PICO
+
+The configuration of the PICO is a important step to control I:O. In this part, we will explain how to configure and program the PICO.
+
+Using th MODBUS protocole to send data to the MCU, we have integrated a library to the PICO. This library wil automaticely analyse each frame and decode them.
+There is the following link of the library :
+
+```bash
+  https://github.com/Jacajack/liblightmodbus
+
+```
+
+To programme the PICO, you have to unsure, that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
+
+To verify that you are in USB mode, you can open a terminal and tape the following command : 
+
+```bash
+  lsusb
+```
+
+This command will list all the usb devices connected to the PC.
+
+![](_media/pico_usb_mode.png)
+
+Raspberry Pi RP2 Boot show's that the PICO is in USB mode.
+
+To flash the PICO, you will have to copie a .uf2 file to the PICO.
+
+A .uf2 extension is a binary file witch will allow you to program a MCU over the USB port. Since the PICO is connected threw USB, you will have to flash the .uf2 file.
+
+In our case you will have to copy the pza-pico-modbus-dio.uf2 to the PICO using the following command : 
+
+```bash
+  pza-pico-modbus-dio.uf2 /media/<user_name>/RPI-RP2/
+```
+After this, the USB mode is disabled. 
+A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be ttyACM0 or ttyACM1.
+
+If you want to make sure, you can list all the serial ports of the /dev directory.
+
+
 
 # Modbus protocol
 
@@ -102,6 +141,10 @@ If you want more information, and for debugging purposes, you can see the differ
 
 
 
+
+
+
+# ---------- old --------------------------- 
 
 # MQTT configuration
 
@@ -339,7 +382,6 @@ A tree.json file is a specific file in the panduza eco-system. This is used to c
 ```
 For this purpose, we will use the pza_modbus_dio driver witch was declared in the panduza platform driver. 
 Also, since a driver is used to control a single IO. The field "repeated" will manage us to declare various instances of a same driver. This tree.json will control GPIO 1, 2, 16 and 18.
-
 
 
 # PICO CONFIGURATION
