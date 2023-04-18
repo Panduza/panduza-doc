@@ -5,27 +5,26 @@ This tutorial explains, step by step, how to configure a Raspberry Pico and use 
 `!!! OK POINT FIX DOC AFTER ONLY !!!`
 
 `TODO: Improve this picture, too small on half screen, add some verticality`
+
 ![](_media/description.png)
 
 
 # Hardware Requirements
+
 For this project, you will need to have the following components : 
-  A raspberry PI PICO
 
-  A USB cable to connect the PC to the PICO (micro USB cable)
-
-  One or a couple of LED's
-
-  One or a couple of resistors
-
-  One push button for the reset of the PICO
+<p> 1 raspberry PI PICO</p>
+<p> 1 USB cable to connect the PC to the PICO (micro USB cable)</p>
+<p> 4 LED's</p>
+<p> 4 resistors</p>
+<p> 1 push button</p>
 
 In this example, we will control the I:O 1, 2, 16 and 18 of the PICO MCU 
 
 ![](_media/schematic.png)
 
-The push button will allow you to reset the PICO without unpluging the cable
-.
+The push button will allow you to reset the PICO without unpluging the cable.
+
 Also, there is the following pinout of the PICO
 
 ![](_media/pinout.png)
@@ -45,33 +44,27 @@ Make sure you have installed the following packages :
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 
-The panduza platform will also install additional packages during the build of the docker image.
-
-The installation of the packages will manage you to control the digital io's of the PICO remotly by using the panduza ecosystem.
-
 Panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
-
-
-In this document, we will explain the role of each block of the panduza chain from the client to the PICO.
-
-But first, let's look other of the modbus protocole.
-
 
 # Configuration of the Raspberry PI PICO
 
-The configuration of the PICO is a important step to control I:O. In this part, we will explain how to configure and program the PICO.
+First off all, I recommend you to setup the test bench according to the schematic in hardware requirements.
+
+The configuration of the PICO is a important step of the project.
 
 Using the MODBUS protocole to send data to the MCU, we have integrated a specific library to the PICO. This library will automaticely analyse each frame and decode them.
+
 If you wish to have more information about the library, you can check the following link :
 
 ```bash
   https://jacajack.github.io/liblightmodbus/
-
 ```
 
-To programme the PICO, you have to unsure, that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
+To programme the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
 
-To check this condition, you can open a terminal and run the following command : 
+This mode indicats that the MCU is ready to be programed and the flash memory is empty.
+
+To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
 
 ```bash
   lsusb
@@ -81,26 +74,37 @@ This command will list all the usb devices connected to the PC.
 
 ![](_media/pico_usb_mode.png)
 
-Raspberry Pi RP2 Boot show's that the PICO is in USB mode.
+**Raspberry Pi RP2 Boot** show's that the PICO is in USB mass storage mode.
 
-To flash the PICO, you will have to copie a .uf2 file to the PICO.
+To flash the PICO, you will have to copie a binary file with the .uf2 extension.
 
 A .uf2 extension is a binary file witch will allow you to program a MCU over the USB port. Since the PICO is connected threw USB, you will have to flash a .uf2 file.
 
-In our case you will have to copy the pza-pico-modbus-dio.uf2 to the PICO using the following command : 
+In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO using the following command : 
 
 ```bash
   cp pza-pico-modbus-dio.uf2 /media/<user_name>/RPI-RP2/
 ```
-After this, the USB mode is disabled. 
-A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be ttyACM0 or ttyACM1.
+
+After this, the USB mode is disabled.
+If you are using a virtual Machine, you must ensure that the device is selected.
+
+The name of the pico when programed is **panduza.io dio-modbus**.
+
+A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be **ttyACM0** or **ttyACM1**.
 
 If you want to make sure, you can list all the serial ports of the /dev directory.
 
+```bash
+  cd /dev
+  ls devttyACM*
+```
+
+To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode. 
 
 # Panduza client
 
-The PICO client, is the panduza bloc from from the point of view of the user.
+The PICO client is the panduza bloc from from the point of view of the user.
 
 This part will allow you to sent various informations of each I:O (I:O 1,2,16 and 18) to the PICO via the MQTT brocker.
 
@@ -141,10 +145,11 @@ Scanning the interfaces. This will make sure that all the topics have been creat
   print("scanning the interfaces..")
   for topic in inter:
       print(f"- {topic} => {inter[topic]['type']}")
-
 ```
 
-create instances of Dio. This will allow you to use the Driver class from the platform and control and I:O's of the MCU.
+On the output of the terminal, you need to see all the declared topics.
+
+create instances of Dio. This will allow you to use the Driver class from the platform and send info to the MQTT brocker to and control I:O's of the MCU.
 
 ```python
 # declare instances of dio. One per io control
@@ -154,8 +159,7 @@ create instances of Dio. This will allow you to use the Driver class from the pl
   d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=pzaClient)
 
 ```
-
-Then we can send the data to the I:O using the set() function. The set() will write various information such as the type of output, the value or the polling_cycle of a I:O to the rigth topic of the MQTT broker.
+After the configuration is done, we can send the data to the I:O using the set() function. The set() will write various information such as the type of output, the value or the polling_cycle of a I:O to the rigth topic of the MQTT broker.
 
 ```python
   print("setting the values for GPIO 1")
@@ -244,6 +248,7 @@ Note that the platform must run before launching the script. Otherwise, you can 
 
 ![](_media/error_client.png)
 
+
 # mosquitto installation
 
 To use MQTT protocole, you will have to install the mosquitto server.
@@ -283,7 +288,7 @@ The panduza platform, consists on getting the data from the brocker MQTT and sen
 
 The platform has his own architecture, like the panduza client.
 
-![](/_media/pza_platform.png)
+![](/tutorials/dio_control_with_raspberry_pico/_media/pza_platform.png)
 
 The platform has three main blocks.
 
@@ -305,7 +310,7 @@ Before running our platform, the image needs to be build.
 To do this, you have to excecute the following command :
 
 ```bash
-  ./docker.build-local.sh
+  ./platform/docker.build-local.sh
 ```
 This command will build all the commands from the DockerFile and configure our envirronment. It will create a local image that you will run when the platform is launch.
 
@@ -398,8 +403,16 @@ The docker compose will do a first init of the MQTT broker. This initiation was 
 ![](../../_media/log_first_init.png)
 
 
+# RUN PANDUZA
 
-# Additional installation
+To run correctly the project, you need to respect the following order
+
+**<p>Program the PICO</p>**
+**<p>launch the platform</p>**
+**<p>run the client script</p>**
+
+
+# Additional requirements
 
 If you wish do some debug or understand more the communication process.
 You can install the mqtt-explorer software. This will allow you to have a visual comprehension about the communication between panduza and the MQTT broker.
@@ -416,6 +429,11 @@ To launch MQTT, you can either search the application in the ubuntu envirronment
   mqtt-explorer
 ```
 
+You can also install the minicom package to view data threw a serial port. This can be used for debug purposes
+
+```bash
+  sudo apt install minicom
+```
 
 
 
