@@ -32,7 +32,7 @@ Also, there is the following pinout of the PICO
 
 # Software Requirements
 
-This tutorial has been tested on Ubuntu 20.04.
+This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
 Make sure you have installed the following packages : 
 
@@ -48,11 +48,11 @@ Panduza is the conbinations of different blocs, the client, the platform, the MQ
 
 # Configuration of the Raspberry PI PICO
 
-First off all, I recommend you to setup the test bench according to the schematic in hardware requirements.
+First off all, I recommend you to setup the electrical diagram according to the schematic in hardware requirements.
 
 The configuration of the PICO is a important step of the project.
 
-Using the MODBUS protocole to send data to the MCU, we have integrated a specific library to the PICO. This library will automaticely analyse each frame and decode them.
+As we are using the MODBUS protocole to send data to the MCU, we have integrated a specific library to the PICO. The goal of this library will be to detecte all types of data and decode each frame.
 
 If you wish to have more information about the library, you can check the following link :
 
@@ -60,9 +60,9 @@ If you wish to have more information about the library, you can check the follow
   https://jacajack.github.io/liblightmodbus/
 ```
 
-To programme the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
+To program the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
 
-This mode indicats that the MCU is ready to be programed and the flash memory is empty.
+This mode indicats that the micro controller is ready to be programed.
 
 To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
 
@@ -125,7 +125,6 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
   pzaTOPIC2=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var2}"
   pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
   pzaTOPIC18=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var18}"
-
 ```
 
 Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
@@ -163,63 +162,63 @@ After the configuration is done, we can send the data to the I:O using the set()
 
 ```python
   print("setting the values for GPIO 1")
-  d1.direction.value.set("toggle_led_1", ensure = False)
+  d1.direction.value.set("toggle_led_1" )
   time.sleep(1)
-  d1.direction.pull.set("open", ensure = False)
+  d1.direction.pull.set("open" )
   time.sleep(1)
-  d1.direction.polling_cycle.set(10, ensure = False)
+  d1.direction.polling_cycle.set(10 )
   time.sleep(1)
 
-  d1.state.active.set(False, ensure = False)
+  d1.state.active.set(False )
   time.sleep(1)
-  d1.state.active_low.set(True, ensure = False)
+  d1.state.active_low.set(True )
   time.sleep(1)
-  d1.state.polling_cycle.set(100, ensure = False)
+  d1.state.polling_cycle.set(100 )
   time.sleep(1)
 
   print("setting the values for GPIO 2")
-  d2.direction.value.set("toggle_led_2", ensure = False)
+  d2.direction.value.set("toggle_led_2" )
   time.sleep(1)
-  d2.direction.pull.set("open", ensure = False)
+  d2.direction.pull.set("open" )
   time.sleep(1)
-  d2.direction.polling_cycle.set(10, ensure = False)
+  d2.direction.polling_cycle.set(10 )
   time.sleep(1)
 
-  d2.state.active.set(False, ensure = False)
+  d2.state.active.set(False )
   time.sleep(1)
-  d2.state.active_low.set(True, ensure = False)
+  d2.state.active_low.set(True )
   time.sleep(1)
-  d2.state.polling_cycle.set(100, ensure = False)
+  d2.state.polling_cycle.set(100 )
   time.sleep(1)
 
   print("setting the values for GPIO 16")
-  d16.direction.value.set("toggle_led_16", ensure = False)
+  d16.direction.value.set("toggle_led_16" )
   time.sleep(1)
-  d16.direction.pull.set("open", ensure = False)
+  d16.direction.pull.set("open" )
   time.sleep(1)
-  d16.direction.polling_cycle.set(10, ensure = False)
+  d16.direction.polling_cycle.set(10 )
   time.sleep(1)
 
-  d16.state.active.set(False, ensure = False)
+  d16.state.active.set(False )
   time.sleep(1)
-  d16.state.active_low.set(True, ensure = False)
+  d16.state.active_low.set(True )
   time.sleep(1)
-  d16.state.polling_cycle.set(100, ensure = False)
+  d16.state.polling_cycle.set(100 )
   time.sleep(1)
 
   print("setting the values for GPIO 18")
-  d18.direction.value.set("toggle_led_18", ensure = False)
+  d18.direction.value.set("toggle_led_18" )
   time.sleep(1)
-  d18.direction.pull.set("open", ensure = False)
+  d18.direction.pull.set("open" )
   time.sleep(1)
-  d18.direction.polling_cycle.set(10, ensure = False)
+  d18.direction.polling_cycle.set(10 )
   time.sleep(1)
 
-  d18.state.active.set(False, ensure = False)
+  d18.state.active.set(False )
   time.sleep(1)
-  d18.state.active_low.set(True, ensure = False)
+  d18.state.active_low.set(True )
   time.sleep(1)
-  d18.state.polling_cycle.set(100, ensure = False)
+  d18.state.polling_cycle.set(100 )
   time.sleep(1)
 ```
 
@@ -288,7 +287,7 @@ The panduza platform, consists on getting the data from the brocker MQTT and sen
 
 The platform has his own architecture, like the panduza client.
 
-![](/tutorials/dio_control_with_raspberry_pico/_media/pza_platform.png)
+![](_media/pza_platform.png)
 
 The platform has three main blocks.
 
@@ -334,7 +333,11 @@ You can put the following json and docker-compose.yml
                 {
                     "name": "My_Input_Output_GPIO%r",
                     "driver": "pza_modbus_dio",
-                    "repeated": [1,2,16,18]
+                    "repeated": [1,2,16,18],
+                    "settings":
+                    {
+                        "usb_serial_id":"E6614C311B888B35" 
+                    }
                 }
             ]
         }
@@ -439,7 +442,7 @@ You can also install the minicom package to view data threw a serial port. This 
 
 
 
-
+<!-- 
 
 
 
@@ -624,7 +627,7 @@ You will have to clone the following repository  and checkout the branch diob:
 ```
 
 
-![](../../_media/pza_platform.png)
+![](_media/pza_platform.png)
 
 The meta drivers will declare the set and get functions for each io attributs. The platform will then call those functions, do a first update of the MQTT brocker. Then according to the message of the client, it will call the connector functions to write data to the PICO.
 
@@ -809,4 +812,4 @@ Therefore, if you wish control multiple digital inputs outputs, you will jave to
 The topics declared must match with the topics visible in the mqtt explorer.
 
 A script example is available in the client configuration and explication.
-
+ -->
