@@ -438,7 +438,173 @@ You can also install the minicom package to view data threw a serial port. This 
   sudo apt install minicom
 ```
 
+# How to test
 
+  If you wish doing unitary tests, you can replace the client bloc from panduza by a robot framework api.
+  Robot framework is used to test python functions separatly.
+
+  Robot framework will allow you to test each functions of panduza DIO and it will return you if the test is good or not.
+
+  To do this, you have to install robot framework and additional packages: 
+
+  ```bash
+  sudo pip3 install robotframework
+  sudo pip3 install robotframework-requests
+  ```
+
+  Also, you migth have to modify your client.py and include more functionalities for robot framework.
+
+  ```python
+from robot.api.deco import keyword
+from robot.api import logger
+from panduza import Dio, Client
+import time
+
+BROKER_ADDR="localhost"
+BROKER_PORT=1883
+CHECK_USER_INPUT=True
+RUN_TEST=False
+
+var1 = 1
+var2 = 2
+var14 = 14
+var16 = 16
+var18 = 18
+var21 = 21
+
+# one topic per io
+logger.console("declaring the topics ...")
+pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
+pzaTOPIC2=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var2}"
+pzaTOPIC14=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var14}"
+pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
+pzaTOPIC18=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var18}"
+pzaTOPIC21=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var21}"
+
+@keyword("connect to client and MQTT")
+def init():
+    pzaClient = Client(url="localhost", port=1883)
+    pzaClient.connect()
+
+    # scan the interface
+    inter = pzaClient.scan_interfaces()
+
+    # list all the topics
+    logger.console("scanning the interfaces..")
+    for topic in inter:
+        logger.console(f"- {topic} => {inter[topic]['type']}")
+
+    return pzaClient
+
+@keyword("write LED 1 ${VALUE}")
+def writeLed1(VALUE):
+
+    d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=VALUE)
+
+    d1.direction.value.set("toggle_led_1")
+    time.sleep(1)
+    d1.direction.pull.set("open")
+    time.sleep(1)
+    d1.direction.polling_cycle.set(10)
+    time.sleep(1)
+
+@keyword("write LED 2 ${VALUE}")
+def writeLed2(VALUE):
+
+    d2 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC2, client=VALUE)
+
+    d2.direction.value.set("toggle_led_2")
+    time.sleep(1)
+    d2.direction.pull.set("open")
+    time.sleep(1)
+    d2.direction.polling_cycle.set(10)
+    time.sleep(1)
+
+@keyword("write LED 14 ${VALUE}")
+def writeLed2(VALUE):
+
+    d14 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC14, client=VALUE)
+
+    d14.direction.value.set("toggle_led_14")
+    time.sleep(1)
+    d14.direction.pull.set("open")
+    time.sleep(1)
+    d14.direction.polling_cycle.set(10)
+    time.sleep(1)
+
+
+
+@keyword("write LED 16 ${VALUE}")
+def writeLed16(VALUE):
+
+    d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=VALUE)
+
+    d16.direction.value.set("toggle_led_16")
+    time.sleep(1)
+    d16.direction.pull.set("open")
+    time.sleep(1)
+    d16.direction.polling_cycle.set(10)
+    time.sleep(1)
+
+
+@keyword("write LED 18 ${VALUE}")
+def writeLed18(VALUE):
+
+    d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=VALUE)
+    
+    d18.direction.value.set("toggle_led_18")
+    time.sleep(1)
+    d18.direction.pull.set("open")
+    time.sleep(1)
+    d18.direction.polling_cycle.set(10)
+    time.sleep(1)
+
+
+@keyword("write LED 21 ${VALUE}")
+def writeLed18(VALUE):
+
+    d21 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC21, client=VALUE)
+    
+    d21.direction.value.set("toggle_led_21")
+    time.sleep(1)
+    d21.direction.pull.set("open")
+    time.sleep(1)
+    d21.direction.polling_cycle.set(10)
+    time.sleep(1)
+  ```
+
+The keywork will be called in the .robot file. It will indicate witch function to test for each test case.
+There is a example of a .robot file
+
+```robot
+  *** Settings ***
+  Library    pza.py
+  Library    String
+  Resource   test_env.resource
+  Library    Collections
+
+  *** Test Cases ***
+
+  ConnectionToBrocker
+      ${CLIENT}   connect to client and MQTT
+      Set Global Variable    ${CLIENT}
+      Log    ${CLIENT}
+  IO_1
+      ${io1}   write LED 1 ${CLIENT}
+      Log    ${io1}
+
+  IO_14
+      ${io16}   write LED 14 ${CLIENT}
+      Log    ${io16}
+
+  IO_16
+      ${io16}   write LED 16 ${CLIENT}
+      Log    ${io16}
+
+  IO_21
+      ${io18}   write LED 21 ${CLIENT}
+      Log    ${io18}
+```
 
 
 
