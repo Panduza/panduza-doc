@@ -15,15 +15,23 @@ For this project, you will need to have the following components :
 
 <p> 1 raspberry PI PICO</p>
 <p> 1 USB cable to connect the PC to the PICO (micro USB cable)</p>
-<p> 4 LED's</p>
-<p> 4 resistors</p>
+<p> 10 LED's</p>
+<p> 6 resistors</p>
 <p> 1 push button</p>
 
-In this example, we will control the I:O 1, 2, 16 and 18 of the PICO MCU 
+In this example, we will control the GPIO 1, 11, 17 and 19 of the PICO MCU by sending data to GPIO 0,10,16 and 18 witch will be configured in outputs.
 
-![](_media/schematic.png)
+To do this, you can do the schematic the following schematic to control one IO: 
+
+![](_media/schematic_control.png)
+
+If the output is set to one, the LED D1 will turn on.
+
+To control various I:O's, you can reproduce the schematic. The resistor value is 1 Kohms.
 
 The push button will allow you to reset the PICO without unpluging the cable.
+
+This schematic can be different if you wish use the robot framework functionality. It will be explained brefely at the end of documentation.
 
 Also, there is the following pinout of the PICO
 
@@ -48,7 +56,6 @@ Panduza is the conbinations of different blocs, the client, the platform, the MQ
 
 # Configuration of the Raspberry PI PICO
 
-First off all, I recommend you to setup the electrical diagram according to the schematic in hardware requirements.
 
 The configuration of the PICO is a important step of the project.
 
@@ -100,7 +107,15 @@ If you want to make sure, you can list all the serial ports of the /dev director
   ls devttyACM*
 ```
 
-To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode. 
+To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode.
+
+**pza-pico-modbus-dio.uf2** is available in the following repository in the branch in the action menu of github : 
+
+```bash
+  https://github.com/Panduza/panduza-adapters-sdk.git
+```
+
+Then choose the last workflow and download the .uf2
 
 # Panduza client
 
@@ -115,16 +130,18 @@ The server configuration.
 Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
 
 ```python
-  var1 = 1
-  var2 = 2
-  var16 = 16
-  var18 = 18
+var0 = 0
+var10 = 10
+var16 = 16
+var21 = 21
+var28 = 28
 
-  # one topic per io
-  pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
-  pzaTOPIC2=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var2}"
-  pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
-  pzaTOPIC18=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var18}"
+# one topic per io
+pzaTOPIC0=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var0}"
+pzaTOPIC10=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var10}"
+pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
+pzaTOPIC21=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var21}"
+pzaTOPIC28=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var28}"
 ```
 
 Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
@@ -148,86 +165,100 @@ Scanning the interfaces. This will make sure that all the topics have been creat
 
 On the output of the terminal, you need to see all the declared topics.
 
+
 create instances of Dio. This will allow you to use the Driver class from the platform and send info to the MQTT brocker to and control I:O's of the MCU.
 
 ```python
 # declare instances of dio. One per io control
-  d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
-  d2 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC2, client=pzaClient)
-  d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=pzaClient)
-  d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=pzaClient)
+d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
+d10 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC10, client=pzaClient)
+d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=pzaClient)
+d21 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC21, client=pzaClient)
+d28 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC28, client=pzaClient)
 
-```
-After the configuration is done, we can send the data to the I:O using the set() function. The set() will write various information such as the type of output, the value or the polling_cycle of a I:O to the rigth topic of the MQTT broker.
 
-```python
-  print("setting the values for GPIO 1")
-  d1.direction.value.set("toggle_led_1" )
-  time.sleep(1)
-  d1.direction.pull.set("open" )
-  time.sleep(1)
-  d1.direction.polling_cycle.set(10 )
-  time.sleep(1)
 
-  d1.state.active.set(False )
-  time.sleep(1)
-  d1.state.active_low.set(True )
-  time.sleep(1)
-  d1.state.polling_cycle.set(100 )
-  time.sleep(1)
+print("setting the values for GPIO 1")
+d0.direction.value.set(0)
+time.sleep(1)
+d0.direction.pull.set("open")
+time.sleep(1)
+d0.direction.polling_cycle.set(10)
+time.sleep(1)
 
-  print("setting the values for GPIO 2")
-  d2.direction.value.set("toggle_led_2" )
-  time.sleep(1)
-  d2.direction.pull.set("open" )
-  time.sleep(1)
-  d2.direction.polling_cycle.set(10 )
-  time.sleep(1)
+d0.state.active.set(False )
+time.sleep(1)
+d0.state.active_low.set(True )
+time.sleep(1)
+d0.state.polling_cycle.set(100)
+time.sleep(1)
 
-  d2.state.active.set(False )
-  time.sleep(1)
-  d2.state.active_low.set(True )
-  time.sleep(1)
-  d2.state.polling_cycle.set(100 )
-  time.sleep(1)
+print("setting the values for GPIO 2")
+d10.direction.value.set(10 )
+time.sleep(1)
+d10.direction.pull.set("open" )
+time.sleep(1)
+d10.direction.polling_cycle.set(10)
+time.sleep(1)
 
-  print("setting the values for GPIO 16")
-  d16.direction.value.set("toggle_led_16" )
-  time.sleep(1)
-  d16.direction.pull.set("open" )
-  time.sleep(1)
-  d16.direction.polling_cycle.set(10 )
-  time.sleep(1)
+d10.state.active.set(False)
+time.sleep(1)
+d10.state.active_low.set(True )
+time.sleep(1)
+d10.state.polling_cycle.set(100 )
+time.sleep(1)
 
-  d16.state.active.set(False )
-  time.sleep(1)
-  d16.state.active_low.set(True )
-  time.sleep(1)
-  d16.state.polling_cycle.set(100 )
-  time.sleep(1)
+print("setting the values for GPIO 16")
+d16.direction.value.set(16 )
+time.sleep(1)
+d16.direction.pull.set("open"  )
+time.sleep(1)
+d16.direction.polling_cycle.set(10 )
+time.sleep(1)
 
-  print("setting the values for GPIO 18")
-  d18.direction.value.set("toggle_led_18" )
-  time.sleep(1)
-  d18.direction.pull.set("open" )
-  time.sleep(1)
-  d18.direction.polling_cycle.set(10 )
-  time.sleep(1)
+d16.state.active.set(False )
+time.sleep(1)
+d16.state.active_low.set(True  )
+time.sleep(1)
+d16.state.polling_cycle.set(100  )
+time.sleep(1)
 
-  d18.state.active.set(False )
-  time.sleep(1)
-  d18.state.active_low.set(True )
-  time.sleep(1)
-  d18.state.polling_cycle.set(100 )
-  time.sleep(1)
+print("setting the values for GPIO 21")
+d21.direction.value.set(21)
+time.sleep(1)
+d21.direction.pull.set("open" )
+time.sleep(1)
+d21.direction.polling_cycle.set(10  )
+time.sleep(1)
+
+d21.state.active.set(False  )
+time.sleep(1)
+d21.state.active_low.set(True )
+time.sleep(1)
+d21.state.polling_cycle.set(100)
+time.sleep(1)
+
+
+print("setting the values for GPIO 28")
+d28.direction.value.set(28)
+time.sleep(1)
+d28.direction.pull.set("open" )
+time.sleep(1)
+d28.direction.polling_cycle.set(10  )
+time.sleep(1)
+
+d28.state.active.set(False  )
+time.sleep(1)
+d28.state.active_low.set(True )
+time.sleep(1)
+d28.state.polling_cycle.set(100)
+time.sleep(1)
 ```
 
 There is a design of how the client works.
 
 ![](_media/client.png)
 
-There are various steps to configure the client.
-First we configure the parameters of the MQTT broker. the address will be "localhost and the listening port is 1883.
 
 ## launch of panduza client
 
@@ -239,9 +270,6 @@ Run the script by using the following command :
   python3 <script_name>.py
 ```
 
-in the output command, you must have at least the following topics : 
-
-![](_media/run_client.png)
 
 Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
 
@@ -272,12 +300,15 @@ you should have the following output in the terminal
 
 ![](../../_media/mosquitto_version.png)
 
-Then ensure, that the mosquitto package is loaded by using the following command. 
+Then ensure, that the mosquitto package is loaded and inactive by using the following command. 
 
 ```bash
   sudo systemctl status mosquitto
 ```
 ![](../../_media/mosquitto_loaded.png)
+
+The mosquitto will be active when the platform is launched.
+
 
 
 
@@ -311,16 +342,17 @@ To do this, you have to excecute the following command :
 ```bash
   ./platform/docker.build-local.sh
 ```
-This command will build all the commands from the DockerFile and configure our envirronment. It will create a local image that you will run when the platform is launch.
+This command will configure your project environment. It will create a local image that you will run when the platform is launch.
 
 
 ## Configuration of platform
 
 In order to launch the platform, you need to create a workspace and put the following elements : 
-One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.
-One docker-compose.yml that will deploy docker applications.
+<p>One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.</p>
+<p>One docker-compose.yml that will deploy docker applications.</p>
 
 You can put the following json and docker-compose.yml
+
 
 ```json
 {
@@ -333,7 +365,7 @@ You can put the following json and docker-compose.yml
                 {
                     "name": "My_Input_Output_GPIO%r",
                     "driver": "pza_modbus_dio",
-                    "repeated": [1,2,16,18],
+                    "repeated": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
                     "settings":
                     {
                         "usb_serial_id":"E6614C311B888B35" 
@@ -343,10 +375,7 @@ You can put the following json and docker-compose.yml
         }
     }
 }
-
 ```
-
-In the tree.json, we also specify witch I:O's we want to control with the attribut "repeated".
 
 ```yml
 version: '3'
@@ -436,12 +465,14 @@ You can also install the minicom package to view data threw a serial port. This 
 
 ```bash
   sudo apt install minicom
+  sudo minicom -D /dev/ttyACM0 -b 115200 # see serial port data
 ```
 
 # How to test
 
   If you wish doing unitary tests, you can replace the client bloc from panduza by a robot framework api.
   Robot framework is used to test python functions separatly.
+
 
   Robot framework will allow you to test each functions of panduza DIO and it will return you if the test is good or not.
 
@@ -452,7 +483,14 @@ You can also install the minicom package to view data threw a serial port. This 
   sudo pip3 install robotframework-requests
   ```
 
-  Also, you migth have to modify your client.py and include more functionalities for robot framework.
+  Also, you migth have to modify your client.py, include more functionalities for robot framework and modify your electric schematic : 
+
+ ![](_media/test_config.png)
+
+  For example, If you want to control the GPIO2, you can send data to the GPIO1. You will have to put to LED's in parrallel by inverting the pinouts each time.
+
+  We have created a unic test case to control all the IO's using templates
+
 
   ```python
 from robot.api.deco import keyword
@@ -465,21 +503,6 @@ BROKER_PORT=1883
 CHECK_USER_INPUT=True
 RUN_TEST=False
 
-var1 = 1
-var2 = 2
-var14 = 14
-var16 = 16
-var18 = 18
-var21 = 21
-
-# one topic per io
-logger.console("declaring the topics ...")
-pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
-pzaTOPIC2=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var2}"
-pzaTOPIC14=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var14}"
-pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
-pzaTOPIC18=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var18}"
-pzaTOPIC21=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var21}"
 
 @keyword("connect to client and MQTT")
 def init():
@@ -496,116 +519,65 @@ def init():
 
     return pzaClient
 
-@keyword("write LED 1 ${VALUE}")
-def writeLed1(VALUE):
 
-    d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=VALUE)
+@keyword("writting LED ${VALUE} ${GPIO}")
+def controlingLEDs(CLIENT, GPIO):
 
-    d1.direction.value.set("toggle_led_1")
+    pzaTOPICGENERAL=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{GPIO}"
+    d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPICGENERAL, client=CLIENT)
+    d.direction.value.set(GPIO)
     time.sleep(1)
-    d1.direction.pull.set("open")
+    d.direction.pull.set("open")
     time.sleep(1)
-    d1.direction.polling_cycle.set(10)
-    time.sleep(1)
-
-@keyword("write LED 2 ${VALUE}")
-def writeLed2(VALUE):
-
-    d2 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC2, client=VALUE)
-
-    d2.direction.value.set("toggle_led_2")
-    time.sleep(1)
-    d2.direction.pull.set("open")
-    time.sleep(1)
-    d2.direction.polling_cycle.set(10)
+    d.direction.polling_cycle.set(10)
     time.sleep(1)
 
-@keyword("write LED 14 ${VALUE}")
-def writeLed2(VALUE):
-
-    d14 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC14, client=VALUE)
-
-    d14.direction.value.set("toggle_led_14")
-    time.sleep(1)
-    d14.direction.pull.set("open")
-    time.sleep(1)
-    d14.direction.polling_cycle.set(10)
-    time.sleep(1)
-
-
-
-@keyword("write LED 16 ${VALUE}")
-def writeLed16(VALUE):
-
-    d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=VALUE)
-
-    d16.direction.value.set("toggle_led_16")
-    time.sleep(1)
-    d16.direction.pull.set("open")
-    time.sleep(1)
-    d16.direction.polling_cycle.set(10)
-    time.sleep(1)
-
-
-@keyword("write LED 18 ${VALUE}")
-def writeLed18(VALUE):
-
-    d18 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC18, client=VALUE)
-    
-    d18.direction.value.set("toggle_led_18")
-    time.sleep(1)
-    d18.direction.pull.set("open")
-    time.sleep(1)
-    d18.direction.polling_cycle.set(10)
-    time.sleep(1)
-
-
-@keyword("write LED 21 ${VALUE}")
-def writeLed18(VALUE):
-
-    d21 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC21, client=VALUE)
-    
-    d21.direction.value.set("toggle_led_21")
-    time.sleep(1)
-    d21.direction.pull.set("open")
-    time.sleep(1)
-    d21.direction.polling_cycle.set(10)
-    time.sleep(1)
   ```
 
 The keywork will be called in the .robot file. It will indicate witch function to test for each test case.
 There is a example of a .robot file
 
 ```robot
-  *** Settings ***
-  Library    pza.py
-  Library    String
-  Resource   test_env.resource
-  Library    Collections
+* Settings ***
+Library    pza.py
+Library    String
+Resource   test_env.resource
+Library    Collections
 
-  *** Test Cases ***
 
-  ConnectionToBrocker
-      ${CLIENT}   connect to client and MQTT
-      Set Global Variable    ${CLIENT}
-      Log    ${CLIENT}
-  IO_1
-      ${io1}   write LED 1 ${CLIENT}
-      Log    ${io1}
+*** Test Cases ***
 
-  IO_14
-      ${io16}   write LED 14 ${CLIENT}
-      Log    ${io16}
+ConnectionToBrocker
+    ${CLIENT}   connect to client and MQTT
+    Set Global Variable    ${CLIENT}
+    Log    ${CLIENT}
 
-  IO_16
-      ${io16}   write LED 16 ${CLIENT}
-      Log    ${io16}
+# create the template to control IO    
+IO_From_PICO
+    [Tags]   OK
+    [Template]  GPIO
+    ${0}
+    ${10}
+    ${16}
+    ${21}
+    ${28}
 
-  IO_21
-      ${io18}   write LED 21 ${CLIENT}
-      Log    ${io18}
+# one test case for controling all IO's
+*** Keywords ***
+GPIO
+    [Arguments]  ${GPIO_CONTROL}
+    ${direction}  writting DIRECTION & STATE ${CLIENT} ${GPIO_CONTROL}
+    Log  ${direction}
+
 ```
 
+To run use the following command : 
+
+```bash
+  robot robot.robot
+```
+
+![](_media/robot_framework.png)
 
 
 <!-- 
