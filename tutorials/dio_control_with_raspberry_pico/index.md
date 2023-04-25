@@ -16,10 +16,10 @@ For this project, you will need to have the following components :
 <p> 1 raspberry PI PICO</p>
 <p> 1 USB cable to connect the PC to the PICO (micro USB cable)</p>
 <p> 10 LED's</p>
-<p> 6 resistors</p>
+<p> 6 resistors of 1Kohms maximum </p>
 <p> 1 push button</p>
 
-In this example, we will control the GPIO 1, 11, 17 and 19 of the PICO MCU by sending data to GPIO 0,10,16 and 18 witch will be configured in outputs.
+In this example, we will control the GPIO 1, 11, 17, 20 and 27of the PICO MCU by sending data to GPIO 0,10,16, 21 and 28 witch will be configured in outputs.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
@@ -30,8 +30,6 @@ If the output is set to one, the LED D1 will turn on.
 To control various I:O's, you can reproduce the schematic. The resistor value is 1 Kohms.
 
 The push button will allow you to reset the PICO without unpluging the cable.
-
-This schematic can be different if you wish use the robot framework functionality. It will be explained brefely at the end of documentation.
 
 Also, there is the following pinout of the PICO
 
@@ -51,11 +49,11 @@ Make sure you have installed the following packages :
   sudo apt install cmake # will install cmake. Needed to build pico binaries
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
+Python is already installed on ubuntu distribution, you won't have to re-install it.
 
-Panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
+As mentionned in the beggining, panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
 
 # Configuration of the Raspberry PI PICO
-
 
 The configuration of the PICO is a important step of the project.
 
@@ -67,7 +65,9 @@ If you wish to have more information about the library, you can check the follow
   https://jacajack.github.io/liblightmodbus/
 ```
 
-To program the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device Mode.
+
+To program the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
+It can also program the PICO using the serial wire Debug port. In our case, we will use the usb mode.
 
 This mode indicats that the micro controller is ready to be programed.
 
@@ -94,13 +94,13 @@ In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO us
 ```
 
 After this, the USB mode is disabled.
-If you are using a virtual Machine, you must ensure that the device is selected.
 
 The name of the pico when programed is **panduza.io dio-modbus**.
 
 A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be **ttyACM0** or **ttyACM1**.
 
 If you want to make sure, you can list all the serial ports of the /dev directory.
+
 
 ```bash
   cd /dev
@@ -109,19 +109,19 @@ If you want to make sure, you can list all the serial ports of the /dev director
 
 To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode.
 
-**pza-pico-modbus-dio.uf2** is available in the following repository in the branch in the action menu of github : 
+**pza-pico-modbus-dio.uf2** is available in the following repository in the action menu of github : 
 
 ```bash
   https://github.com/Panduza/panduza-adapters-sdk.git
 ```
 
-Then choose the last workflow and download the .uf2
+Then choose the last workflow and download the .uf2 and program the PICO.
 
 # Panduza client
 
 The PICO client is the panduza bloc from from the point of view of the user.
 
-This part will allow you to sent various informations of each I:O (I:O 1,2,16 and 18) to the PICO via the MQTT brocker.
+This part will allow you to sent various informations of each I:O (GPIO 0,10,16,21 and 28) to the PICO via the MQTT brocker.
 
 In this part we need to configure various informations.
 
@@ -151,7 +151,9 @@ Create a instance of the Client class. This will manage the connection between y
   pzaClient.connect()
 ```
 
-Scanning the interfaces. This will make sure that all the topics have been created
+Scanning the interfaces. This will make sure that all the topics have been created.There is a example of message you must see.
+
+![](_media/run_client.png)
 
 ```python
   # scan the interface
@@ -255,7 +257,7 @@ d28.state.polling_cycle.set(100)
 time.sleep(1)
 ```
 
-There is a design of how the client works.
+To understand more how the client works, there is a example of architecture of how it works.
 
 ![](_media/client.png)
 
@@ -269,7 +271,7 @@ Run the script by using the following command :
 ```bash
   python3 <script_name>.py
 ```
-
+The LED's 1,11,17,20 and 27 should turn on.
 
 Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
 
@@ -307,7 +309,7 @@ Then ensure, that the mosquitto package is loaded and inactive by using the foll
 ```
 ![](../../_media/mosquitto_loaded.png)
 
-The mosquitto will be active when the platform is launched.
+The mosquitto server will be active when the platform is launched.
 
 
 
@@ -316,15 +318,15 @@ The mosquitto will be active when the platform is launched.
 
 The panduza platform, consists on getting the data from the brocker MQTT and send data to control the I:O's of the MCU.
 
-The platform has his own architecture, like the panduza client.
+Like the panduza client, the platform has his own architecture.
 
 ![](_media/pza_platform.png)
 
 The platform has three main blocks.
 
-The MetaDriver will manage the communication with the MQTT brocker, by reading and setting values to the MQTT brocker.
-The Driver class, that is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.
-
+<p>The MetaDriver will manage the communication with the MQTT brocker, by reading and setting values to the MQTT brocker.</p>
+<p>The Driver class, that is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.</p>
+<p>The connector, will contain the functions to transfer or read data from the MCU</p>.
 Therethore, we have created a MetaDriver and Driver class to implement dio controls.
 
 The driver will call the connector functions. The functions of the connector are related to the protocol used.
@@ -337,6 +339,7 @@ The panduza platform is available in the following repository.
 ```
 
 Before running our platform, the image needs to be build.
+
 To do this, you have to excecute the following command :
 
 ```bash
@@ -344,12 +347,14 @@ To do this, you have to excecute the following command :
 ```
 This command will configure your project environment. It will create a local image that you will run when the platform is launch.
 
+Then you will have to configure your platform : 
 
 ## Configuration of platform
 
-In order to launch the platform, you need to create a workspace and put the following elements : 
-<p>One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.</p>
-<p>One docker-compose.yml that will deploy docker applications.</p>
+In order to launch the platform, you need to create a workspace and put the following elements :
+
+**<p>One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.</p>**
+**<p>One docker-compose.yml that will deploy docker application.</p>**
 
 You can put the following json and docker-compose.yml
 
@@ -376,6 +381,12 @@ You can put the following json and docker-compose.yml
     }
 }
 ```
+The repeated attribut will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this json file can be modified.
+
+
+**One driver will control one GPIO**
+
+Therefore, the tree.json will instance one driver for each GPIO.
 
 ```yml
 version: '3'
@@ -430,7 +441,7 @@ You must have the following result :
 
 ![](../../_media/docker_compose_up.png)
 
-The docker compose will do a first init of the MQTT broker. This initiation was defined in the driver function.
+The docker compose will do a first init of the MQTT broker.
 
 ![](../../_media/log_first_init.png)
 
@@ -487,9 +498,9 @@ You can also install the minicom package to view data threw a serial port. This 
 
  ![](_media/test_config.png)
 
-  For example, If you want to control the GPIO2, you can send data to the GPIO1. You will have to put to LED's in parrallel by inverting the pinouts each time.
 
-  We have created a unic test case to control all the IO's using templates
+
+We have created a unic test case to control all the IO's using templates
 
 
   ```python
