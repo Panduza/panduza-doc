@@ -19,7 +19,7 @@ For this project, you will need to have the following components :
 <p> 6 resistors of 1Kohms maximum </p>
 <p> 1 push button</p>
 
-In this example, we will control the GPIO 1, 11, 17, 20 and 27of the PICO MCU by sending data to GPIO 0,10,16, 21 and 28 witch will be configured in outputs.
+In this example, we will control the GPIO 1, 11, 17, 20 and 27 of the PICO MCU by sending data to GPIO 0,10,16, 21 and 28 witch will be configured in outputs.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
@@ -115,7 +115,7 @@ To reset the MCU, you need to press on the push button and the bootsel button of
   https://github.com/Panduza/panduza-adapters-sdk.git
 ```
 
-Then choose the last workflow and download the .uf2 and program the PICO.
+the **pza-pico-modbus-dio.uf2** is available in the release section.
 
 # Panduza client
 
@@ -126,6 +126,11 @@ This part will allow you to sent various informations of each I:O (GPIO 0,10,16,
 In this part we need to configure various informations.
 
 The server configuration.
+
+```python
+BROKER_ADDR="localhost"
+BROKER_PORT=1883
+```
 
 Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
 
@@ -151,7 +156,7 @@ Create a instance of the Client class. This will manage the connection between y
   pzaClient.connect()
 ```
 
-Scanning the interfaces. This will make sure that all the topics have been created.There is a example of message you must see.
+Scanning the interfaces. This will make sure that all the topics have been created. There is a example of message you must see in the output of your terminal
 
 ![](_media/run_client.png)
 
@@ -483,8 +488,7 @@ You can also install the minicom package to view data threw a serial port. This 
 
   If you wish doing unitary tests, you can replace the client bloc from panduza by a robot framework api.
   Robot framework is used to test python functions separatly.
-
-
+  
   Robot framework will allow you to test each functions of panduza DIO and it will return you if the test is good or not.
 
   To do this, you have to install robot framework and additional packages: 
@@ -592,9 +596,6 @@ To run use the following command :
 
 
 <!-- 
-
-
-
 
 # ---------- old --------------------------- 
 
