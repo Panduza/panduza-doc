@@ -203,7 +203,7 @@ d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
 d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
 
 print("setting the values for GPIO 0, must see led 1 blink..")
-d0.direction.value.set(0)
+d0.direction.value.set("out)
 time.sleep(1)
 d0.direction.pull.set("open")
 time.sleep(1)
@@ -233,7 +233,7 @@ Run the script by using the following command :
 ```bash
   python3 <script_name>.py
 ```
-The LED's 1,11,17,20 and 27 should turn on.
+The LED's 1, should turn on.
 
 Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
 
