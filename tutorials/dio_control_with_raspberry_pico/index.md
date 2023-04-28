@@ -142,7 +142,7 @@ Make sure to take the last version of the release.
 
 The PICO client is the panduza bloc from from the point of view of the user.
 
-This part will allow you to sent various informations of each I:O (GPIO 0,10,16,21 and 28) to the PICO via the MQTT brocker.
+This part will allow you to sent various informations of each I:O (GPIO 0 in our case) to the PICO via the MQTT brocker.
 
 In this part we need to configure various informations.
 
@@ -163,17 +163,11 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
 
 ```python
 var0 = 0
-var10 = 10
-var16 = 16
-var21 = 21
-var28 = 28
+var1 = 1
 
 # one topic per io
 pzaTOPIC0=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var0}"
-pzaTOPIC10=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var10}"
-pzaTOPIC16=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var16}"
-pzaTOPIC21=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var21}"
-pzaTOPIC28=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var28}"
+pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
 ```
 
 Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
@@ -204,15 +198,11 @@ create instances of Dio. This will allow you to use the Driver class from the pl
 
 ```python
 # declare instances of dio. One per io control
+# declare instances of dio. One per io control
 d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
-d10 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC10, client=pzaClient)
-d16 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC16, client=pzaClient)
-d21 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC21, client=pzaClient)
-d28 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC28, client=pzaClient)
+d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
 
-
-
-print("setting the values for GPIO 1")
+print("setting the values for GPIO 0, must see led 1 blink..")
 d0.direction.value.set(0)
 time.sleep(1)
 d0.direction.pull.set("open")
@@ -227,66 +217,6 @@ time.sleep(1)
 d0.state.polling_cycle.set(100)
 time.sleep(1)
 
-print("setting the values for GPIO 2")
-d10.direction.value.set(10 )
-time.sleep(1)
-d10.direction.pull.set("open" )
-time.sleep(1)
-d10.direction.polling_cycle.set(10)
-time.sleep(1)
-
-d10.state.active.set(False)
-time.sleep(1)
-d10.state.active_low.set(True )
-time.sleep(1)
-d10.state.polling_cycle.set(100 )
-time.sleep(1)
-
-print("setting the values for GPIO 16")
-d16.direction.value.set(16 )
-time.sleep(1)
-d16.direction.pull.set("open"  )
-time.sleep(1)
-d16.direction.polling_cycle.set(10 )
-time.sleep(1)
-
-d16.state.active.set(False )
-time.sleep(1)
-d16.state.active_low.set(True  )
-time.sleep(1)
-d16.state.polling_cycle.set(100  )
-time.sleep(1)
-
-print("setting the values for GPIO 21")
-d21.direction.value.set(21)
-time.sleep(1)
-d21.direction.pull.set("open" )
-time.sleep(1)
-d21.direction.polling_cycle.set(10  )
-time.sleep(1)
-
-d21.state.active.set(False  )
-time.sleep(1)
-d21.state.active_low.set(True )
-time.sleep(1)
-d21.state.polling_cycle.set(100)
-time.sleep(1)
-
-
-print("setting the values for GPIO 28")
-d28.direction.value.set(28)
-time.sleep(1)
-d28.direction.pull.set("open" )
-time.sleep(1)
-d28.direction.polling_cycle.set(10  )
-time.sleep(1)
-
-d28.state.active.set(False  )
-time.sleep(1)
-d28.state.active_low.set(True )
-time.sleep(1)
-d28.state.polling_cycle.set(100)
-time.sleep(1)
 ```
 
 To understand more how the client works, there is a example of architecture of how it works.
