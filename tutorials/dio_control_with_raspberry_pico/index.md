@@ -203,7 +203,7 @@ d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
 d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
 
 print("setting the values for GPIO 0, must see led 1 blink..")
-d0.direction.value.set("out)
+d0.direction.value.set("out")
 time.sleep(1)
 d0.direction.pull.set("open")
 time.sleep(1)
@@ -222,6 +222,12 @@ time.sleep(1)
 To understand more how the client works, there is a example of architecture of how it works.
 
 ![](_media/client.png)
+
+The script of the client is available in the following repository : 
+
+```bash
+  https://github.com/MageTomcat14/pza_client_dio.git
+```
 
 
 ## launch of panduza client
