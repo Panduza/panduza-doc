@@ -23,7 +23,9 @@ For this project, you will need to have the following components :
 `!!! OK POINT FIX DOC AFTER ONLY !!!`
 
 
-In this example, we will control the GPIO 1, 11, 17, 20 and 27 of the PICO MCU by sending data to GPIO 0,10,16, 21 and 28 witch will be configured in outputs.
+In this example, we will control two digital inputs and outputs, the GPIO 0 and GPIO 1. There will be connected together.
+
+The GPIO 0 will be set as a output and the GPIO 1 as a input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
@@ -56,12 +58,11 @@ Make sure you have installed the following packages :
 ```bash
 # MES COMMENTAIRES
 - pymodbus et pyserial ne sont pas installé par panduza-py ???
+- En effet, pymodbus et pyserial sont installé lors du build.
 ```
 
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
-  pip3 install pymodbus # will install python modbus library
-  pip3 install pyserial # will install python serial library
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 Python is already installed on ubuntu distribution, you won't have to re-install it.
