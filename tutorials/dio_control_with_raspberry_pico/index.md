@@ -127,10 +127,10 @@ To reset the MCU, you need to press on the push button and the bootsel button of
 **pza-pico-modbus-dio.uf2** is available in the following repository in the action menu of github : 
 
 ```bash
-  https://github.com/Panduza/panduza-adapters-sdk.git
+  https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2
 ```
 
-the **pza-pico-modbus-dio.uf2** is available in the release section.
+Make sure to take the last version of the release.
 
 # Panduza client
 
@@ -406,7 +406,8 @@ You can put the following json and docker-compose.yml
                     "repeated": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
                     "settings":
                     {
-                        "usb_serial_id":"E6614C311B888B35" 
+                        "usb_serial_id":"E6614C311B888B35",
+                        "gpio_id" : "%r" 
                     }
                 }
             ]
