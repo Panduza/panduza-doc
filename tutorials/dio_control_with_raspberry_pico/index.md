@@ -2,26 +2,35 @@
 
 This tutorial explains, step by step, how to configure a Raspberry Pico and use Panduza to perform simple DIO control.
 
-`!!! OK POINT FIX DOC AFTER ONLY !!!`
-
-`TODO: Improve this picture, too small on half screen, add some verticality`
-
 ![](_media/description.png)
-
 
 # Hardware Requirements
 
 For this project, you will need to have the following components : 
 
-<p> 1 raspberry PI PICO</p>
-<p> 1 USB cable to connect the PC to the PICO (micro USB cable)</p>
-<p> 10 LED's</p>
-<p> 6 resistors of 1Kohms maximum </p>
-<p> 1 push button</p>
+- 1 raspberry PI PICO
+- 1 USB cable to connect the PC to the PICO (micro USB cable)
+- 2 LEDs
+- 1 resistors of 1Kohms maximum
+- 1 push button
+
+```bash
+# MES COMMENTAIRES
+- 10 Leds c'est trop ! fais juste un example avec 2 dios + 2 leds et 1 resistance
+- Tu parles d'un boutton mais tu ne montres pas comment le cabler
+```
+
+`!!! OK POINT FIX DOC AFTER ONLY !!!`
+
 
 In this example, we will control the GPIO 1, 11, 17, 20 and 27 of the PICO MCU by sending data to GPIO 0,10,16, 21 and 28 witch will be configured in outputs.
 
 To do this, you can do the schematic the following schematic to control one IO: 
+
+```bash
+# MES COMMENTAIRES
+- Remplace dans le schéma Input et Output par le numéro des GPIOs de l'exemple
+```
 
 ![](_media/schematic_control.png)
 
@@ -42,11 +51,17 @@ This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
 Make sure you have installed the following packages : 
 
+
+
 ```bash
-  sudo apt install python3-pip # will install pip3 package
-  sudo pip3 install pymodbus # will install python modbus library
-  sudo pip3 install pyserial # will install python serial library
-  sudo apt install cmake # will install cmake. Needed to build pico binaries
+# MES COMMENTAIRES
+- pymodbus et pyserial ne sont pas installé par panduza-py ???
+```
+
+```bash
+  sudo apt-get install python3-pip # will install pip3 package
+  pip3 install pymodbus # will install python modbus library
+  pip3 install pyserial # will install python serial library
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 Python is already installed on ubuntu distribution, you won't have to re-install it.
@@ -66,7 +81,7 @@ If you wish to have more information about the library, you can check the follow
 ```
 
 
-To program the PICO, you have to unsure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
+To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
 It can also program the PICO using the serial wire Debug port. In our case, we will use the usb mode.
 
 This mode indicats that the micro controller is ready to be programed.
@@ -133,6 +148,12 @@ BROKER_PORT=1883
 ```
 
 Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
+
+
+```bash
+# MES COMMENTAIRES
+- J'avais dis qu'il fallait utiliser les Alias ici
+```
 
 ```python
 var0 = 0
@@ -284,6 +305,13 @@ Note that the platform must run before launching the script. Otherwise, you can 
 
 
 # mosquitto installation
+
+
+```bash
+# MES COMMENTAIRES
+- Pourquoi installer mosquitto ? alors que tu l'utilises via docker dans la suite de ta doc.
+c'est mieux de passer par docker, il faut enlever cette section
+```
 
 To use MQTT protocole, you will have to install the mosquitto server.
 
