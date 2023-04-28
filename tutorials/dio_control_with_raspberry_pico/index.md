@@ -159,15 +159,13 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
 ```bash
 # MES COMMENTAIRES
 - J'avais dis qu'il fallait utiliser les Alias ici
+- J'ai mis en place les Alias. Le code complet est dans un repo git que je mentionne à la fin.
 ```
 
 ```python
-var0 = 0
-var1 = 1
 
 # one topic per io
-pzaTOPIC0=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var0}"
-pzaTOPIC1=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{var1}"
+pzaTOPIC=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{<gpio_number>}"
 ```
 
 Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
@@ -198,9 +196,7 @@ create instances of Dio. This will allow you to use the Driver class from the pl
 
 ```python
 # declare instances of dio. One per io control
-# declare instances of dio. One per io control
-d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
-d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
+d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
 
 print("setting the values for GPIO 0, must see led 1 blink..")
 d0.direction.value.set("out")
@@ -223,6 +219,7 @@ To understand more how the client works, there is a example of architecture of h
 
 ![](_media/client.png)
 
+
 The script of the client is available in the following repository : 
 
 ```bash
@@ -232,7 +229,11 @@ The script of the client is available in the following repository :
 
 ## launch of panduza client
 
-to lauch panduza client, you can create a script in a directory of your choice.
+To launch the script clone the repo using the following command : 
+
+```bash
+git clone https://github.com/MageTomcat14/pza_client_dio.git
+```
 
 Run the script by using the following command : 
 
