@@ -22,6 +22,11 @@ For this project, you will need to have the following components :
 
 `!!! OK POINT FIX DOC AFTER ONLY !!!`
 
+You can use the following schematic to connect the push button to the PICO.
+
+![](_media/schematic_push_button.png)
+
+You can refer to the pinout bellow to see where is the RUN PIN on the PICO.
 
 In this example, we will control two digital inputs and outputs, the GPIO 0 and GPIO 1. There will be connected together.
 
