@@ -159,7 +159,7 @@ Configure the Topics. A topic corresponds to a path where will be stored all the
 ```bash
 # MES COMMENTAIRES
 - J'avais dis qu'il fallait utiliser les Alias ici
-- J'ai mis en place les Alias. Le code complet est dans un repo git que je mentionne à la fin.
+- OK pour les alias. Le script à jour est dans un répo disponible en bas de la partie.
 ```
 
 ```python
