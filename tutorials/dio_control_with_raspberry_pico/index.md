@@ -78,9 +78,14 @@ As mentionned in the beggining, panduza is the conbinations of different blocs, 
 
 The configuration of the PICO is a important step of the project.
 
-As we are using the MODBUS protocole to send data to the MCU, we have integrated a specific library to the PICO. The goal of this library will be to detecte all types of data and decode each frame.
+To flash the PICO, use the **pza-pico-modbus-dio.uf2** by going to the following link : 
 
-If you wish to have more information about the library, you can check the following link :
+
+```bash
+  https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2
+```
+
+To communicate with the PICO in modbus protocol, we have integrated a library. The following link is the documentation of the library : 
 
 ```bash
   https://jacajack.github.io/liblightmodbus/
@@ -111,7 +116,7 @@ A .uf2 extension is a binary file witch will allow you to program a MCU over the
 In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO using the following command : 
 
 ```bash
-  cp pza-pico-modbus-dio.uf2 /media/<user_name>/RPI-RP2/
+  cp pza-pico-modbus-dio.uf2 /media/<user_name>/RP2_RPI
 ```
 
 After this, the USB mode is disabled.
@@ -130,13 +135,6 @@ If you want to make sure, you can list all the serial ports of the /dev director
 
 To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode.
 
-**pza-pico-modbus-dio.uf2** is available in the following repository in the action menu of github : 
-
-```bash
-  https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2
-```
-
-Make sure to take the last version of the release.
 
 # Panduza client
 
