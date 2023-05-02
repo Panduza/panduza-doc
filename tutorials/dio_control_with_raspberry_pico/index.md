@@ -245,49 +245,6 @@ Note that the platform must run before launching the script. Otherwise, you can 
 ![](_media/error_client.png)
 
 
-# mosquitto installation
-
-
-```bash
-# MES COMMENTAIRES
-- Pourquoi installer mosquitto ? alors que tu l'utilises via docker dans la suite de ta doc.
-c'est mieux de passer par docker, il faut enlever cette section
-```
-
-To use MQTT protocole, you will have to install the mosquitto server.
-
-This installation will install the broker MQTT tool.
-
-It is possible to use command lines to install the mosquitto server.
-
-```bash
-  sudo apt update # update the environment
-  sudo apt install -y mosquitto # install the mosquitto package
-```
-
-To make sure mosquitto is installed, you can run the command : 
-
-```bash
-  mosquitto --version
-```
-
-you should have the following output in the terminal
-
-
-![](../../_media/mosquitto_version.png)
-
-Then ensure, that the mosquitto package is loaded and inactive by using the following command. 
-
-```bash
-  sudo systemctl status mosquitto
-```
-![](../../_media/mosquitto_loaded.png)
-
-The mosquitto server will be active when the platform is launched.
-
-
-
-
 # Panduza platform
 
 The panduza platform, consists on getting the data from the brocker MQTT and send data to control the I:O's of the MCU.
