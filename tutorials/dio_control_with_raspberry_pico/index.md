@@ -34,10 +34,6 @@ The GPIO 0 will be set as a output and the GPIO 1 as a input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
-```bash
-# MES COMMENTAIRES
-- Remplace dans le schéma Input et Output par le numéro des GPIOs de l'exemple
-```
 
 ![](_media/schematic_control.png)
 
@@ -47,9 +43,9 @@ To control various I:O's, you can reproduce the schematic. The resistor value is
 
 The push button will allow you to reset the PICO without unpluging the cable.
 
-Also, there is the following pinout of the PICO
+There is a complet schematic with the pinout of the PICO
 
-![](_media/pinout.png)
+![](_media/schematic.png)
 
 
 # Software Requirements
@@ -58,13 +54,6 @@ This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
 Make sure you have installed the following packages : 
 
-
-
-```bash
-# MES COMMENTAIRES
-- pymodbus et pyserial ne sont pas installé par panduza-py ???
-- En effet, pymodbus et pyserial sont installé lors du build.
-```
 
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
@@ -78,12 +67,13 @@ As mentionned in the beggining, panduza is the conbinations of different blocs, 
 
 The configuration of the PICO is a important step of the project.
 
-To flash the PICO, use the **pza-pico-modbus-dio.uf2** by going to the following link : 
+First of all, you will **pza-pico-modbus-dio.uf2** to program the PICO. The file is available in the following link : 
 
 
 ```bash
   https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2
 ```
+
 
 To communicate with the PICO in modbus protocol, we have integrated a library. The following link is the documentation of the library : 
 
@@ -121,11 +111,15 @@ In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO us
 
 After this, the USB mode is disabled.
 
-The name of the pico when programed is **panduza.io dio-modbus**.
+The name of the pico when programed is **panduza.io dio-modbus**, his vendor id is **16c0"" and id product **05e1**
+
+You can use lsusb command to check if a usb device with the vendor and product is available.
+
+![](_media/panduza_io.png)
 
 A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be **ttyACM0** or **ttyACM1**.
 
-If you want to make sure, you can list all the serial ports of the /dev directory.
+If you want to make sure that the ports exists, you can list all the serial ports of the /dev directory.
 
 
 ```bash
@@ -292,26 +286,27 @@ You can put the following json and docker-compose.yml
 
 ```json
 {
-    "machine": "my_lab_server",
+    "machine": "lab_paul",
     "brokers": {
         "I/O driver": {
             "addr": "localhost",
             "port": 1883,
             "interfaces": [
                 {
-                    "name": "My_Input_Output_GPIO%r",
-                    "driver": "pza_modbus_dio",
-                    "repeated": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
+                    "name" : "control_paul_IO%r",
+                    "driver" : "pza_modbus_dio",
+                    "repeated": [0,1],
                     "settings":
                     {
-                        "usb_serial_id":"E6614C311B888B35",
-                        "gpio_id" : "%r" 
+                        "usb_serial_id" : "E6614C311B888B35",
+                        "gpio_id" : "%r"
                     }
                 }
             ]
         }
     }
 }
+
 ```
 The repeated attribut will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this json file can be modified.
 
