@@ -294,8 +294,8 @@ You can put the following json and docker-compose.yml
             "interfaces": [
                 {
                     "name" : "control_paul_IO%r",
-                    "driver" : "pza_modbus_dio",
-                    "repeated": [0,1],
+                    "driver" : "driver_of_PaulFisher",
+                    "repeated":[0,1],
                     "settings":
                     {
                         "usb_serial_id" : "E6614C311B888B35",
@@ -306,6 +306,7 @@ You can put the following json and docker-compose.yml
         }
     }
 }
+
 
 ```
 The repeated attribut will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this json file can be modified.
