@@ -11,7 +11,7 @@ For this project, you will need to have the following components :
 - 1 raspberry PI PICO
 - 1 USB cable to connect the PC to the PICO (micro USB cable)
 - 2 LEDs
-- 1 resistors of 1Kohms maximum
+- 1 resistor of 1Kohms maximum
 - 1 push button
 
 ```bash
@@ -20,20 +20,17 @@ For this project, you will need to have the following components :
 - Tu parles d'un boutton mais tu ne montres pas comment le cabler
 ```
 
-`!!! OK POINT FIX DOC AFTER ONLY !!!`
-
-You can use the following schematic to connect the push button to the PICO.
+You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
 ![](_media/schematic_push_button.png)
 
-You can refer to the pinout bellow to see where is the RUN PIN on the PICO.
+You can refer to the pinout below to see where is the RUN PIN on the PICO.
 
-In this example, we will control two digital inputs and outputs, the GPIO 0 and GPIO 1. There will be connected together.
+In this example, we will control two digital inputs and outputs, GPIO 0 and GPIO 1. There will be connected.
 
-The GPIO 0 will be set as a output and the GPIO 1 as a input.
+The GPIO 0 will be set as the output and the GPIO 1 as the input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
-
 
 ![](_media/schematic_control.png)
 
@@ -41,12 +38,13 @@ If the output is set to one, the LED D1 will turn on.
 
 To control various I:O's, you can reproduce the schematic. The resistor value is 1 Kohms.
 
-The push button will allow you to reset the PICO without unpluging the cable.
+The push button will allow you to reset the PICO without unplugging the cable.
 
-There is a complet schematic with the pinout of the PICO
+There is a complete schematic with the pinout of the PICO
 
 ![](_media/schematic.png)
 
+`!!! OK POINT FIX DOC AFTER ONLY !!!`
 
 # Software Requirements
 
@@ -54,14 +52,13 @@ This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
 Make sure you have installed the following packages : 
 
-
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 Python is already installed on ubuntu distribution, you won't have to re-install it.
 
-As mentionned in the beggining, panduza is the conbinations of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chaine.
+As mentioned in the beggining, Panduza is the combination of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
 
 # Configuration of the Raspberry PI PICO
 
