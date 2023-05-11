@@ -56,15 +56,15 @@ Make sure you have installed the following packages :
   sudo apt-get install python3-pip # will install pip3 package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
-Python is already installed on ubuntu distribution, you won't have to re-install it.
+Python is already installed on Ubuntu distribution, you won't have to reinstall it.
 
 As mentioned in the beggining, Panduza is the combination of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
 
 # Configuration of the Raspberry PI PICO
 
-The configuration of the PICO is a important step of the project.
+The configuration of the PICO is an important step of the project.
 
-First of all, you will **pza-pico-modbus-dio.uf2** to program the PICO. The file is available in the following link : 
+First of all, you will **pza-pico-modbus-dio.uf2** to program the PICO. The file is available at the following link : 
 
 
 ```bash
@@ -72,7 +72,7 @@ First of all, you will **pza-pico-modbus-dio.uf2** to program the PICO. The file
 ```
 
 
-To communicate with the PICO in modbus protocol, we have integrated a library. The following link is the documentation of the library : 
+To communicate with the PICO in Modbus protocol, we have integrated a library. The following link is the documentation of the library : 
 
 ```bash
   https://jacajack.github.io/liblightmodbus/
@@ -82,7 +82,7 @@ To communicate with the PICO in modbus protocol, we have integrated a library. T
 To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
 It can also program the PICO using the serial wire Debug port. In our case, we will use the usb mode.
 
-This mode indicats that the micro controller is ready to be programed.
+This mode indicates that the microcontroller is ready to be programmed.
 
 To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
 
@@ -90,15 +90,15 @@ To check that you are in USB mass storage Device Mode, you can open a terminal a
   lsusb
 ```
 
-This command will list all the usb devices connected to the PC.
+This command will list all the USB devices connected to the PC.
 
 ![](_media/pico_usb_mode.png)
 
 **Raspberry Pi RP2 Boot** show's that the PICO is in USB mass storage mode.
 
-To flash the PICO, you will have to copie a binary file with the .uf2 extension.
+To flash the PICO, you will have to copy a binary file with the .uf2 extension.
 
-A .uf2 extension is a binary file witch will allow you to program a MCU over the USB port. Since the PICO is connected threw USB, you will have to flash a .uf2 file.
+A .uf2 extension is a binary file that will allow you to program an MCU over the USB port. Since the PICO is connected threw USB, you will have to flash a .uf2 file.
 
 In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO using the following command : 
 
@@ -108,15 +108,15 @@ In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO us
 
 After this, the USB mode is disabled.
 
-The name of the pico when programed is **panduza.io dio-modbus**, his vendor id is **16c0"" and id product **05e1**
+The name of the pico when programmed is **panduza.io dio-modbus**, his vendor id is **16c0 and id product **05e1**
 
-You can use lsusb command to check if a usb device with the vendor and product is available.
+You can use lsusb command to check if a USB device with the vendor and product is available.
 
 ![](_media/panduza_io.png)
 
-A serial port sould be opened in the /dev directory of your linux envirronment. The serial port name should be **ttyACM0** or **ttyACM1**.
+A serial port should be opened in the /dev directory of your Linux environment. The serial port name should be **ttyACM0** or **ttyACM1**.
 
-If you want to make sure that the ports exists, you can list all the serial ports of the /dev directory.
+If you want to make sure that the ports exist, you can list all the serial ports of the /dev directory.
 
 
 ```bash
@@ -124,16 +124,16 @@ If you want to make sure that the ports exists, you can list all the serial port
   ls devttyACM*
 ```
 
-To reset the MCU, you need to press on the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds the PICO will be back in USB mass storage mode.
+To reset the MCU, you need to press the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds, the PICO will be back in USB mass storage mode.
 
 
 # Panduza client
 
-The PICO client is the panduza bloc from from the point of view of the user.
+The PICO client is the panduza bloc from the point of view of the user.
 
-This part will allow you to sent various informations of each I:O (GPIO 0 in our case) to the PICO via the MQTT brocker.
+This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT broker.
 
-In this part we need to configure various informations.
+In this part, we need to configure various information.
 
 The server configuration.
 
@@ -144,27 +144,14 @@ BROKER_PORT=1883
 
 Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
 
-
-```bash
-# MES COMMENTAIRES
-- J'avais dis qu'il fallait utiliser les Alias ici
-- OK pour les alias. Le script à jour est dans un répo disponible en bas de la partie.
-```
-
-```python
-
-# one topic per io
-pzaTOPIC=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{<gpio_number>}"
-```
-
-Create a instance of the Client class. This will manage the connection between your client script and the MQTT brocker.
+Create an instance of the Client class. This will manage the connection between your client script and the MQTT broker.
 
 ```python
   pzaClient = Client(url=BROKER_ADDR, port=1883)
   pzaClient.connect()
 ```
 
-Scanning the interfaces. This will make sure that all the topics have been created. There is a example of message you must see in the output of your terminal
+Scanning the interfaces. This will make sure that all the topics have been created. There is an example of a message you must see in the output of your terminal
 
 ![](_media/run_client.png)
 
@@ -181,7 +168,7 @@ Scanning the interfaces. This will make sure that all the topics have been creat
 On the output of the terminal, you need to see all the declared topics.
 
 
-create instances of Dio. This will allow you to use the Driver class from the platform and send info to the MQTT brocker to and control I:O's of the MCU.
+create instances of Dio. This will allow you to use the Driver class from the platform and send info to the MQTT broker to control I:O's of the MCU.
 
 ```python
 # declare instances of dio. One per io control
@@ -204,19 +191,14 @@ time.sleep(1)
 
 ```
 
-To understand more how the client works, there is a example of architecture of how it works.
+To understand more about how the client works, there is an example of the architecture of how it works.
 
 ![](_media/client.png)
 
 
 The script of the client is available in the following repository : 
 
-```bash
-  https://github.com/MageTomcat14/pza_client_dio.git
-```
-
-
-## launch of panduza client
+## launch of Panduza client
 
 To launch the script clone the repo using the following command : 
 
@@ -238,47 +220,48 @@ Note that the platform must run before launching the script. Otherwise, you can 
 
 # Panduza platform
 
-The panduza platform, consists on getting the data from the brocker MQTT and send data to control the I:O's of the MCU.
+The Panduza platform consists of getting the data from the broker MQTT and sending data to control the I:O's of the MCU.
 
-Like the panduza client, the platform has his own architecture.
+Like the Panduza client, the platform has its architecture.
 
 ![](_media/pza_platform.png)
 
 The platform has three main blocks.
 
-<p>The MetaDriver will manage the communication with the MQTT brocker, by reading and setting values to the MQTT brocker.</p>
-<p>The Driver class, that is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.</p>
+<p>The MetaDriver will manage the communication with the MQTT broker, by reading and setting values to the MQTT broker.</p>
+<p>The Driver class, which is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.</p>
 <p>The connector, will contain the functions to transfer or read data from the MCU</p>.
-Therethore, we have created a MetaDriver and Driver class to implement dio controls.
+
+Therefore, we have created a MetaDriver and Driver class to implement dio controls.
 
 The driver will call the connector functions. The functions of the connector are related to the protocol used.
-In our case, we will use the modbus functions from the pymodbus library.
+In our case, we will use the Modbus functions from the Pymodbus library.
 
-The panduza platform is available in the following repository.
+The Panduza platform is available in the following repository.
 
 ```bash
   git clone https://github.com/Panduza/panduza-py.git
 ```
 
-Before running our platform, the image needs to be build.
+Before running our platform, the image needs to be built.
 
-To do this, you have to excecute the following command :
+To do this, you have to execute the following command :
 
 ```bash
   ./platform/docker.build-local.sh
 ```
-This command will configure your project environment. It will create a local image that you will run when the platform is launch.
+This command will configure your project environment. It will create a local image that you will run when the platform is launched.
 
 Then you will have to configure your platform : 
 
 ## Configuration of platform
 
-In order to launch the platform, you need to create a workspace and put the following elements :
+To launch the platform, you need to create a workspace and put the following elements :
 
-**<p>One tree.json file. This json file will configure the interface you want to control and the brockers you are going to use.</p>**
-**<p>One docker-compose.yml that will deploy docker application.</p>**
+**<p>One tree.json file. **This JSON file will** configure the interface you want to control and the brokers you are going to use.</p>**
+**One docker-compose.yml will deploy docker application.</p>**
 
-You can put the following json and docker-compose.yml
+You can put the following JSON and docker-compose.yml
 
 
 ```json
@@ -292,7 +275,7 @@ You can put the following json and docker-compose.yml
                 {
                     "name" : "control_paul_IO%r",
                     "driver" : "driver_of_PaulFisher",
-                    "repeated":[0,1],
+                    "repeated":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
                     "settings":
                     {
                         "usb_serial_id" : "E6614C311B888B35",
@@ -306,7 +289,7 @@ You can put the following json and docker-compose.yml
 
 
 ```
-The repeated attribut will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this json file can be modified.
+The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file can be modified.
 
 
 **One driver will control one GPIO**
@@ -338,13 +321,13 @@ services:
     # command: bash
 ```
 
-Make sure that you use the local image that bas been build as described above.
+Make sure that you use the local image that has been built as described above.
 
 ## RUN panduza platform
 
-To run panduza platform, you have to put your self in the directory containing the tree.json and the docker-compose.yml.
+To run the Panduza platform, you have to put yourself in the directory containing the tree.json and the docker-compose.yml.
 
-Then excecute the following command : 
+Then execute the following command : 
 
 ```bash
   docker compose up
@@ -352,7 +335,7 @@ Then excecute the following command :
 
 This command will do the following tasks,
 
-Excecute the mosquitto server
+Execute the mosquitto server
 
 List all of the available drivers
 
@@ -360,7 +343,7 @@ Show the tree.json configuration
 
 Start the interfaces for each I:O
 
-Do the first update of the MQTT brocker
+Do the first update of the MQTT broker
 
 You must have the following result : 
 
@@ -382,22 +365,22 @@ To run correctly the project, you need to respect the following order
 
 # Additional requirements
 
-If you wish do some debug or understand more the communication process.
-You can install the mqtt-explorer software. This will allow you to have a visual comprehension about the communication between panduza and the MQTT broker.
+If you wish do some debugging or understand more the communication process.
+You can install the MQTT-explorer software. This will allow you to have a visual comprehension of the communication between Panduza and the MQTT broker.
 
-To install MQTT broker, you need to use the following commands :
+To install the MQTT broker, you need to use the following commands :
 
 ```bash
   sudo snap install mqtt-explorer # installation of MQTT explorer
 ```
 
-To launch MQTT, you can either search the application in the ubuntu envirronment or use the following command line :
+To launch MQTT, you can either search the application in the Ubuntu environment or use the following command line :
 
 ```bash
   mqtt-explorer
 ```
 
-You can also install the minicom package to view data threw a serial port. This can be used for debug purposes
+You can also install the minicom package to view data threw a serial port. This can be used for debugging purposes
 
 ```bash
   sudo apt install minicom
@@ -406,10 +389,10 @@ You can also install the minicom package to view data threw a serial port. This 
 
 # How to test
 
-  If you wish doing unitary tests, you can replace the client bloc from panduza by a robot framework api.
-  Robot framework is used to test python functions separatly.
-  
-  Robot framework will allow you to test each functions of panduza DIO and it will return you if the test is good or not.
+  If you wish to do unitary tests, you can replace the client bloc from Panduza with a robot framework api.
+  The robot framework is used to test Python functions separately.
+
+  The robot framework will allow you to test each function of Panduza DIO and it will return you if the test is good or not.
 
   To do this, you have to install robot framework and additional packages: 
 
@@ -418,13 +401,13 @@ You can also install the minicom package to view data threw a serial port. This 
   sudo pip3 install robotframework-requests
   ```
 
-  Also, you migth have to modify your client.py, include more functionalities for robot framework and modify your electric schematic : 
+  Also, you might have to modify your client.py, include more functionalities for the robot framework and modify your electric schematic : 
 
  ![](_media/test_config.png)
 
 
 
-We have created a unic test case to control all the IO's using templates
+We have created a unique test case to control all the IOs using templates
 
 
   ```python
@@ -469,8 +452,8 @@ def controlingLEDs(CLIENT, GPIO):
 
   ```
 
-The keywork will be called in the .robot file. It will indicate witch function to test for each test case.
-There is a example of a .robot file
+The keywork will be called in the .robot file. It will indicate which function to test for each test case.
+There is an example of a .robot file
 
 ```robot
 * Settings ***
