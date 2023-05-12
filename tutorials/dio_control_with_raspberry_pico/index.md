@@ -58,7 +58,7 @@ Make sure you have installed the following packages :
 ```
 Python is already installed on Ubuntu distribution, you won't have to reinstall it.
 
-As mentioned in the beggining, Panduza is the combination of different blocs, the client, the platform, the MQTT brocker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
+As mentioned in the beggining, Panduza is the combination of different blocs, the client, the platform, the MQTT broker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
 
 # Configuration of the Raspberry PI PICO
 
@@ -273,8 +273,8 @@ You can put the following JSON and docker-compose.yml
             "port": 1883,
             "interfaces": [
                 {
-                    "name" : "control_paul_IO%r",
-                    "driver" : "driver_of_PaulFisher",
+                    "name" : "testing_of_io_controling%r",
+                    "driver" : "io_pza_controling",
                     "repeated":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
                     "settings":
                     {
@@ -286,7 +286,6 @@ You can put the following JSON and docker-compose.yml
         }
     }
 }
-
 
 ```
 The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file can be modified.
