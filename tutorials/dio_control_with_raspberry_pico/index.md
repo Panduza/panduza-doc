@@ -461,7 +461,7 @@ You can also install the minicom package to view data threw a serial port. This 
 
 
 
-We have created a unique test case to control all the IOs using templates
+We have created a test cases to configure settings of a IO
 
 
   ```python
@@ -486,23 +486,89 @@ def init():
 
     # list all the topics
     logger.console("scanning the interfaces..")
-    for topic in inter:
-        logger.console(f"- {topic} => {inter[topic]['type']}")
-
+    # for topic in inter:
+    #     logger.console(f"- {topic} => {inter[topic]['type']}")
     return pzaClient
 
+@keyword("declaring topics and instances ${CLIENT} ${GPIO} ${GPIO_IN}")
+def declareTopics(CLIENT, GPIO, GPIO_IN):
 
-@keyword("writting LED ${VALUE} ${GPIO}")
-def controlingLEDs(CLIENT, GPIO):
+    pzaTOPICGENERAL_OUT=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{GPIO}"
+    pzaTOPICGENERAL_IN=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{GPIO_IN}"
 
-    pzaTOPICGENERAL=f"pza/my_lab_server/pza_modbus_dio/My_Input_Output_GPIO{GPIO}"
-    d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPICGENERAL, client=CLIENT)
-    d.direction.value.set(GPIO)
+    d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPICGENERAL_OUT, client=CLIENT)
+    d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPICGENERAL_IN, client=CLIENT)
+
+    return d, d1
+
+
+@keyword("setting IO ${GPIO_OUT} to output ${INSTANCE_OUT}")
+def setOutput(GPIO_OUT, INSTANCE_OUT):
+    logger.console(f"setting IO {GPIO_OUT} to output")
+    INSTANCE_OUT.direction.value.set("out")
+
+@keyword("setting IO ${GPIO_IN} to input ${INSTANCE_IN}")
+def setInput(GPIO_IN, INSTANCE_IN):
+    logger.console(f"setting IO {GPIO_IN} to input")
+    INSTANCE_IN.direction.value.set("in")
+
+
+@keyword("setting pulls ${INSTANCE_OUT} ${INSTANCE_IN}")
+def settingPulls(INSTANCE_OUT, INSTANCE_IN):
+ 
+    logger.console("setting the pulls")
+    INSTANCE_OUT.direction.pull.set("up")
+    INSTANCE_IN.direction.pull.set("down")
+
+
+@keyword("setting pulling cycle ${INSTANCE_OUT} ${INSTANCE_IN}")
+def settingPullingCycle(INSTANCE_OUT, INSTANCE_IN):
+
+
+    logger.console("setting the pulling cycle")
+    INSTANCE_OUT.direction.polling_cycle.set(0.1)
+    INSTANCE_OUT.state.polling_cycle.set(0.1)
+    INSTANCE_IN.direction.polling_cycle.set(0.1)
+    INSTANCE_IN.state.polling_cycle.set(0.1)
+
+@keyword("setting active state low ${INSTANCE_OUT} ${INSTANCE_IN}")
+def settingActiveLow(INSTANCE_OUT, INSTANCE_IN):
+
+ 
+    logger.console("setting the active state low")
+    INSTANCE_OUT.state.active_low.set(False)
+    INSTANCE_IN.state.active_low.set(False)
+
+
+
+@keyword("setting IO ${GPIO} to true ${INSTANCE_OUT}")
+def settingToTrue(GPIO, INSTANCE_OUT):
+
+    logger.console(f"setting IO {GPIO} to True")
+    INSTANCE_OUT.state.active.set(True)
     time.sleep(1)
-    d.direction.pull.set("open")
+
+@keyword("setting IO ${GPIO} to False ${INSTANCE_OUT}")
+def settingToTrueFalse(GPIO, INSTANCE_OUT):
+
+    logger.console(f"setting IO {GPIO} to False")
+    INSTANCE_OUT.state.active.set(False)
     time.sleep(1)
-    d.direction.polling_cycle.set(10)
+
+
+@keyword("getting the value of IO ${GPIO} ${INSTANCE_IN}")
+def getValue(GPIO, INSTANCE_IN):
+    logger.console(f"get the value of {GPIO}")
+    result = INSTANCE_IN.state.active.get()
+    logger.console(result)
     time.sleep(1)
+
+
+
+
+@keyword("ending")
+def end():
+    logger.console("tests finished")
 
   ```
 
@@ -510,37 +576,52 @@ The keywork will be called in the .robot file. It will indicate which function t
 There is an example of a .robot file
 
 ```robot
-* Settings ***
-Library    pza.py
-Library    String
-Resource   test_env.resource
-Library    Collections
+
+# create the template to control IO    
+IO_From_PICO_SET
+    [Tags]    OK
+    [Template]    GPIO_SET 
+    ${0}    ${1}   
+    ${2}    ${3}
+    ${4}    ${5}   
+    ${6}    ${7} 
+    # ${8}    ${9}   
+    # ${10}    ${11} 
+    # ${12}    ${13}   
+    # ${14}    ${15} 
+    # ${16}    ${17}   
+    # ${18}    ${19} 
+    # ${20}    ${21}   
+    # ${21}    ${22} 
+    # ${26}    ${27}   
+    # ${27}    ${28}  
+
+# # one test case for controling all IO's
+*** Keywords ***
+GPIO_SET
+
+    [Documentation]    Testing the inputs and outputs of the PICO
+    [Tags]    OK        
+    [Arguments]  ${GPIO_OUT}    ${GPIO_IN}
+    ${INSTANCE_OUT}    ${INSTANCE_IN}    declaring topics and instances ${CLIENT} ${GPIO_OUT} ${GPIO_IN}
+
+
+    setting IO ${GPIO_OUT} to output ${INSTANCE_OUT}
+    setting IO ${GPIO_IN} to input ${INSTANCE_IN}
+    setting pulls ${INSTANCE_OUT} ${INSTANCE_IN}
+    setting pulling cycle ${INSTANCE_OUT} ${INSTANCE_IN}
+    setting active state low ${INSTANCE_OUT} ${INSTANCE_IN}
+
+    # write and read
+    setting IO ${GPIO_OUT} to true ${INSTANCE_OUT}
+    getting the value of IO ${GPIO_IN} ${INSTANCE_IN}
+    setting IO ${GPIO_OUT} to False ${INSTANCE_OUT}
+    getting the value of IO ${GPIO_IN} ${INSTANCE_IN}
 
 
 *** Test Cases ***
-
-ConnectionToBrocker
-    ${CLIENT}   connect to client and MQTT
-    Set Global Variable    ${CLIENT}
-    Log    ${CLIENT}
-
-# create the template to control IO    
-IO_From_PICO
-    [Tags]   OK
-    [Template]  GPIO
-    ${0}
-    ${10}
-    ${16}
-    ${21}
-    ${28}
-
-# one test case for controling all IO's
-*** Keywords ***
-GPIO
-    [Arguments]  ${GPIO_CONTROL}
-    ${direction}  writting DIRECTION & STATE ${CLIENT} ${GPIO_CONTROL}
-    Log  ${direction}
-
+END OF TESTS
+    ending
 ```
 
 To run use the following command : 
