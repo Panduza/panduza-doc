@@ -50,10 +50,18 @@ There is a complete schematic with the pinout of the PICO
 
 This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
+Update your Ubuntu environment first
+
+```bash 
+  sudo apt-get update
+  sudo apt-get upgrade
+```
 Make sure you have installed the following packages : 
 
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
+  sudo pip install robot  # install robot framework package
+  sudo apt install git # install git package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 Python is already installed on Ubuntu distribution, you won't have to reinstall it.
