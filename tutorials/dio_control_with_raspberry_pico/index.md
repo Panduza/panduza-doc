@@ -56,6 +56,8 @@ Update your Ubuntu environment first
   sudo apt-get update
   sudo apt-get upgrade
 ```
+
+
 Make sure you have installed the following packages : 
 
 ```bash
@@ -65,6 +67,48 @@ Make sure you have installed the following packages :
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
 Python is already installed on Ubuntu distribution, you won't have to reinstall it.
+
+You will also have to install docker, it's a bit harder to install. You can follow the steps bellow to guide you.
+
+## installation of docker
+You will have to install docker. Docker is a powerfull tool that will contain all the application project. 
+
+You will have to install Docker to use the project.
+Use the following command : 
+
+```bash
+  sudo apt install docker.io
+```
+
+Then you will have to enable the docker.
+
+```bash
+  sudo systemctl status docker
+```
+
+**You migth have permission issues if you try to build a docker image**. To not have this problem, I recommend you to run the following commands : 
+
+```bash
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  newgrp docker
+```
+
+You migth have to reboot your linux system : 
+```bash
+  sudo reboot
+```
+Once the system has rebooted, you can run a docke image to see if it works.
+
+```bash
+ docker run hello-wold
+```
+
+You should have the following output
+
+![](_media/dockerIsOkay.png)
+
+
 
 As mentioned in the beggining, Panduza is the combination of different blocs, the client, the platform, the MQTT broker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
 
