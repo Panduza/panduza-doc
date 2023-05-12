@@ -62,7 +62,7 @@ Make sure you have installed the following packages :
 
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
-  sudo pip install robot  # install robot framework package
+  sudo pip install robotframework  # install robot framework package
   sudo apt install git # install git package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
