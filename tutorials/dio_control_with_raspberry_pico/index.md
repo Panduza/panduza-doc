@@ -57,7 +57,6 @@ Update your Ubuntu environment first
   sudo apt-get upgrade
 ```
 
-
 Make sure you have installed the following packages : 
 
 ```bash
@@ -73,17 +72,49 @@ You will also have to install docker, it's a bit harder to install. You can foll
 ## installation of docker
 You will have to install docker. Docker is a powerful tool that will contain all the application project. 
 
-You will have to install Docker to use the project.
+We will install docker using the apt repository
+
+first update the apt package and do the following command 
+
+```bash
+  sudo apt-get update
+  sudo apt-get install ca-certificates curl gnupg
+```
+
+Add docker's official GPG key : 
+
+```bash
+  sudo install -m 0755 -d /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+```
+
+Then excecute the following command to set up the repository : 
+
+```bash
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Then, do an update of the apt package : 
+
+```bash
+ sudo apt-get update
+```
+
+Now the environment is ready to install the docker engine.
 Use the following command : 
 
 ```bash
-  sudo apt install docker.io
+ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-Then you will have to enable the docker.
+If you wish have more info about how to install docker, I recommend you to check the following site : 
 
 ```bash
-  sudo systemctl status docker
+ https://docs.docker.com/engine/install/ubuntu/
 ```
 
 **You might have permission issues if you try to build a docker image**. To not have this problem, I recommend you run the following commands : 
@@ -110,6 +141,7 @@ Once the system has rebooted, you can run a docker image to see if it works.
 You should have the following output
 
 ![](_media/dockerIsOkay.png)
+
 
 
 
