@@ -31,6 +31,7 @@ To do this, you can do the schematic the following schematic to control one IO:
 ```
 !!!!! A CORRIGER
 LE SCHEMA NES PAS BON
+le schéma est corrigé
 ```
 
 ![](_media/capture.png)
@@ -45,9 +46,9 @@ ensuite tu parles que de la led D1... et l'autre ?
 cette erreur de texte vient peut être du fait que le schéma ne soit pas bon
 ```
 
-If the output is set to one, the LED D1 will turn on.
+If the GPIO_O is set to one, GPIO_1 should be set to one also.
 
-To control various I:O's, you can reproduce the schematic. The resistor value is 1 Kohms.
+To control various I:O's, you can reproduce the schematic. The resistor value is 100 ohms.
 
 The push button will allow you to reset the PICO without unplugging the cable.
 
@@ -169,6 +170,7 @@ This mode indicates that the microcontroller is ready to be programmed.
 
 To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
 
+To go back to USB mass storage mode, you will have to press the push button and the bootsel button on the PICO as showed previousely.
 
 ```
 !!!!! A CORRIGER
@@ -226,7 +228,7 @@ To reset the MCU, you need to press the push button and the bootsel button of th
 
 # Panduza client
 
-The PICO client is the panduza bloc from the point of view of the user.
+The PICO client is the Panduza bloc from the point of view of the user.
 
 This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT broker.
 
