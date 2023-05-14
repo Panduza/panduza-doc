@@ -54,7 +54,10 @@ The push button will allow you to reset the PICO without unplugging the cable.
 
 There is a complete schematic with the pinout of the PICO
 
+
+
 ![](_media/schematic.png)
+
 
 ## Software Requirements
 
@@ -231,6 +234,17 @@ To reset the MCU, you need to press the push button and the bootsel button of th
 The PICO client is the Panduza bloc from the point of view of the user.
 
 This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT broker.
+
+To do this, we first have to understand the different attributs and filds of a IO.
+
+<p> It's direction. "in" or "out" </p>
+<p> the pull value. It's the configuration of a input. it's ether "up", "down" or "open"</p>
+<p> It's active state. True or False. </p>
+<p> active_low. True or False. by default it is set to false. </p>
+
+
+Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions.
+
 
 In this part, we need to configure various information.
 
