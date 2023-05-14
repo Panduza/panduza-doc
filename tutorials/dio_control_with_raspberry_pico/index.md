@@ -33,7 +33,7 @@ To do this, you can do the schematic the following schematic to control one IO:
 LE SCHEMA NES PAS BON
 ```
 
-![](_media/schematic_control.png)
+![](_media/capture.png)
 
 ```
 !!!!! A CORRIGER
