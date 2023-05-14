@@ -247,6 +247,8 @@ To do this, we first have to understand the different attributs and filds of a I
 
 Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions.
 
+We have included a robot framework functionality. Robot framework will allow us to do test cases and check if we have sent the correct data to the microcontroller.
+
 
 In this part, we need to configure various information.
 
