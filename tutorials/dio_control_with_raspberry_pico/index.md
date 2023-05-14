@@ -243,6 +243,7 @@ To do this, we first have to understand the different attributs and filds of a I
 <p> It's active state. True or False. </p>
 <p> active_low. True or False. by default it is set to false. </p>
 
+![](_media/io_description.png)
 
 Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions.
 
