@@ -4,7 +4,7 @@ This tutorial explains, step by step, how to configure a Raspberry Pico and use 
 
 ![](_media/description.png)
 
-# Hardware Requirements
+## Hardware Requirements
 
 For this project, you will need to have the following components : 
 
@@ -13,12 +13,6 @@ For this project, you will need to have the following components :
 - 2 LEDs
 - 1 resistor of 1Kohms maximum
 - 1 push button
-
-```bash
-# MES COMMENTAIRES
-- 10 Leds c'est trop ! fais juste un example avec 2 dios + 2 leds et 1 resistance
-- Tu parles d'un boutton mais tu ne montres pas comment le cabler
-```
 
 You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
@@ -32,7 +26,24 @@ The GPIO 0 will be set as the output and the GPIO 1 as the input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
+`!!! OK POINT FIX DOC AFTER ONLY !!!`
+
+```
+!!!!! A CORRIGER
+LE SCHEMA NES PAS BON
+```
+
 ![](_media/schematic_control.png)
+
+```
+!!!!! A CORRIGER
+
+'If the output' => je ne comprends pas, il y a 2 GPIOs qui peuvent être inpout ou output mais il n'y a pas 1 output...
+
+ensuite tu parles que de la led D1... et l'autre ?
+
+cette erreur de texte vient peut être du fait que le schéma ne soit pas bon
+```
 
 If the output is set to one, the LED D1 will turn on.
 
@@ -44,9 +55,7 @@ There is a complete schematic with the pinout of the PICO
 
 ![](_media/schematic.png)
 
-`!!! OK POINT FIX DOC AFTER ONLY !!!`
-
-# Software Requirements
+## Software Requirements
 
 This tutorial has been tested on Ubuntu 20.04 virtual machine.
 
@@ -65,6 +74,7 @@ Make sure you have installed the following packages :
   sudo apt install git # install git package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
+
 Python is already installed on Ubuntu distribution, you won't have to reinstall it.
 
 You will also have to install docker, it's a bit harder to install. You can follow the steps below to guide you.
@@ -147,31 +157,24 @@ You should have the following output
 
 As mentioned in the beginning, Panduza is the combination of different blocs, the client, the platform, the MQTT broker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
 
-# Configuration of the Raspberry PI PICO
+## Configuration of the Raspberry PI PICO
 
 The configuration of the PICO is an important step of the project.
 
-First of all, you will **pza-pico-modbus-dio.uf2** to program the PICO. The file is available at the following link : 
-
-
-```bash
-  https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2
-```
-
-
-To communicate with the PICO in Modbus protocol, we have integrated a library. The following link is the documentation of the library : 
-
-```bash
-  https://jacajack.github.io/liblightmodbus/
-```
-
+First of all, you need to program the PICO with the firmware: [**pza-pico-modbus-dio.uf2**](https://github.com/Panduza/panduza-adapters-sdk/releases/tag/v0.0.2)
 
 To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
-It can also program the PICO using the serial wire Debug port. In our case, we will use the USB mode.
 
 This mode indicates that the microcontroller is ready to be programmed.
 
 To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
+
+
+```
+!!!!! A CORRIGER
+il faut aussi dire aux gens sur quel boutton appuyer... sinon ils vont pas savoir et les bouttons que tu as mis au début ne servenet pas
+```
+
 
 ```bash
   lsusb
@@ -195,9 +198,16 @@ In our case you will have to copy the **pza-pico-modbus-dio.uf2** to the PICO us
 
 After this, the USB mode is disabled.
 
-The name of the pico when programmed is **panduza.io dio-modbus**, his vendor id is **16c0 and id product **05e1**
+The name of the pico when programmed is **panduza.io dio-modbus**, his vendor id is **16c0** and id product **05e1**
 
 You can use lsusb command to check if a USB device with the vendor and product is available.
+
+
+```
+!!!!! A CORRIGER
+Dans ta capture d'écran on voit pas panduza.io... ?
+```
+
 
 ![](_media/panduza_io.png)
 
