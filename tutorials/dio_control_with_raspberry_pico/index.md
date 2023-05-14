@@ -211,6 +211,7 @@ You can use lsusb command to check if a USB device with the vendor and product i
 ```
 !!!!! A CORRIGER
 Dans ta capture d'écran on voit pas panduza.io... ?
+En effet, mais toutefois, il y'a bien le bon vendor id et product id
 ```
 
 
