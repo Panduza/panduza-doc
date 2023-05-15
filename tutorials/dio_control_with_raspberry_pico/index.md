@@ -205,7 +205,7 @@ After this, the USB mode is disabled.
 
 The name of the pico when programmed is **panduza.io dio-modbus**, his vendor id is **16c0** and id product **05e1**
 
-You can use lsusb command to check if a USB device with the vendor and product is available.
+You can use usb-devices command to check if a USB device with the vendor, product and name is available.
 
 
 ```
@@ -216,6 +216,8 @@ En effet, mais toutefois, il y'a bien le bon vendor id et product id
 
 
 ![](_media/panduza_io.png)
+
+**Make sure you have a usb manufacture name panduza.io, with the vendor id is 16c0 and product id is 05e1**
 
 A serial port should be opened in the /dev directory of your Linux environment. The serial port name should be **ttyACM0** or **ttyACM1**.
 
@@ -333,7 +335,7 @@ while True:
 
 To set the output to one, we have to send True in the state active field.
 
-To check if the input, is passed to True, we have to use the get() function, witch will allow you read the value of the state active
+To check if the input, is passed to True, we have to use the get() function, which will allow you read the value of the state active
 
 ```python
   print(d1.state.active.get())
@@ -361,9 +363,9 @@ git clone https://github.com/MageTomcat14/pza_client_dio.git
 Run the script by using the following command : 
 
 ```bash
-  python3 <script_name>.py
+  python3 client.py
 ```
-The LED's 1, should turn on.
+
 
 Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
 
