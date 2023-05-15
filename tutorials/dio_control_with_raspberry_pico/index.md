@@ -245,32 +245,45 @@ To do this, we first have to understand the different attributs and filds of a I
 
 ![](_media/io_description.png)
 
-Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions.
+Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions. This time is measured in seconds.
 
-We have included a robot framework functionality. Robot framework will allow us to do test cases and check if we have sent the correct data to the microcontroller.
+In our example, we want to control the input GPIO_1 witch is wired with the GPIO_0 output.
 
+To do this we will set the output to the value True, and the INPUT should be passing to True.
 
-In this part, we need to configure various information.
+But first, we have to do various configurations;
 
-The server configuration.
+**Configure the server**
 
 ```python
 BROKER_ADDR="localhost"
 BROKER_PORT=1883
 ```
 
-Configure the Topics. A topic corresponds to a path where will be stored all the data from each I:O.
+**Configure the Topics**
 
-Create an instance of the Client class. This will manage the connection between your client script and the MQTT broker.
+A topic corresponds to a path where will be stored all the data from each I:O.
+
+We will configure, one topic per IO.
+
+
+```python
+  pzaTOPIC=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{0}"
+  pzaTOPIC1=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{1}"
+```
+
+**do a first connexion test**
 
 ```python
   pzaClient = Client(url=BROKER_ADDR, port=1883)
   pzaClient.connect()
 ```
 
-Scanning the interfaces. This will make sure that all the topics have been created. There is an example of a message you must see in the output of your terminal
+**Scanning the interfaces**
 
-![](_media/run_client.png)
+This will make sure that all the topics have been created. There is an example of a message you must see in the output of your terminal
+
+
 
 ```python
   # scan the interface
@@ -284,29 +297,51 @@ Scanning the interfaces. This will make sure that all the topics have been creat
 
 On the output of the terminal, you need to see all the declared topics.
 
+![](_media/run_client.png)
 
-create instances of Dio. This will allow you to use the Driver class from the platform and send info to the MQTT broker to control I:O's of the MCU.
+create instances of Dio. This will allow you to the user to use the function of the drivers
 
 ```python
 # declare instances of dio. One per io control
-d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC0, client=pzaClient)
+d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC, client=pzaClient)
+d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
+```
 
-print("setting the values for GPIO 0, must see led 1 blink..")
-d0.direction.value.set("out")
-time.sleep(1)
-d0.direction.pull.set("open")
-time.sleep(1)
-d0.direction.polling_cycle.set(10)
-time.sleep(1)
+**Then we can start sending data to the output**
 
-d0.state.active.set(False )
-time.sleep(1)
-d0.state.active_low.set(True )
-time.sleep(1)
-d0.state.polling_cycle.set(100)
-time.sleep(1)
+```python
+while True:
+    d.direction.value.set("out")
+    time.sleep(1)
+    d.direction.pull.set("up")
+    time.sleep(1)
+    d.direction.polling_cycle.set(1)
+    time.sleep(1)
+
+    d.state.active_low.set(False)
+    time.sleep(1)
+    d.state.active.set(True)
+    time.sleep(1)
+    print(d1.state.active.get())
+    time.sleep(2)
+    d.state.active.set(False)
+    time.sleep(1)
+    d.state.polling_cycle.set(1)
+    time.sleep(1)
 
 ```
+
+To set the output to one, we have to send True in the state active field.
+
+To check if the input, is passed to True, we have to use the get() function, witch will allow you read the value of the state active
+
+```python
+  print(d1.state.active.get())
+```
+
+You should have the following result in the terminal
+
+![](_media/result_pzaClient.png)
 
 To understand more about how the client works, there is an example of the architecture of how it works.
 
