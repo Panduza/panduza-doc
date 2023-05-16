@@ -74,7 +74,6 @@ Make sure you have installed the following packages :
 
 ```bash
   sudo apt-get install python3-pip # will install pip3 package
-  sudo pip install robotframework  # install robot framework package
   sudo apt install git # install git package
   pip install -e "git+https://github.com/Panduza/panduza-py.git@main#egg=panduza&subdirectory=client" # will install python client of panduza
 ```
@@ -380,7 +379,7 @@ Like the Panduza client, the platform has its architecture.
 
 ![](_media/pza_platform.png)
 
-The platform has three main blocks.
+<!-- The platform has three main blocks.
 
 <p>The MetaDriver will manage the communication with the MQTT broker, by reading and setting values to the MQTT broker.</p>
 <p>The Driver class, which is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.</p>
@@ -389,7 +388,9 @@ The platform has three main blocks.
 Therefore, we have created a MetaDriver and Driver class to implement dio controls.
 
 The driver will call the connector functions. The functions of the connector are related to the protocol used.
-In our case, we will use the Modbus functions from the Pymodbus library.
+In our case, we will use the Modbus functions from the Pymodbus library. -->
+
+The platform has functions that will be run when you will launch the panduza client script.
 
 The Panduza platform is available in the following repository.
 
@@ -410,10 +411,13 @@ Then you will have to configure your platform :
 
 ## Configuration of platform
 
-To launch the platform, you need to create a workspace and put the following elements :
+Once the image has been build, you have to go to the following directory : 
 
-**<p>One tree.json file. **This JSON file will** configure the interface you want to control and the brokers you are going to use.</p>**
-**One docker-compose.yml will deploy docker application.</p>**
+```bash
+  cd deploy/etc_panduza
+```
+
+In this directory, you will find one tree.json file and one docker-compose.yml that you will have to modify.
 
 You can put the following JSON and docker-compose.yml
 
@@ -442,12 +446,10 @@ You can put the following JSON and docker-compose.yml
 }
 
 ```
-The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file can be modified.
+The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file according to your pico and what you want to do.
 
 
-**One driver will control one GPIO**
-
-Therefore, the tree.json will instance one driver for each GPIO.
+Then, you can use the following docker-compose.yml
 
 ```yml
 version: '3'
@@ -486,9 +488,9 @@ Then execute the following command :
   docker compose up
 ```
 
-This command will do the following tasks,
+The first time, you run this command, it will run the following tasks :
 
-Execute the mosquitto server
+Install and execute the mosquitto server
 
 List all of the available drivers
 
@@ -500,11 +502,11 @@ Do the first update of the MQTT broker
 
 You must have the following result : 
 
-![](../../_media/docker_compose_up.png)
+![](_media/docker_compose_up.png)
 
-The docker compose will do a first init of the MQTT broker.
+The docker-compose will do a first init of the MQTT broker.
 
-![](../../_media/log_first_init.png)
+![](_media/log_first_init.png)
 
 
 # RUN PANDUZA
