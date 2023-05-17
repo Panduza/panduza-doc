@@ -12,9 +12,10 @@ For this project, you will need to have the following components :
 - 1 USB cable to connect the PC to the PICO (micro USB cable)
 - 2 LEDs
 - 1 resistor of 1Kohms maximum
-- 1 push button
+- 1 push button for reset
+- 1 push button to connect to a io
 
-You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
+You can use the following s+chematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
 ![](_media/schematic_push_button.png)
 
@@ -25,6 +26,7 @@ In this example, we will control two digital inputs and outputs, GPIO 0 and GPIO
 The GPIO 0 will be set as the output and the GPIO 1 as the input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
+
 
 `!!! OK POINT FIX DOC AFTER ONLY !!!`
 
@@ -139,7 +141,7 @@ If you want to have more info about how to install docker, I recommend you to ch
 ```
 
 
-The restart your Linux environment :
+Then restart your Linux environment :
 
 ```bash
   sudo reboot
@@ -514,9 +516,19 @@ The docker-compose will do a first init of the MQTT broker.
 To run correctly the project, you need to respect the following order
 
 **<p>Program the PICO</p>**
+```bash
+cp pza-pico-modbus-dio.uf2 /media/<user_name>/RP2_RPI
+```
 **<p>launch the platform</p>**
+```bash
+./platform/docker.build-local.sh
+cd deploy/etc_panduza
+docker compose up
+```
 **<p>run the client script</p>**
-
+```bash
+  python3 client.py
+```
 
 # Additional requirements
 
