@@ -87,7 +87,7 @@ You will have to install docker. Docker is a powerful tool that will contain all
 
 We will install docker using the apt repository
 
-first update the apt package and do the following command 
+First, update the apt package and do the following command 
 
 ```bash
   sudo apt-get update
@@ -102,7 +102,7 @@ Add docker's official GPG key :
   sudo chmod a+r /etc/apt/keyrings/docker.gpg
 ```
 
-Then excecute the following command to set up the repository : 
+Then execute the following command to set up the repository : 
 
 ```bash
 echo \
@@ -124,13 +124,13 @@ Use the following command :
  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-If you wish have more info about how to install docker, I recommend you to check the following site : 
+If you want to have more info about how to install docker, I recommend you to check the following site : 
 
 ```bash
  https://docs.docker.com/engine/install/ubuntu/
 ```
 
-**You might have permission issues if you try to build a docker image**. To not have this problem, I recommend you run the following commands : 
+**You might have permission issues if you try to build a docker image**. To resolve this issue, I recommend you running the following commands : 
 
 ```bash
   sudo groupadd docker
@@ -139,7 +139,7 @@ If you wish have more info about how to install docker, I recommend you to check
 ```
 
 
-You might have to reboot your Linux system : 
+The restart your Linux environment :
 
 ```bash
   sudo reboot
@@ -155,7 +155,7 @@ You should have the following output
 
 ![](_media/dockerIsOkay.png)
 
-
+Docker is correctly installed in your environment.
 
 
 As mentioned in the beginning, Panduza is the combination of different blocs, the client, the platform, the MQTT broker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
@@ -168,17 +168,14 @@ First of all, you need to program the PICO with the firmware: [**pza-pico-modbus
 
 To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
 
-This mode indicates that the microcontroller is ready to be programmed.
-
-To check that you are in USB mass storage Device Mode, you can open a terminal and run the following command : 
-
-To go back to USB mass storage mode, you will have to press the push button and the bootsel button on the PICO as showed previousely.
+To be in USB mass storage mode, you will have to press the push button and the bootsell button on the PICO. After a couple of seconds, you should be in
+USB mass storage mode.
 
 ```
 !!!!! A CORRIGER
 il faut aussi dire aux gens sur quel boutton appuyer... sinon ils vont pas savoir et les bouttons que tu as mis au début ne servenet pas
 ```
-
+Run the following command : 
 
 ```bash
   lsusb
@@ -210,7 +207,7 @@ You can use usb-devices command to check if a USB device with the vendor, produc
 ```
 !!!!! A CORRIGER
 Dans ta capture d'écran on voit pas panduza.io... ?
-En effet, mais toutefois, il y'a bien le bon vendor id et product id
+corrigé.
 ```
 
 
@@ -227,17 +224,15 @@ If you want to make sure that the ports exist, you can list all the serial ports
   cd /dev
   ls devttyACM*
 ```
-
-To reset the MCU, you need to press the push button and the bootsel button of the MCU. This will erase the software from the flash and after a couple of seconds, the PICO will be back in USB mass storage mode.
+The port open should be ttyACM0 or ttyACM1
 
 
 # Panduza client
 
-The PICO client is the Panduza bloc from the point of view of the user.
 
-This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT broker.
+This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT protocol.
 
-To do this, we first have to understand the different attributs and filds of a IO.
+To do this, we first have to understand the different attributes and fields we can send and get :
 
 <p> It's direction. "in" or "out" </p>
 <p> the pull value. It's the configuration of a input. it's ether "up", "down" or "open"</p>
@@ -248,9 +243,10 @@ To do this, we first have to understand the different attributs and filds of a I
 
 Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions. This time is measured in seconds.
 
+
 In our example, we want to control the input GPIO_1 witch is wired with the GPIO_0 output.
 
-To do this we will set the output to the value True, and the INPUT should be passing to True.
+To do this we will set the active state to True. In the Input, the active state should be set to True also.
 
 But first, we have to do various configurations;
 
@@ -258,7 +254,7 @@ But first, we have to do various configurations;
 
 ```python
 BROKER_ADDR="localhost"
-BROKER_PORT=1883
+BROKER_PORT=1883 # mqtt protocol port
 ```
 
 **Configure the Topics**
@@ -269,8 +265,8 @@ We will configure, one topic per IO.
 
 
 ```python
-  pzaTOPIC=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{0}"
-  pzaTOPIC1=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{1}"
+  pzaTOPIC_OUT=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{0}"
+  pzaTOPIC_IN=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{1}"
 ```
 
 **do a first connexion test**
@@ -300,41 +296,48 @@ On the output of the terminal, you need to see all the declared topics.
 
 ![](_media/run_client.png)
 
-create instances of Dio. This will allow you to the user to use the function of the drivers
+create instances of Dio. This will allow you the user to use the function of the drivers
 
 ```python
 # declare instances of dio. One per io control
-d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC, client=pzaClient)
-d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC1, client=pzaClient)
+d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC_OUT, client=pzaClient)
+d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC_IN, client=pzaClient)
 ```
 
 **Then we can start sending data to the output**
 
 ```python
 while True:
-    d.direction.value.set("out")
-    time.sleep(1)
-    d.direction.pull.set("up")
-    time.sleep(1)
-    d.direction.polling_cycle.set(1)
-    time.sleep(1)
+    try:
+        d.direction.value.set("out")
+        d1.direction.value.set("in")
+        d.direction.pull.set("up")
 
-    d.state.active_low.set(False)
-    time.sleep(1)
-    d.state.active.set(True)
-    time.sleep(1)
-    print(d1.state.active.get())
-    time.sleep(2)
-    d.state.active.set(False)
-    time.sleep(1)
-    d.state.polling_cycle.set(1)
-    time.sleep(1)
+        d.direction.polling_cycle.set(1)
+        d.state.polling_cycle.set(1)
+        d1.direction.polling_cycle.set(1)
+        d1.state.polling_cycle.set(1)
+
+
+        d.state.active_low.set(False)
+        d.state.active.set(True)
+        time.sleep(1)
+        print(f" value of the input {d1.state.active.get()}")
+        time.sleep(1)
+        d.state.active.set(False)
+        time.sleep(1)
+        print(f" value of the input {d1.state.active.get()}")
+        time.sleep(1)
+    except: # reset all the state of io's
+       d.state.active.set(False)
+       d1.state.active.set(False)
+       exit()
 
 ```
 
 To set the output to one, we have to send True in the state active field.
 
-To check if the input, is passed to True, we have to use the get() function, which will allow you read the value of the state active
+To check if the input, is passed to True, we have to use the get() function, which will allow you read the value of the state active of the input
 
 ```python
   print(d1.state.active.get())
@@ -348,8 +351,6 @@ To understand more about how the client works, there is an example of the archit
 
 ![](_media/client.png)
 
-
-The script of the client is available in the following repository : 
 
 ## launch of Panduza client
 
@@ -379,18 +380,10 @@ Like the Panduza client, the platform has its architecture.
 
 ![](_media/pza_platform.png)
 
-<!-- The platform has three main blocks.
 
-<p>The MetaDriver will manage the communication with the MQTT broker, by reading and setting values to the MQTT broker.</p>
-<p>The Driver class, which is heritated from Metadriver, will implement the functions that we have created in the MeteDriver class.</p>
-<p>The connector, will contain the functions to transfer or read data from the MCU</p>.
+The platform has functions that will be run when you will launch the Panduza client script.
 
-Therefore, we have created a MetaDriver and Driver class to implement dio controls.
-
-The driver will call the connector functions. The functions of the connector are related to the protocol used.
-In our case, we will use the Modbus functions from the Pymodbus library. -->
-
-The platform has functions that will be run when you will launch the panduza client script.
+Each function will get and set attributes and fields of an IO.
 
 The Panduza platform is available in the following repository.
 
@@ -400,9 +393,10 @@ The Panduza platform is available in the following repository.
 
 Before running our platform, the image needs to be built.
 
-To do this, you have to execute the following command :
+To do this, you have to execute the following command (this may take some time for the first build) :
 
 ```bash
+  cd panduza-py
   ./platform/docker.build-local.sh
 ```
 This command will configure your project environment. It will create a local image that you will run when the platform is launched.
@@ -411,7 +405,7 @@ Then you will have to configure your platform :
 
 ## Configuration of platform
 
-Once the image has been build, you have to go to the following directory : 
+Once the image has been built, you have to go to the following directory : 
 
 ```bash
   cd deploy/etc_panduza
@@ -446,8 +440,14 @@ You can put the following JSON and docker-compose.yml
 }
 
 ```
-The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file according to your pico and what you want to do.
+The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file might change according to your purpose.
 
+To check the serial id of your pico, you can do the following command : 
+
+```bash
+  udevadm info dev/ttyACM0
+```
+Then look for the ID_SERIAL_SHORT. Past this id in th usb_serial_id field
 
 Then, you can use the following docker-compose.yml
 
