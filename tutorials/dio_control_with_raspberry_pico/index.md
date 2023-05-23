@@ -13,7 +13,6 @@ For this project, you will need to have the following components :
 - 2 LEDs
 - 1 resistor of 1Kohms maximum
 - 1 push button for reset
-- 1 push button to connect to an io
 
 You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
