@@ -13,9 +13,9 @@ For this project, you will need to have the following components :
 - 2 LEDs
 - 1 resistor of 1Kohms maximum
 - 1 push button for reset
-- 1 push button to connect to a io
+- 1 push button to connect to an io
 
-You can use the following s+chematic to connect the push button to the PICO. It will be helpful to reset the pico board.
+You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
 ![](_media/schematic_push_button.png)
 
@@ -232,23 +232,23 @@ The port open should be ttyACM0 or ttyACM1
 # Panduza client
 
 
-This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO via the MQTT protocol.
+This part will allow you to send various information about each I:O (GPIO 0 in our case) to the PICO.
 
-To do this, we first have to understand the different attributes and fields we can send and get :
+To do this, we first have to understand the different parameters of a io :
 
-<p> It's direction. "in" or "out" </p>
+<p> The direction of the IO. "in" for input, "out" for output </p>
 <p> the pull value. It's the configuration of a input. it's ether "up", "down" or "open"</p>
-<p> It's active state. True or False. </p>
-<p> active_low. True or False. by default it is set to false. </p>
+<p> The value represented by the active state </p>
+<p> active_low. True or False. by default, it is set to false. </p>
 
 ![](_media/io_description.png)
 
 Also, we can configure a polling cycle. The polling cycle is the time between two acquisitions. This time is measured in seconds.
 
 
-In our example, we want to control the input GPIO_1 witch is wired with the GPIO_0 output.
+In our example, we want to control the input GPIO_1 which is wired with the GPIO_0 configured as a output.
 
-To do this we will set the active state to True. In the Input, the active state should be set to True also.
+To do this we will write to the GPIO_0 by setting the state active to **True**. In the Input, the active state should be set to True also.
 
 But first, we have to do various configurations;
 
