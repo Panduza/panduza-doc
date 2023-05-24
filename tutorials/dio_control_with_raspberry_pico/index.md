@@ -406,16 +406,25 @@ Then you will have to configure your platform :
 
 ## Configuration of platform
 
-Once the image has been built, you have to go to the following directory : 
+
+
+Create the the panduza directory in the /etc directory : 
 
 ```bash
-  cd deploy/etc_panduza
+cd /etc
+sudo mkdir /panduza
+```
+in the /platform/deploy directory, run the following bash script
+
+```bash
+   chmod 777 setup_panduza_etc
+  ./setup_panduza_etc.sh
 ```
 
-In this directory, you will find one tree.json file and one docker-compose.yml that you will have to modify.
+After, go to the etc/panduza directory of your environment. You will find a tree.json configuration file and a docker-compose.yml.
+
 
 You can put the following JSON and docker-compose.yml
-
 
 ```json
 {
@@ -439,18 +448,7 @@ You can put the following JSON and docker-compose.yml
         }
     }
 }
-
 ```
-The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file might change according to your purpose.
-
-To check the serial id of your pico, you can do the following command : 
-
-```bash
-  udevadm info dev/ttyACM0
-```
-Then look for the ID_SERIAL_SHORT. Past this id in th usb_serial_id field
-
-Then, you can use the following docker-compose.yml
 
 ```yml
 version: '3'
@@ -477,7 +475,17 @@ services:
     # command: bash
 ```
 
+The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file might change according to your purpose.
+
 Make sure that you use the local image that has been built as described above.
+
+To check the serial id of your pico, you can do the following command : 
+
+```bash
+  udevadm info dev/ttyACM0
+```
+Then look for the ID_SERIAL_SHORT. Past this id in th usb_serial_id field
+
 
 ## RUN panduza platform
 
