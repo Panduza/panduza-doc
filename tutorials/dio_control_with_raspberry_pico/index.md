@@ -262,19 +262,18 @@ BROKER_PORT=1883 # mqtt protocol port
 
 A topic corresponds to a path where will be stored all the data from each I:O.
 
-We will configure, one topic per IO.
-
+To load the Topics, we have used aliases : 
 
 ```python
-  pzaTOPIC_OUT=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{0}"
-  pzaTOPIC_IN=f"pza/lab_paul/io_pza_controling/testing_of_io_controling{1}"
+  Core.LoadAliases(json_filepath="clientConf.json")
 ```
+
 
 **do a first connexion test**
 
 ```python
-  pzaClient = Client(url=BROKER_ADDR, port=1883)
-  pzaClient.connect()
+  pzaPaulClient = Client(broker_alias="local")
+  pzaPaulClient.connect()
 ```
 
 **Scanning the interfaces**
@@ -284,16 +283,21 @@ This will make sure that all the topics have been created. There is an example o
 
 
 ```python
-  # scan the interface
-  inter = pzaClient.scan_interfaces()
+for topic in inter:
+    if str(inter[topic]['type']).rjust(10) == str('       DIO'): # load the DIO topics from json
 
-  # list all the topics
-  print("scanning the interfaces..")
-  for topic in inter:
-      print(f"- {topic} => {inter[topic]['type']}")
+        print(f"list of the TOPICS => {topic}")
+        getioNumber = topic.split(topicBegin)[1]
+        toInt = int(getioNumber)
+        num.append(toInt)
+
+print(num)
+print("\033[92msorting array of topics\033[0m")
+sort = sorted(num)
+print(sort)
 ```
 
-On the output of the terminal, you need to see all the declared topics.
+On the output of the terminal, you need to see all the declared Dio topics.
 
 ![](_media/run_client.png)
 
@@ -301,8 +305,8 @@ create instances of Dio. This will allow you the user to use the function of the
 
 ```python
 # declare instances of dio. One per io control
-d = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC_OUT, client=pzaClient)
-d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=pzaTOPIC_IN, client=pzaClient)
+d0 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=f"pza/lab_paul/io_pza_controling/testing_of_io_controling-{sort[0]}", client=pzaPaulClient)
+d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=f"pza/lab_paul/io_pza_controling/testing_of_io_controling-{sort[1]}", client=pzaPaulClient)
 ```
 
 **Then we can start sending data to the output**
@@ -367,7 +371,6 @@ Run the script by using the following command :
   python3 client.py
 ```
 
-
 Note that the platform must run before launching the script. Otherwise, you can have a connection error : 
 
 ![](_media/error_client.png)
@@ -397,23 +400,21 @@ Before running our platform, the image needs to be built.
 To do this, you have to execute the following command (this may take some time for the first build) :
 
 ```bash
-  cd panduza-py
   ./platform/docker.build-local.sh
 ```
+
 This command will configure your project environment. It will create a local image that you will run when the platform is launched.
 
-Then you will have to configure your platform : 
 
 ## Configuration of platform
 
-
-
-Create the the panduza directory in the /etc directory : 
+Create the panduza directory in the /etc directory : 
 
 ```bash
 cd /etc
 sudo mkdir /panduza
 ```
+
 in the /platform/deploy directory, run the following bash script
 
 ```bash
@@ -482,9 +483,9 @@ Make sure that you use the local image that has been built as described above.
 To check the serial id of your pico, you can do the following command : 
 
 ```bash
-  udevadm info dev/ttyACM0
+  udevadm info dev/ttyACM*
 ```
-Then look for the ID_SERIAL_SHORT. Past this id in th usb_serial_id field
+Then look for the ID_SERIAL_SHORT. Past this id in the usb_serial_id field
 
 
 ## RUN panduza platform
@@ -497,7 +498,7 @@ Then execute the following command :
   docker compose up
 ```
 
-The first time, you run this command, it will run the following tasks :
+The first time you run this command the **docker compose up** command, it will run the following tasks :
 
 Install and execute the mosquitto server
 
@@ -526,11 +527,13 @@ To run correctly the project, you need to respect the following order
 ```bash
 cp pza-pico-modbus-dio.uf2 /media/<user_name>/RP2_RPI
 ```
+
 **<p>launch the platform</p>**
 ```bash
 ./platform/docker.build-local.sh
-cd deploy/etc_panduza
+cd /etc/panduza
 docker compose up
+
 ```
 **<p>run the client script</p>**
 ```bash
