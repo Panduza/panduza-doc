@@ -400,6 +400,7 @@ Before running our platform, the image needs to be built.
 To do this, you have to execute the following command (this may take some time for the first build) :
 
 ```bash
+  cd panduza-py
   ./platform/docker.build-local.sh
 ```
 
@@ -415,9 +416,10 @@ cd /etc
 sudo mkdir /panduza
 ```
 
-in the /platform/deploy directory, run the following bash script
+in the /platform/deploy directory of the platform repository, run the following bash script
 
 ```bash
+
    chmod 777 setup_panduza_etc
   ./setup_panduza_etc.sh
 ```
@@ -426,6 +428,12 @@ After, go to the etc/panduza directory of your environment. You will find a tree
 
 
 You can put the following JSON and docker-compose.yml
+
+You migth have to set permissions to the docker-compose and tree.json configuration
+
+```bash
+  sudo chmod 777 tree.json docker-compose.yml
+```
 
 ```json
 {
