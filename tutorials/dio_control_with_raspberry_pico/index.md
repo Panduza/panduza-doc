@@ -51,7 +51,7 @@ If the GPIO_O is set to one, GPIO_1 should be set to one also.
 
 To control various I:O's, you can reproduce the schematic. The resistor value is 100 ohms.
 
-The push button will allow you to reset the PICO without unplugging the cable.
+The push button will allow you to reset the PICO without unplugging the usb cable.
 
 There is a complete schematic with the pinout of the PICO
 
@@ -62,14 +62,18 @@ There is a complete schematic with the pinout of the PICO
 
 ## Software Requirements
 
-This tutorial has been tested on Ubuntu 20.04 virtual machine.
+This tutorial has been tested on Ubuntu 20.04 and 22.04 virtual machine.
 
-Update your Ubuntu environment first
+To configure the environment, you must follow the following steps : 
+
+### Update your Ubuntu environment first
 
 ```bash 
   sudo apt-get update
   sudo apt-get upgrade
 ```
+
+### Install necessary packages
 
 Make sure you have installed the following packages : 
 
@@ -83,7 +87,8 @@ Python is already installed on Ubuntu distribution, you won't have to reinstall 
 
 You will also have to install docker, it's a bit harder to install. You can follow the steps below to guide you.
 
-## installation of docker
+### installation of docker
+
 You will have to install docker. Docker is a powerful tool that will contain all the application project. 
 
 We will install docker using the apt repository
@@ -119,6 +124,9 @@ Then, do an update of the apt package :
 ```
 
 Now the environment is ready to install the docker engine.
+
+**The docker engine is very important in order to run panduza**
+
 Use the following command : 
 
 ```bash
@@ -314,27 +322,27 @@ d1 = Dio(addr=BROKER_ADDR, port=BROKER_PORT, topic=f"pza/lab_paul/io_pza_control
 ```python
 while True:
     try:
-        d.direction.value.set("out")
+        d0.direction.value.set("out")
         d1.direction.value.set("in")
         d.direction.pull.set("up")
 
-        d.direction.polling_cycle.set(1)
-        d.state.polling_cycle.set(1)
+        d0.direction.polling_cycle.set(1)
+        d0.state.polling_cycle.set(1)
         d1.direction.polling_cycle.set(1)
         d1.state.polling_cycle.set(1)
 
 
-        d.state.active_low.set(False)
-        d.state.active.set(True)
+        d0.state.active_low.set(False)
+        d0.state.active.set(True)
         time.sleep(1)
         print(f" value of the input {d1.state.active.get()}")
         time.sleep(1)
-        d.state.active.set(False)
+        d0.state.active.set(False)
         time.sleep(1)
         print(f" value of the input {d1.state.active.get()}")
         time.sleep(1)
     except: # reset all the state of io's
-       d.state.active.set(False)
+       d0.state.active.set(False)
        d1.state.active.set(False)
        exit()
 
