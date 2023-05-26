@@ -123,23 +123,23 @@ Then, do an update of the apt package :
  sudo apt-get update
 ```
 
-Now the environment is ready to install the docker engine.
+**Now the environment is ready to install the docker engine.**
 
-**The docker engine is very important in order to run panduza**
 
-Use the following command : 
+Use the following command, this will install the packages you will need to run the platform : 
 
 ```bash
  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-If you want to have more info about how to install docker, I recommend you to check the following site : 
+**If you want to have more info about how to install docker, I recommend you to check the following site :**
 
 ```bash
  https://docs.docker.com/engine/install/ubuntu/
 ```
 
-**You might have permission issues if you try to build a docker image**. To resolve this issue, I recommend you running the following commands : 
+
+**You might have permission issues if you try to build a docker image**. To resolve this issue, I recommend you to run the following commands : 
 
 ```bash
   sudo groupadd docker
@@ -154,7 +154,7 @@ Then restart your Linux environment :
   sudo reboot
 ```
 
-Once the system has rebooted, you can run a docker image to see if it works.
+Once the system has rebooted, you can run a docker image to see if docker is correctly installed.
 
 ```bash
  docker run hello-wold
@@ -164,10 +164,13 @@ You should have the following output
 
 ![](_media/dockerIsOkay.png)
 
+
 Docker is correctly installed in your environment.
 
 
-As mentioned in the beginning, Panduza is the combination of different blocs, the client, the platform, the MQTT broker and the configuration of the Raspberry PI PICO. We will explain each part of the chain.
+As mentioned in the beginning, Panduza is the combination of different blocs, the client, the platform and the configuration of the Raspberry PI PICO. 
+
+We will explain each part of the chain.
 
 ## Configuration of the Raspberry PI PICO
 
@@ -177,14 +180,15 @@ First of all, you need to program the PICO with the firmware: [**pza-pico-modbus
 
 To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
 
-To be in USB mass storage mode, you will have to press the push button and the bootsell button on the PICO. After a couple of seconds, you should be in
-USB mass storage mode.
+To be in USB mass storage mode, you will have to press the push button and the bootsell button (white button) on the PICO. After a couple of seconds, you should be in
+
 
 ```
 !!!!! A CORRIGER
 il faut aussi dire aux gens sur quel boutton appuyer... sinon ils vont pas savoir et les bouttons que tu as mis au début ne servenet pas
 ```
-Run the following command : 
+
+To check you are in usb mode, you must run the following command
 
 ```bash
   lsusb
@@ -219,6 +223,10 @@ Dans ta capture d'écran on voit pas panduza.io... ?
 corrigé.
 ```
 
+
+```bash
+  usb-devices
+```
 
 ![](_media/panduza_io.png)
 
@@ -277,7 +285,7 @@ To load the Topics, we have used aliases :
 ```
 
 
-**do a first connexion test**
+**Do a first connexion test**
 
 ```python
   pzaPaulClient = Client(broker_alias="local")
@@ -287,7 +295,6 @@ To load the Topics, we have used aliases :
 **Scanning the interfaces**
 
 This will make sure that all the topics have been created. There is an example of a message you must see in the output of your terminal
-
 
 
 ```python
@@ -309,7 +316,10 @@ On the output of the terminal, you need to see all the declared Dio topics.
 
 ![](_media/run_client.png)
 
-create instances of Dio. This will allow you the user to use the function of the drivers
+
+**Create instances of DIO**
+
+Then create instances of Dio. This will allow you the user to use the function of the drivers
 
 ```python
 # declare instances of dio. One per io control
@@ -383,6 +393,7 @@ Note that the platform must run before launching the script. Otherwise, you can 
 
 ![](_media/error_client.png)
 
+We will see now how to configure the platform
 
 # Panduza platform
 
@@ -393,9 +404,6 @@ Like the Panduza client, the platform has its architecture.
 ![](_media/pza_platform.png)
 
 
-The platform has functions that will be run when you will launch the Panduza client script.
-
-Each function will get and set attributes and fields of an IO.
 
 The Panduza platform is available in the following repository.
 
@@ -412,7 +420,7 @@ To do this, you have to execute the following command (this may take some time f
   ./platform/docker.build-local.sh
 ```
 
-This command will configure your project environment. It will create a local image that you will run when the platform is launched.
+This command will configure your project environment. It will create a local image (local/panduza-py-platform) that you will run when the platform is launched.
 
 
 ## Configuration of platform
@@ -427,8 +435,8 @@ sudo mkdir /panduza
 in the /platform/deploy directory of the platform repository, run the following bash script
 
 ```bash
-
-   chmod 777 setup_panduza_etc
+  cd /platform/deploy
+  chmod 777 setup_panduza_etc
   ./setup_panduza_etc.sh
 ```
 
@@ -437,12 +445,16 @@ After, go to the etc/panduza directory of your environment. You will find a tree
 
 You can put the following JSON and docker-compose.yml
 
-You migth have to set permissions to the docker-compose and tree.json configuration
+You might have to set permissions to write to the docker-compose and tree.json configuration files
+
 
 ```bash
   sudo chmod 777 tree.json docker-compose.yml
 ```
 
+Modify the two files : 
+
+**tree.json**
 ```json
 {
     "machine": "lab_paul",
@@ -454,7 +466,7 @@ You migth have to set permissions to the docker-compose and tree.json configurat
                 {
                     "name" : "testing_of_io_controling%r",
                     "driver" : "io_pza_controling",
-                    "repeated":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,26,27,28],
+                    "repeated":[0,1],
                     "settings":
                     {
                         "usb_serial_id" : "E6614C311B888B35",
@@ -467,6 +479,7 @@ You migth have to set permissions to the docker-compose and tree.json configurat
 }
 ```
 
+**docker-compose.yml**
 ```yml
 version: '3'
 services:
@@ -492,21 +505,30 @@ services:
     # command: bash
 ```
 
-The repeated attribute will allow you to declare various instances of the dio driver. In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file might change according to your purpose.
+The repeated attribute will allow you to declare various instances of the dio driver, in our case, we will only create two instances for the GPIO_0 and GPIO_1.
+
+In the tree.json you will put specific information about the pico and how many I:O's you want to control. Therefore, this JSON file might change according to your purpose.
 
 Make sure that you use the local image that has been built as described above.
 
 To check the serial id of your pico, you can do the following command : 
 
+
 ```bash
   udevadm info dev/ttyACM*
 ```
-Then look for the ID_SERIAL_SHORT. Past this id in the usb_serial_id field
+
+Then look for the ID_SERIAL_SHORT field. Past this id in the usb_serial_id field
+
+![](_media/udevadm.png)
+
+
+Now, you can run the platform : 
 
 
 ## RUN panduza platform
 
-To run the Panduza platform, you have to put yourself in the directory containing the tree.json and the docker-compose.yml.
+To run the Panduza platform, stay in the /etc/panduza directory of your linux system.
 
 Then execute the following command : 
 
@@ -514,7 +536,7 @@ Then execute the following command :
   docker compose up
 ```
 
-The first time you run this command the **docker compose up** command, it will run the following tasks :
+The first time you run **docker compose up** command, the  following tasks will be executed:
 
 Install and execute the mosquitto server
 
@@ -555,6 +577,10 @@ docker compose up
 ```bash
   python3 client.py
 ```
+
+
+Now, Panduza should run and control the IOs of the PICO
+
 
 # Additional requirements
 
