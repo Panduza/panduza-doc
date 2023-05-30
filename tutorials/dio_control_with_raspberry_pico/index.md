@@ -16,6 +16,14 @@ For this project, you will need to have the following components :
 
 You can use the following schematic to connect the push button to the PICO. It will be helpful to reset the pico board.
 
+`!!! OK POINT FIX DOC AFTER ONLY !!!`
+
+```
+!!!!! A CORRIGER
+
+SCHEMA FAUX ! court circuit entre le 3.3 et le GND...
+```
+
 ![](_media/schematic_push_button.png)
 
 You can refer to the pinout below to see where is the RUN PIN on the PICO.
@@ -26,26 +34,7 @@ The GPIO 0 will be set as the output and the GPIO 1 as the input.
 
 To do this, you can do the schematic the following schematic to control one IO: 
 
-
-`!!! OK POINT FIX DOC AFTER ONLY !!!`
-
-```
-!!!!! A CORRIGER
-LE SCHEMA NES PAS BON
-le schéma est corrigé
-```
-
 ![](_media/capture.png)
-
-```
-!!!!! A CORRIGER
-
-'If the output' => je ne comprends pas, il y a 2 GPIOs qui peuvent être inpout ou output mais il n'y a pas 1 output...
-
-ensuite tu parles que de la led D1... et l'autre ?
-
-cette erreur de texte vient peut être du fait que le schéma ne soit pas bon
-```
 
 If the GPIO_O is set to one, GPIO_1 should be set to one also.
 
@@ -55,10 +44,13 @@ The push button will allow you to reset the PICO without unplugging the usb cabl
 
 There is a complete schematic with the pinout of the PICO
 
+```
+!!!!! A CORRIGER
 
+SCHEMA FAUX ! court circuit entre le 3.3 et le GND...
+```
 
 ![](_media/schematic.png)
-
 
 ## Software Requirements
 
@@ -181,12 +173,6 @@ First of all, you need to program the PICO with the firmware: [**pza-pico-modbus
 To program the PICO, you have to ensure that the PICO is connected to the PC and is in the mode USB Mass Storage Device mode.
 
 To be in USB mass storage mode, you will have to press the push button and the bootsell button (white button) on the PICO. After a couple of seconds, you should be in
-
-
-```
-!!!!! A CORRIGER
-il faut aussi dire aux gens sur quel boutton appuyer... sinon ils vont pas savoir et les bouttons que tu as mis au début ne servenet pas
-```
 
 To check you are in usb mode, you must run the following command
 
