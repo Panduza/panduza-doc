@@ -267,7 +267,13 @@ A topic corresponds to a path where will be stored all the data from each I:O.
 To load the Topics, we have used aliases : 
 
 ```python
-  Core.LoadAliases(json_filepath="clientConf.json")
+Core.LoadAliases({
+    "local": {
+        "url": "localhost",
+        "port": 1883,
+        "interfaces": {}
+    }
+})
 ```
 
 
