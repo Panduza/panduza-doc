@@ -28,11 +28,11 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 
 Manage the state of the power supply output
 
-| Field name    |                  Description                   | Default |  Type   | Read-only | pollable |
-| :------------ | :--------------------------------------------: | :-----: | :-----: | :-------: | :------: |
-| value         |              value of the measure              |   NA    |  Float  |   True    |   True   |
-| decimals      | number of decimals supported for voltage value |   NA    | Integer |   True    |  False   |
-| polling_cycle |                                                |         | Integer |   False   |    NA    |
+| Field name    |              Description               | Default |  Type   | Read-only | pollable |
+| :------------ | :------------------------------------: | :-----: | :-----: | :-------: | :------: |
+| value         |          value of the measure          |   NA    |  Float  |   True    |   True   |
+| decimals      | number of decimals supported for value |   NA    | Integer |   True    |  False   |
+| polling_cycle |                                        |         | Integer |   False   |    NA    |
 
 ### Changelog
 
