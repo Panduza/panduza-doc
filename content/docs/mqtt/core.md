@@ -1,12 +1,46 @@
 ---
-title: "Core Concepts"
+title: "Interface Structure"
 weight: 1
 ---
 
-
 # Interface Structure
 
-## Topics
+Each interface in Panduza has a attached MQTT Topic.
+
+## Interface Topic
+
+The interface MQTT topic is structured as follow:
+
+`pza/<bench_name>/<device_name>/<interface_name>`
+
+- *<bench_name>*: Name of the associated test bench (default by default)
+- *<device_name>*: Name of the device on which the interface is attached
+- *<interface_name>*: Name of the interface inside the device
+
+### Group of Interface
+
+Sometime one device has multiple time the same interface.
+For example, a power supply can have multiple channels so multiple BPS interfaces.
+
+To show clients that those interfaces are organised in an array, use this notation.
+
+```
+:<array_name>_<index>:
+```
+
+for example
+
+```
+pza/bench/power/:channel_0:_ctrl
+pza/bench/power/:channel_0:_vl
+pza/bench/power/:channel_0:_am
+
+pza/bench/power/:channel_1:_ctrl
+pza/bench/power/:channel_1:_vl
+pza/bench/power/:channel_1:_am
+```
+
+## Mandatory Topics
 
 All the interfaces support those common topics.
 
