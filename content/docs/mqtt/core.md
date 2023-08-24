@@ -13,7 +13,6 @@ All the interfaces support those common topics.
 | Topic                         |  QOS  | Retain |
 | :---------------------------- | :---: | :----: |
 | \<interface>/atts/info        |   0   | false  |
-| \<interface>/atts/misc        |   0   |  true  |
 | \<interface>/atts/\<name> (1) |   0   |  true  |
 | \<interface>/cmds/set         |   0   | false  |
 
@@ -78,14 +77,6 @@ It contains the type of the interface, and the version of the meta driver.
     "version": "1.0"
 }
 ```
-
-### Misc Attribute
-
-This attribute is used to gather all miscellaneous information. Any interface API can specify their own misc payload content.
-
-This misc attribute contains only fields that cannot be considered specific to an interface family.
-
-For example, a serial port or a polling timing might be useful for the power supply interface, but they don't describe a specific attribute of power supplies.
 
 ### Attribute Polling Cycle
 
