@@ -23,8 +23,8 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 | Attribute name | Retain Topic |
 | :------------- | :----------: |
 | enable         |     true     |
-| volts          |     true     |
-| amps           |     true     |
+| voltage        |     true     |
+| current        |     true     |
 
 ### >> Enable <<
 
@@ -35,7 +35,7 @@ Manage the state of the power supply output
 | value         | True="on" or False="off" |  False  | Boolean |   False   |   True   |
 | polling_cycle |                          |         | Integer |   False   |    NA    |
 
-### >> Volts <<
+### >> Voltage <<
 
 Manage the voltage part of the power supply
 
@@ -47,7 +47,7 @@ Manage the voltage part of the power supply
 | decimals      | number of decimals supported for voltage value | Integer |   True    |  False   |
 | polling_cycle |                                                | Integer |   False   |    NA    |
 
-### >> Amps <<
+### >> Current <<
 
 Manage the current part of the power supply
 
