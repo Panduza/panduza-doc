@@ -17,7 +17,7 @@ The interface MQTT topic is structured as follow:
 - *<device_name>*: Name of the device on which the interface is attached
 - *<interface_name>*: Name of the interface inside the device
 
-### Group of Interface
+### Group of Interface inside the same device
 
 Sometime one device has multiple time the same interface.
 For example, a power supply can have multiple channels so multiple BPS interfaces.
@@ -25,7 +25,7 @@ For example, a power supply can have multiple channels so multiple BPS interface
 To show clients that those interfaces are organised in an array, use this notation.
 
 ```
-:<array_name>_<index>:
+:<array_name>_<index>:_<suffix>
 ```
 
 for example

@@ -14,7 +14,7 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 ```json
 {
     "type": "voltmeter",
-    "version": "0.0"
+    "version": "0.0.0"
 }
 ```
 

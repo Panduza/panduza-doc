@@ -1,11 +1,11 @@
 ---
-title: "BPS (Bench Power Supply)"
+title: "BPC (Bench Power Channel)"
 weight: 2
 ---
 
-# BPS (Bench Power Supply)
+# BPS (Bench Power Channel)
 
-This document describes the specific attributes of Bench Power Supply interfaces.
+This document describes the specific attributes of Bench Power Channel interfaces.
 
 Please refer to [API interface](/docs/mqtt/core.md) to get a generic description of the interface mechanism.
 
@@ -13,8 +13,8 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 
 ```json
 {
-    "type": "bps",
-    "version": "0.0"
+    "type": "bpc",
+    "version": "0.1.0"
 }
 ```
 
@@ -61,6 +61,10 @@ Manage the current part of the power supply
 
 ### Changelog
 
-#### Version 0.0
+#### Version 0.1.0
+
+- First release for this interface
+
+#### Version 0.0.0
 
 - Experimentations
