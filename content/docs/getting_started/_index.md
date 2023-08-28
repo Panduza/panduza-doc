@@ -28,7 +28,7 @@ The installation process is easy:
 Just execute the following command on your system, you will need admin rights.
 
 ```bash
-wget -O - https://raw.githubusercontent.com/Panduza/panduza-installer/main/install.sh | sudo bash
+wget -q -O - https://raw.githubusercontent.com/Panduza/panduza-installer/main/install.sh | sudo bash
 ```
 
 ### Configuration
