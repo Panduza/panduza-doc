@@ -31,16 +31,15 @@ This info is a special one with the *number_of_interfaces*
 
 Manage the state of the power supply output
 
-| Field name   | Description | Default |  Type   | Read-only | pollable |
-| :----------- | :---------: | :-----: | :-----: | :-------: | :------: |
-| family       |             |   NA    |  Float  |   True    |  False   |
-| model        |             |   NA    | Integer |   True    |  False   |
-| manufacturer |             |   NA    | Integer |   True    |  False   |
+| Field name   | Description              | Default |  Type  | Read-only | pollable |
+| :----------- | :----------------------- | :-----: | :----: | :-------: | :------: |
+| family       | Device family name       |   NA    | String |   True    |  False   |
+| model        | Device model name        |   NA    | String |   True    |  False   |
+| manufacturer | Device Manufacturer name |   NA    | String |   True    |  False   |
 
 ### Changelog
 
 #### Version 0.0
 
 - Experimentations
-
 
