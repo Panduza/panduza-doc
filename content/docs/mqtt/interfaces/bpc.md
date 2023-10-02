@@ -3,7 +3,7 @@ title: "BPC (Bench Power Channel)"
 weight: 2
 ---
 
-# BPS (Bench Power Channel)
+# BPC (Bench Power Channel)
 
 This document describes the specific attributes of Bench Power Channel interfaces.
 
@@ -33,7 +33,7 @@ Manage the state of the power supply output
 | Field name    |       Description        | Default |  Type   | Read-only | pollable |
 | :------------ | :----------------------: | :-----: | :-----: | :-------: | :------: |
 | value         | True="on" or False="off" |  False  | Boolean |   False   |   True   |
-| polling_cycle |                          |         | Integer |   False   |    NA    |
+| polling_cycle | TODEPRECATE              |         | Integer |   False   |    NA    |
 
 ### >> Voltage <<
 
@@ -45,7 +45,7 @@ Manage the voltage part of the power supply
 | min           |        minimal voltage value supported         |  Float  |   True    |  False   |
 | max           |        maximal voltage value supported         |  Float  |   True    |  False   |
 | decimals      | number of decimals supported for voltage value | Integer |   True    |  False   |
-| polling_cycle |                                                | Integer |   False   |    NA    |
+| polling_cycle | TODEPRECATE                                    | Integer |   False   |    NA    |
 
 ### >> Current <<
 
@@ -57,7 +57,7 @@ Manage the current part of the power supply
 | min           |        minimal amperage value supported         |  Float  |   True    |  False   |
 | max           |        maximal amperage value supported         |  Float  |   True    |  False   |
 | decimals      | number of decimals supported for amperage value | Integer |   True    |  False   |
-| polling_cycle |                                                 | Integer |   False   |    NA    |
+| polling_cycle | TODEPRECATE                                     | Integer |   False   |    NA    |
 
 ### Changelog
 
