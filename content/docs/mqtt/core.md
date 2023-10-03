@@ -101,10 +101,10 @@ This way, it is very easy for client APIs to distinguish what is allowed or not,
 
 This attribute is special. It must be supported in read-only by all the interfaces and **must not be retained**.
 
-When '*' is published inside the topic 'pza' then this attribute must be published.
-When 'p' is published inside the topic 'pza' then this attribute must be published if the interface has type == platform.
-When 'd' is published inside the topic 'pza' then this attribute must be published if the interface has type == device.
-When '<bench_name>/<device_name>' is published inside the topic 'pza' then this attribute must be published if the interface has type != device and in the device base topic.
+- When '*' is published inside the topic 'pza' then this attribute must be published.
+- When 'p' is published inside the topic 'pza' then this attribute must be published if the interface has type == platform.
+- When 'd' is published inside the topic 'pza' then this attribute must be published if the interface has type == device.
+- When '<bench_name>/<device_name>' is published inside the topic 'pza' then this attribute must be published if the interface has type != device and in the device base topic.
 
 It contains the type of the interface, and the version of the meta driver.
 
