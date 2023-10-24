@@ -11,8 +11,8 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 
 This interfaces will be stored in 
 
-pza/server/<hostname>/device
-pza/server/<hostname>/platform_py
+- pza/server/\<hostname>/device
+- pza/server/\<hostname>/platform_py
 
 ## Info
 
