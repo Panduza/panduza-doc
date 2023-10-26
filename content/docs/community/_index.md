@@ -18,5 +18,6 @@ Panduza was created and is maintained by [Xavier Rodriguez](https://github.com/X
 A huge thank you to all the people who have already contributed to Panduza:
 - [on Github](https://github.com/orgs/Panduza/outside-collaborators)
 - [Advans Lab](https://www.advans-lab.com/fr/)
-- Hervé Milleret
+- [Florian Dupeyron](https://github.com/fdmysterious)
 - Pauline Desmoulin
+
