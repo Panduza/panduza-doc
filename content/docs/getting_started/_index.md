@@ -31,6 +31,12 @@ Just execute the following command on your system, you will need admin rights.
 wget -q -O - https://raw.githubusercontent.com/Panduza/panduza-installer/main/install_lastest_stable.sh | sudo bash
 ```
 
+Reboot, then go to the admin interface through your web browser
+
+```bash
+localhost:8080
+```
+
 ### Configuration
 
 ## Python Client
