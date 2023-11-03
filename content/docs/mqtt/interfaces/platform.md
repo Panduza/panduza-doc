@@ -16,8 +16,6 @@ This interfaces will be stored in
 
 ## Info
 
-This info is a special one with the *number_of_devices*
-
 ```json
 {
     "type": "platform",
@@ -26,9 +24,15 @@ This info is a special one with the *number_of_devices*
 }
 ```
 
+### `[REQ_ITF_PLATFORM_0010_00]` - Info 'number_of_devices' field
+
+Info attribute of the platform interface **must** have a special field 'number_of_devices'.
+This field contains the total number of devices mounted by the platform.
+
 ### Changelog
 
 #### Version 0.0
 
 - Experimentations
+
 
