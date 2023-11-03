@@ -21,6 +21,11 @@ This info is a special one with the *number_of_interfaces*
 }
 ```
 
+### `[REQ_ITF_DEVICE_0010_00]` - Info 'number_of_interfaces' field
+
+Info attribute of the device interface **must** have a special field 'number_of_interfaces'.
+This field contains the total number of interfaces mounted by this device (this device interface included).
+
 ## Attributes
 
 | Attribute name | Retain Topic |
