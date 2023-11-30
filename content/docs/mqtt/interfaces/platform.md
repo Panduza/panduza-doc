@@ -44,31 +44,40 @@ This field must be set to *true* on the last info message sent before the platfo
 ## Attributes
 
 | Attribute name | Retain Topic |
-| :------------- | :----------: |
-| configuration  |     True     |
-| device         |     True     |
+| :------------: | :----------: |
+|    control     |     True     |
+|     dtree      |     True     |
+|    devices     |     True     |
 
-### >> dtree <<
+
+### `[REQ_ITF_PLATFORM_0100_00]` - Attribute 'control'
 
 Running configuration of the platform described with a device tree
 
-| Field name |                        Description                        | Default |  Type   | Read-only | pollable |
-| :--------- | :-------------------------------------------------------: | :-----: | :-----: | :-------: | :------: |
-| name       |             name of the active configuration              |         | string  |           |          |
-| saved      | true if the content is the same as the active config file |         | boolean |           |          |
-| list       |                 list of all configuration                 |         |  list   |           |          |
-| content    |                current tree configuration                 |         |  json   |           |          |
+| Field name |                        Description                        | Default | Type | Read-only |
+| :--------- | :-------------------------------------------------------: | :-----: | :--: | :-------: |
+| running    | Always true, set it to false to request the platform stop |  True   | bool |   False   |
 
-how to append / delete / configure a device ?  set the running/configuration  attribute ?
-save / load ?
 
-### >> devices <<
+### `[REQ_ITF_PLATFORM_0110_00]` - Attribute 'dtree'
+
+Running configuration of the platform described with a device tree
+
+| Field name |                        Description                        | Default |  Type   | Read-only |
+| :--------- | :-------------------------------------------------------: | :-----: | :-----: | :-------: |
+| name       |             name of the active configuration              |         | string  |   False   |
+| saved      | true if the content is the same as the active config file |         | boolean |   False   |
+| list       |                 list of all configuration                 |         |  list   |   True    |
+| content    |                current tree configuration                 |         |  json   |   False   |
+
+### `[REQ_ITF_PLATFORM_0120_00]` - Attribute 'devices'
 
 To get information about the capabilites of the platform (device supported and connected to the server)
 
-| Field name |                         Description                          | Default |  Type   | Read-only | pollable |
-| :--------- | :----------------------------------------------------------: | :-----: | :-----: | :-------: | :------: |
-| hunting    |     true if the platform is currently scannnig its ports     |         | boolean |   true    |          |
-| max        |                 number of device registered                  |         |   int   |   true    |          |
-| hunted     |                   number of device scanned                   |         |   int   |   true    |          |
-| store      | available devices in the platform (including hunt detection) |         |  json   |           |          |
+| Field name |                         Description                          | Default |  Type   | Read-only |
+| :--------- | :----------------------------------------------------------: | :-----: | :-----: | :-------: |
+| hunting    |     true if the platform is currently scannnig its ports     |  False  | boolean |   False   |
+| max        |                 number of device registered                  |         |   int   |   True    |
+| hunted     |                   number of device scanned                   |         |   int   |   True    |
+| store      | available devices in the platform (including hunt detection) |         |  json   |   True    |
+
