@@ -87,7 +87,23 @@ Potentiel Use Case:
 
 # AIO
 
+-----------------------------------------------------
+# Oscilloscope vs LogicAnalyser
 
+
+
+-----------------------------------------------------
+# PowerMeter
+
+Like ammeter and voltmeter ?
+Attribute measure.
+
+Interface calibration ? séparé ou collé ? besoin abbelight ?
+
+-----------------------------------------------------
+# Laser
+
+A etudier 
 
 
 
