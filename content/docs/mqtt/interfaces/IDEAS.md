@@ -98,12 +98,21 @@ Potentiel Use Case:
 Like ammeter and voltmeter ?
 Attribute measure.
 
+
 Interface calibration ? séparé ou collé ? besoin abbelight ?
 
 -----------------------------------------------------
 # Laser
 
-A etudier 
+
+ça ressemble au BPC
+
+ON/OFF
+Power (W)
+Current (A)
+
+
+Certain laser on une interface température pour le control de la température interne
 
 
 
