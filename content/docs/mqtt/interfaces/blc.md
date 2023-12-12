@@ -1,5 +1,5 @@
 ---
-title: "Laser"
+title: "BLC (Bench Laser Control)"
 weight: 2
 ---
 
@@ -13,7 +13,7 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 
 ```json
 {
-    "type": "laser",
+    "type": "blc",
     "version": "0.0.0"
 }
 ```
