@@ -22,9 +22,19 @@ Please refer to [API interface](/docs/mqtt/core.md) to get a generic description
 
 | Attribute name | Retain Topic |
 | :------------- | :----------: |
+| mode           |     true     |
 | enable         |     true     |
 | power          |     true     |
 | current        |     true     |
+
+### >> Mode <<
+
+This attribute is an enum, only one filed must be active at a time.
+
+| Field name       | Description                            | Default |  Type   | Read-only |
+| :--------------- | :------------------------------------- | :-----: | :-----: | :-------: |
+| constant_power   | Enable the power constant regulation   |  True   | Boolean |   False   |
+| constant_current | Enable the current constant regulation |  False  | Boolean |   False   |
 
 ### >> Enable <<
 
