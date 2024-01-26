@@ -33,8 +33,12 @@ This attribute is an enum, only one filed must be active at a time.
 
 | Field name       | Description                            | Default |  Type   | Read-only |
 | :--------------- | :------------------------------------- | :-----: | :-----: | :-------: |
-| constant_power   | Enable the power constant regulation   |  True   | Boolean |   False   |
-| constant_current | Enable the current constant regulation |  False  | Boolean |   False   |
+| value            | Get/Set laser regulation mode          |  "constant_power"   | String Enum  |   False   |
+
+Enum Values: 
+
+- constant_power
+- constant_current
 
 ### >> Enable <<
 
