@@ -15,3 +15,10 @@ hugo server --minify --theme hugo-book
 ```
 <web browser> http://localhost:1313
 ```
+
+
+docker run -p 8080:8080 \
+  -v ${PWD}:/src \
+  razonyang/hugo \
+  hugo server --bind 0.0.0.0 -p 8080
+  
