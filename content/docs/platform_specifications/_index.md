@@ -1,10 +1,10 @@
 ---
-title: "MQTT API"
+title: "Platform Specifications"
 weight: 4
 bookCollapseSection: true
 ---
 
-# MQTT API
+# Platform Specifications
 
 Panduza core concept is the abstraction of the physical interfaces at the network level.
 
