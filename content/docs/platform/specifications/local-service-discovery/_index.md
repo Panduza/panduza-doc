@@ -1,11 +1,11 @@
 ---
-title: "DNS"
+title: "Local Service Discovery"
 weight: 1
 ---
 
-# DNS
+# Local Service Discovery
 
-This feature allow a client to easily discover platform connected to the network.
+This feature allow a client to easily discover machine that host a platform connected to the local network.
 
 ### `[PLATF_REQ_DNS_0000_00]` - Service Port
 
