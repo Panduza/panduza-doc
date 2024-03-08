@@ -32,7 +32,7 @@ Manage the state of the power supply output
 | :--------- | :------------------------------------: | :-----: | :-----: | :-------: |
 | value      |          value of the measure          |   NA    |  Float  |   True    |
 | decimals   | number of decimals supported for value |   NA    | Integer |   True    |
-| afrq       |       acquisition frequency (HZ)       |         |  Float  |   False   |
+| frequency  |       acquisition frequency (HZ)       |         |  Float  |   False   |
 
 ### Changelog
 
