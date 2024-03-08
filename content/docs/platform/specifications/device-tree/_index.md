@@ -67,13 +67,13 @@ It **might** also contains 2 other fields: *name* and *settings*
 
 ```json
 {
-    "model": "model_example",
+    "ref": "ref_example",
     "name": "name_example",
     "settings": { }
 }
 ```
 
-### `[PLATF_REQ_TREE_0110_00]` - Device Definition Model Field
+### `[PLATF_REQ_TREE_0110_00]` - Device Definition Ref Field
 
 ### `[PLATF_REQ_TREE_0120_00]` - Device Definition Name Field
 
