@@ -97,18 +97,23 @@ Therefore, the payload will vary from these power supplies. The ones that suppor
 
 This way, it is very easy for client APIs to distinguish what is allowed or not, and notify the user accordingly.
 
-### Info Attribute
+### `[PLATF_REQ_CORE_0300_00]` - Info Attribute
 
-This attribute is special. It must be supported in read-only by all the interfaces and **must not be retained**.
+This attribute is special. It **must** be supported in read-only by all the interfaces and **must not** be retained.
 
+It **must** contain:
 
-
-It contains the type of the interface, and the version of the meta driver.
+- the type of the interface
+- the version of the interface
+- the state of the driver (run/error)
+- An error string in case the state is error
 
 ```json
 {
     "type": "serial",
-    "version": "1.0"
+    "version": "1.0",
+    "state": "run",
+    "error": "error string",
 }
 ```
 
