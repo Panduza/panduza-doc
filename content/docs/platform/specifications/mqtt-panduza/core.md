@@ -105,7 +105,7 @@ It **must** contain:
 
 - the type of the interface
 - the version of the interface
-- the state of the driver (run/error)
+- the state of the driver (init/run/err)
 - An error string in case the state is error
 
 ```json
