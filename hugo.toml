@@ -2,6 +2,8 @@
 languageCode = 'en-us'
 title = 'Panduza - Dev Zone'
 
+googleAnalytics="G-HW92G2PF5K"
+
 [module]
     # replacements = "github.com/Panduza/lotusdocs -> lotusdocs"
     [[module.imports]]
