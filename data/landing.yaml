@@ -1,0 +1,37 @@
+# Github Hugo sources
+# layouts/partials/landing/image_compare.html
+
+
+# -----------------------------------------------------------------------------
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  title: "Panduza Dev Zone"
+  subtitle: For users, its is recommend to visit user guide documentation!
+
+  badge:
+    text: 0.0.0
+    color: primary
+    pill: false
+    soft: true
+
+  ctaButton:
+    icon: stars
+    btnText: "Enter"
+    url: "/docs/"
+  cta2Button:
+    icon: person
+    btnText: "User Guide Here"
+    url: "https://panduza.github.io/panduza-user-guide/"
+
+
+# -----------------------------------------------------------------------------
+featureGrid:
+  enable: false
+
+# -----------------------------------------------------------------------------
+imageCompare:
+  enable: false
+

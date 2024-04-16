@@ -14,7 +14,7 @@ With Panduza, you can control your electronic lab instruments from any computer,
 - With it's small footprint and modularity, you create the test environment that fits your needs.
 - Integrates to existing test frameworks such as Robot Framework.
 
-{{< columns >}}
+
 
 ## About Panduza
 Learn the [motivation](/docs/introduction/motivation) behind Panduza and find out more about the [project](/docs/introduction/project_overview) and how it can help you.
@@ -24,8 +24,6 @@ Learn the [motivation](/docs/introduction/motivation) behind Panduza and find ou
 ## Getting started
 [Get ready](/docs/getting_started) to create your first Panduza setup in few minutes.
 
-{{< /columns >}}
-{{< columns >}}
 
 ## User guides
 More in depth information about Panduza's features and how to use them.\
@@ -37,4 +35,3 @@ More in depth information about Panduza's features and how to use them.\
 ## Community
 You can find all the information about the Panduza community [here](/docs/community).
 
-{{< /columns >}}

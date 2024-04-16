@@ -1,5 +1,5 @@
 ---
-title: "Platform Guide"
+title: "Platform"
 weight: 2
 bookCollapseSection: true
 ---
@@ -60,9 +60,9 @@ Each device described in the **tree** represents a physical instrument connected
 - `model` field is used to identify the device and must always match a device's [driver](/docs/platform/#drivers).
 
 The desired naming convention for the model name is `<Manufacturer>.<Model>`.\
-{{< hint info >}}
+
 This is not mandatory but it is recommended to avoid conflicts between devices and to make it easier to identify the device.
-{{< /hint >}}
+
 
 ### Settings
 
@@ -71,15 +71,15 @@ This is not mandatory but it is recommended to avoid conflicts between devices a
 The settings are specific to each device and are described in the [device's family page](/docs/supported_devices/#drivers).
 A family will contain a list of generic settings that are usually common to all devices of the same family.
 
-{{< hint info >}}
+
 It is possible that a device has specific settings that are not described in the family page.\
 In this case, the device's table section lists all the extra settings available for this device.
-{{< /hint >}}
 
-{{< hint info >}}
+
+
 It might also happen that a device does not support a family generic setting.\
 In this case, the setting will be ignored and a warning will be displayed in the logs.
-{{< /hint >}}
+
 
 ### Fake devices
 
@@ -88,19 +88,18 @@ For this reason, the platform provides a fake device for each family.
 
 This is particularly useful when developing new tests and checking that your application behaves as expected without requiring a real hardware device.
 
-{{< hint info >}}
+
 For example, you can simulate a power supply with a fake device and check how other part of your application react to it.\
 Imagine having a test where, depending on the power supply voltage, another part of your application is expected to behave in a certain way.
 
 With a fake device, you can easily test all the different scenarios.\
 The moment you will have a real power supply, you will be able to run the same test and check that the behavior is the same, by simply changing the model name in the tree file.
 
-{{< /hint >}}
 
-{{< hint warning >}}
+
 Although fake devices are quite handy for testing and development purposes, they are not meant to be used in production.\
 You should always use a real device when running hardware-in-the-loop tests.
-{{< /hint >}}
+
 
 ## Drivers
 
@@ -112,27 +111,26 @@ This is done through a device driver.
 A driver is usually a collection of callbacks that are used to send commands to the device and to receive data from it.\
 Each driver is derived from a [Meta Driver](/docs/platform/#meta-drivers).
 
-{{< hint info >}}
+
 When two devices share the exact same functionalities and communication protocol, they can share the same driver.\
 In order to avoid code duplication, the platform allows to define a driver that can be used by multiple devices.\
 This is done through a `compatible` field in the driver definition.
-{{< /hint >}}
+
 
 ### Meta drivers
 
 Meta drivers are used to define the common interface for all drivers of the same family.\
 They are used to define the common settings and interfaces for all devices of the same family.
 
-{{< hint info >}}
+
 For example, all power supplies drivers are derived from the `MetaDriverPsu` driver.\
 This driver defines the common settings and interfaces for all power supplies.
-{{< /hint >}}
+
 
 ## Connectors
 
-{{< hint danger >}}
 AG_PROPOSAL: Je dis surement nimp dans cette section, c'est pas clair du tout dans ma tete.
-{{< /hint >}}
+
 
 Devices communicate back and forth with the platform through a certain communication protocol.\
 Whether it is a serial port, a TCP/IP connection, a USB port, etc. the platform needs to know how to communicate with the device.
@@ -151,16 +149,16 @@ For example, some power supplies can be connected to a computer through a serial
 
 A connector has a list of settings that are specific to the communication protocol it uses.
 
-{{< hint info >}}
+
 For example, a serial port connector will have a `port` setting to specify the serial port to use.
 A TCP/IP connector will have `ip` and `port` settings.
-{{< /hint >}}
 
-{{< hint info >}}
+
+
 When that happens, the driver will define two connectors: one for the serial port and one for the Ethernet port.\
 The platform will try to automatically detect which connector to use.\
 This behavior can be overridden by specifying the `connector` to use in the tree file.
-{{< /hint >}}
+
 
 ### List of supported connectors
 
@@ -185,11 +183,10 @@ This behavior can be overridden by specifying the `connector` to use in the tree
 
 TODO
 
-{{< hint info >}}
+
 AG PROPOSAL: Software services, same level as devices.
 Used for example to connect to a database, or to a web server, or to a file system, etc.
 Example: SSH
 
 Why not using connectors for that? Because connectors are meant to be used to connect to a device, not to a service.\
 Why not a device? Because a device is meant to be a physical instrument
-{{< /hint >}}

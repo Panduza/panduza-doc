@@ -8,7 +8,6 @@ bookCollapseSection: true
 
 ## List of devices
 
-{{< list_device_pages >}}
 
 ## List of generic settings
 
