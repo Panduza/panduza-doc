@@ -2,6 +2,7 @@
 title: "Platform"
 weight: 100
 bookCollapseSection: true
+icon: dns
 ---
 
 # Platform Guide
