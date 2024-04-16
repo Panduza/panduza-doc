@@ -20,7 +20,7 @@ hero:
   ctaButton:
     icon: stars
     btnText: "Enter"
-    url: "/docs/"
+    url: "/panduza-dev-zone/docs/"
   cta2Button:
     icon: person
     btnText: "User Guide Here"

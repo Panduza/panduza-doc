@@ -1,8 +1,5 @@
-# hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
-
-baseURL = 'https://example.com/'
-title = 'Panduza'
-theme = 'hugo-book'
+baseURL = 'https://github.com/Panduza/panduza-dev-zone'
+title = 'Panduza - Dev Zone'
 
 [module]
     # replacements = "github.com/Panduza/lotusdocs -> lotusdocs"
