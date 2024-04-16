@@ -3,8 +3,6 @@ title: "Project Overview"
 weight: 2
 ---
 
-# Project Overview
-
 This page aims to give a high-level overview of the project.
 
 To avoid confusion, let's first define some terms:

@@ -3,8 +3,6 @@ title: "Motivation"
 weight: 1
 ---
 
-# Motivation
-
 Embedded systems are everywhere and are only getting more complex.
 
 But still today, the tools we use to develop them are stuck in the past.\
