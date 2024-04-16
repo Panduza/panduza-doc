@@ -1,4 +1,5 @@
 # baseURL = 'https://github.com/Panduza/panduza-dev-zone'
+languageCode = 'en-us'
 title = 'Panduza - Dev Zone'
 
 [module]
