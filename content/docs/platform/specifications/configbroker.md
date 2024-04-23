@@ -12,12 +12,12 @@
 2.	Install the required Python packages using pip:
 •	pip install cmath configparser subprocess threading flask logging psutil
 # Implementation
-1.	Create the configuration file at C:\Users\UF187ATA\conf\anas.conf.txt if it doesn't already exist.
+1.	Create the configuration file at C:\Users\UF......\conf\network.json if it doesn't already exist.
 2.	Save the provided code in a file (e.g., app.py) in your desired directory.
 3.	Open a command prompt and navigate to the directory containing the app.py file.
 4.	Run the application using the following command:
 5.	python app.py
-6.	The application will start running on http://192.168.97.45:8000/.
+6.	The application will start running on http://192.168.97.45:8000/ (BROKER_HOST + BROKER_PORT that you choose).
 7.	You can test the /update_config endpoint by sending a POST request with a JSON payload containing the new configuration.
 # Linux
 # Installations
@@ -25,12 +25,12 @@
 2.	Install the required Python packages using your system's package manager (e.g., apt-get, yum, dnf):
 •	sudo apt-get install python3-cmath python3-configparser python3-subprocess python3-threading python3-flask python3-logging python3-psutil
 # Implementation
-1.	Create the configuration file at /etc/anas.conf.txt if it doesn't already exist.
+1.	Create the configuration file at /etc/panduza/network.json if it doesn't already exist.
 2.	Save the provided code in a file (e.g., app.py) in your desired directory.
 3.	Open a terminal and navigate to the directory containing the app.py file.
 4.	Run the application using the following command:
 5.	python3 app.py
-6.	The application will start running on http://192.168.97.45:8000/.
+6.	The application will start running on http://192.168.97.45:8000/ (BROKER_HOST + BROKER_PORT that you choose).
 7.	You can test the /update_config endpoint by sending a POST request with a JSON payload containing the new configuration.
 
 # Specification for the provided code
@@ -67,7 +67,7 @@ The `if __name__ == "__main__":` block sets up the logging configuration, starts
 The code defines several constants related to configuration:
 - `BROKER_HOST` and `BROKER_PORT`: the host and port of the MQTT broker.
 - `API_HOST` and `API_PORT`: the host and port of the Flask API.
-- `CONFIG_FILE`: the path to the configuration file, for example if on Windows, located at `C:\Users\UF187ATA\conf\anas.conf.txt` on Windows or `/etc/anas.conf.txt` on Linux. 
+- `CONFIG_FILE`: the path to the configuration file, for example if on Windows, located at `C:\Users\UF187ATA\conf\network.json` on Windows or `/etc/panduza/network.json` on Linux. 
 
 The code then checks if the configuration file exists. If it does not exist, it logs an error and returns a 500 error code.
 
