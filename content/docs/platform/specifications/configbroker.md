@@ -1,22 +1,26 @@
-## Spécification du fichier de configuration `network.json`
+## Specification of the `network.json` configuration file
 
-### `[CONF_REQ_FILE_ANAS_0010_00]` - Emplacement du fichier de configuration
-Le fichier de configuration `network.json` doit être situé dans le répertoire `C:\Users\UF...\conf\` sous Windows, et dans /etc/panduza/ sous Linux.
+### `[CONF_REQ_FILE_NET_0010_00]` - Location and format of the configuration file
+Windows Path : `C:\Users\UF...\conf\` 
 
-### `[CONF_REQ_FILE_ANAS_0020_00]` - Format du fichier de configuration
-Le fichier de configuration `network.json` doit être au format JSON.
+Linux Path : /etc/panduza/ 
 
-### `[CONF_REQ_FILE_ANAS_0030_00]` - Contenu du fichier de configuration
-Le fichier de configuration `network.json` doit contenir les informations suivantes :
+The `network.json` configuration file must be in JSON format.
 
-| Champ | Description | Type | Obligatoire |
+### `[CONF_REQ_FILE_NET_0020_00]` - Content of the configuration file
+The `network.json` configuration file must contain the following information:
+
+| Field | Description | Type | Required |
 | --- | --- | --- | --- |
-| `BROKER_HOST` | Adresse IP du broker MQTT | String | Oui |
-| `BROKER_PORT` | Port du broker MQTT | Integer | Oui |
-| `API_HOST` | Adresse IP de l'API Flask | String | Oui |
-| `API_PORT` | Port de l'API Flask | Integer | Oui |
+| `BROKER_HOST` | MQTT broker IP address | String | Yes |
+| `BROKER_PORT` | MQTT broker port | Integer | Yes |
+| `API_HOST` | Flask API IP address | String | Yes |
+| `API_PORT` | Flask API port | Integer | Yes |
 
-### `[CONF_REQ_FILE_ANAS_0040_00]` - Gestion des erreurs
-- Si le fichier de configuration `network.json` n'existe pas, l'application doit journaliser une erreur et retourner un code d'erreur 500.
-- En cas d'erreur lors de la lecture ou de l'écriture du fichier de configuration, l'application doit journaliser l'erreur et retourner un code d'erreur 500.
-
+```json
+{
+  "BROKER_HOST": "MQTT broker IP address",
+  "BROKER_PORT": "MQTT broker port",
+  "API_HOST": "Flask API IP address",
+  "API_PORT": " Flask API port"
+}
