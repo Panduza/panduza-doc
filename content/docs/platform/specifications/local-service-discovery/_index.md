@@ -7,11 +7,11 @@ weight: 1
 
 This feature allow a client to easily discover machine that host a platform connected to the local network.
 
-### `[PLATF_REQ_DNS_0000_00]` - Service Port
+### `[PLATF_REQ_LSD_0000_00]` - Service Port
 
 This service **must** use the port 53035.
 
-### `[PLATF_REQ_DNS_0010_00]` - Request Payload
+### `[PLATF_REQ_LSD_0010_00]` - Request Payload
 
 A client that try to discover platofrm on the network **must** broadcast a json payload with the following content:
 
@@ -23,7 +23,7 @@ A client that try to discover platofrm on the network **must** broadcast a json 
 
 All other payloads must be ignored.
 
-### `[PLATF_REQ_DNS_0020_00]` - Answer Payload
+### `[PLATF_REQ_LSD_0020_00]` - Answer Payload
 
 The platform **must** answer with the following content:
 
