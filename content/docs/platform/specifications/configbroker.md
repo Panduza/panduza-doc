@@ -12,15 +12,12 @@ The `network.json` configuration file must contain the following information:
 
 | Field | Description | Type | Required |
 | --- | --- | --- | --- |
-| `BROKER_HOST` | MQTT broker IP address | String | Yes |
-| `BROKER_PORT` | MQTT broker port | Integer | Yes |
-| `API_HOST` | API IP address | String | Yes |
-| `API_PORT` | API port | Integer | Yes |
+| `broker_host` | MQTT broker IP address | String | Yes |
+| `broker_port` | MQTT broker port | Integer | Yes |
+
 
 ```json
 {
-  "BROKER_HOST": "MQTT broker IP address",
-  "BROKER_PORT": "MQTT broker port",
-  "API_HOST": "API IP address",
-  "API_PORT": "API port"
+  "broker_host": "MQTT broker IP address",
+  "broker_port": "MQTT broker port",
 }
