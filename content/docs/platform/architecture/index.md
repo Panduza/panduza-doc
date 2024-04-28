@@ -4,7 +4,14 @@ description: "How the platform is organized ?"
 weight: 2
 ---
 
+The platform sources are coded in Rust and are organized by directory reflecting its architecture.
 
+## builtin_devices
+
+This directory contains devices and interface implementations that come built-in the main platform sources.
+
+In this directory there must be one directory for each manufacturer. The manufacturer directory must hold devices related to its produc
+ts.
 
 ## Meta
 
