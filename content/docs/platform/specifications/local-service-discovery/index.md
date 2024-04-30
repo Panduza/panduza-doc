@@ -1,9 +1,9 @@
 ---
 title: "Local Service Discovery"
-weight: 1
+description: "Service to help users to forget about IPs addresses"
+icon: wifi_find
+weight: 100
 ---
-
-# Local Service Discovery
 
 This feature allow a client to easily discover machine that host a platform connected to the local network.
 
@@ -21,7 +21,7 @@ A client that try to discover platofrm on the network **must** broadcast a json 
 }
 ```
 
-All other payloads must be ignored.
+All other payloads must be ignored and platform must continue working.
 
 ### `[PLATF_REQ_LSD_0020_00]` - Answer Payload
 
