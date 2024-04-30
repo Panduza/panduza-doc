@@ -13,7 +13,7 @@ This service **must** use the port 53035.
 
 ### `[PLATF_REQ_LSD_0010_00]` - Request Payload
 
-A client that try to discover platofrm on the network **must** broadcast a json payload with the following content:
+A client that try to discover platofrm on the network **must** broadcast a json payload with the following *UTF-8* content:
 
 ```json
 {
@@ -25,7 +25,7 @@ All other payloads must be ignored and platform must continue working.
 
 ### `[PLATF_REQ_LSD_0020_00]` - Answer Payload
 
-The platform **must** answer with the following content:
+The platform **must** answer with the following *UTF-8* content:
 
 ```json
 {
