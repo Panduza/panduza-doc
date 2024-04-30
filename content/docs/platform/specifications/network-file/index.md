@@ -1,12 +1,13 @@
 ---
 title: "network.json"
 weight: 100
-description: "The configuration file indicating the broker used for the platform"
+description: "The configuration file providing the broker that must be used by the platform"
 icon: network
 ---
 ## Specification of the `network.json` configuration file
 
 ### `[CONF_REQ_FILE_NET_0010_00]` - Location and format of the configuration file
+
 **Windows** Path : `C:\Users\UF...\conf\` 
 
 **Linux** Path: `\etc\panduza\` 
