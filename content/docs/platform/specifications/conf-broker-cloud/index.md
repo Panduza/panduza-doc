@@ -1,7 +1,7 @@
 ---
 title: "network.json"
 weight: 100
-description: "The configuration file of the cloud mosquitto broker"
+description: "The configuration file indicating the mosquitto broker used for the platform"
 icon: network
 ---
 ## Specification of the `network.json` configuration file
