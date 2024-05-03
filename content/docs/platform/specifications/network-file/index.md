@@ -26,5 +26,5 @@ The `network.json` configuration file must contain the following information:
 ```json
 {
   "broker_host": "MQTT broker IP address",
-  "broker_port": "MQTT broker port",
+  "broker_port": MQTT broker port,
 }
