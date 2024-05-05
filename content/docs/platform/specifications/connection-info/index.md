@@ -9,12 +9,18 @@ This file is `very important` for the platform because it defines the parameters
 
 ### `[CONF_REQ_FILE_NET_0010_00]` - Name and location
 
-The file name **must** be `connection.json`.
+When the platform starts, by default it looks for a file containing the connection information.
 
-ITs location **must** be:
+The default file name **must** be `connection.json`.
 
-- **Linux** Path: `\etc\panduza\`
-- **Windows** Path : `C:\Users\UF...\conf\` 
+Its location **must** be:
+
+- **Linux** Path: `/etc/panduza`
+- **Windows** Path : `C:\Users\UF...\conf\`
+
+The user can bypass this default behavior and pass the file name and location by setting a flag at the platform start.
+This flag **must** be `-c` or `--config` and the user **must** provide the path to the file. Both relative and absolute paths are accepted.
+
 
 ### `[CONF_REQ_FILE_NET_0020_00]` - Content of the configuration file
 
@@ -26,7 +32,8 @@ The file **must** be structured as follow:
 {
   "host": {
     "addr": "localhost",
-    "port": 18833,
+    "port": 1883,
+    "retry": 1
   },
   "credentials": {
     "user": "foo",
@@ -35,12 +42,13 @@ The file **must** be structured as follow:
 }
 ```
 
-| Field              | Description                        | Type    | Default     | Mandatory |
-| ------------------ | ---------------------------------- | ------- | ----------- | --------- |
-| `host/addr`        | MQTT broker IP address or hostname | String  | "localhost" | True      |
-| `host/port`        | MQTT broker port                   | Integer | 1883        | True      |
-| `credentials/user` | Username                           | String  | ""          | False     |
-| `credentials/pass` | Password                           | Strign  | ""          | False     |
+| Field              | Description                                                              | Type            | Default     | Mandatory |
+| ------------------ | ------------------------------------------------------------------------ | --------------- | ----------- | --------- |
+| `host/addr`        | MQTT broker IP address or hostname                                       | String          | "localhost" | True      |
+| `host/port`        | MQTT broker port                                                         | Integer         | 1883        | True      |
+| `host/retry`       | MQTT broker connection retry period (in seconds)<br> `-1` == never retry | Integer / Float | 1           | False     |
+| `credentials/user` | Username                                                                 | String          | ""          | False     |
+| `credentials/pass` | Password                                                                 | String          | ""          | False     |
 
 ### `[CONF_REQ_FILE_NET_0025_00]` - Log connection information at platform boot
 
@@ -63,11 +71,11 @@ The platform must stop immediately and report an accurate error to the admin thr
 
 If the file exists and is well formatted but some json field are missing, the platform **must** provide the default value for *non-mandatory missing fields*.
 
-The platform must stop immediately and report an accurate error to the admin through the logs for mandatory feilds.
+The platform must stop immediately and report an accurate error to the admin through the logs for mandatory fields.
 
 ### `[CONF_REQ_FILE_NET_0050_00]` - Platform behavior when file not found
 
-If the file does not exist, all fields are considered as missing, so the platform **must** start with all the default connection parameters after asking to users through console if he is ok with this (usefull for users that are discovering Panduza on Local Broker).
+If the file does not exist, all fields are considered as missing, so the platform **must** start with all the default connection parameters after asking to users through console if he is ok with this (useful for users that are discovering Panduza on Local Broker).
 
 ```
 "No configuration file found. Do you want to create one with default settings?" [N/y]
