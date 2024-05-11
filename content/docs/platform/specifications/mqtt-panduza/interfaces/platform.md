@@ -88,6 +88,17 @@ This attribute **must** have the following fields:
 | store      | available devices in the platform (including hunt detection) |         |  json   |   True    |
 
 
+Store structure
+
+```json
+{
+    "manu.model (device ref)": {
+        "settings_props': { },
+        "instances': [ ]
+    }
+}
+```
+
 ### `[PLATF_REQ_ITF_PLATFORM_0120_00]` - Attribute 'ping'
 
 The goal of the ping attribute is to provide a way to test performance of the chain client/network/broker/platform.
