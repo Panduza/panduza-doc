@@ -32,23 +32,27 @@ The file **must** be structured as follow:
 {
   "host": {
     "addr": "localhost",
-    "port": 1883,
-    "retry": 1
+    "port": 1883
   },
   "credentials": {
     "user": "foo",
     "pass": "xxxxxxxxxx"
+  },
+  "services": {
+    "retry_delay": 1,
+    "enable_plbd": false,
   }
 }
 ```
 
-| Field              | Description                                                              | Type            | Default     | Mandatory |
-| ------------------ | ------------------------------------------------------------------------ | --------------- | ----------- | --------- |
-| `host/addr`        | MQTT broker IP address or hostname                                       | String          | "localhost" | True      |
-| `host/port`        | MQTT broker port                                                         | Integer         | 1883        | True      |
-| `host/retry`       | MQTT broker connection retry period (in seconds)<br> `-1` == never retry | Integer / Float | 1           | False     |
-| `credentials/user` | Username                                                                 | String          | ""          | False     |
-| `credentials/pass` | Password                                                                 | String          | ""          | False     |
+| Field                  | Description                                                                  | Type            | Default     | Mandatory |
+| ---------------------- | ---------------------------------------------------------------------------- | --------------- | ----------- | --------- |
+| `host/addr`            | MQTT broker IP address or hostname                                           | String          | "localhost" | True      |
+| `host/port`            | MQTT broker port                                                             | Integer         | 1883        | True      |
+| `credentials/user`     | Username                                                                     | String          | ""          | False     |
+| `credentials/pass`     | Password                                                                     | String          | ""          | False     |
+| `services/retry_delay` | Delay between 2 broker connection retry (in seconds)<br> `-1` == never retry | Integer / Float | 1           | False     |
+| `services/enable_plbd` | Enable Panduza Local Broker Discovery                                        | Boolean         | true        | False     |
 
 ### `[REQ_CONN_INFO_0025_00]` - Log connection information at platform boot
 
