@@ -9,7 +9,7 @@ icon: stars
 
 First application startup :
 
-![setup_first_admin](setup_first_admin.png)
+![setup_first_admin](setup.png)
 
 ## After setup
 

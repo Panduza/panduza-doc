@@ -1,5 +1,5 @@
 ---
-title: "User Pathing"
+title: "Naming rules"
 weight: 10
 bookCollapseSection: true
 icon: cloud
@@ -7,5 +7,5 @@ icon: cloud
 
 ## Tags names
 
-Tags names must respect the format <major>.<minor>.<point>, where major, minor and point are integer.
-For example 0.0.0
+Tags names must respect the format **\<major\>.\<minor\>.\<point\>**, where major, minor and point are **integer**.\
+For example **0.0.0**.
