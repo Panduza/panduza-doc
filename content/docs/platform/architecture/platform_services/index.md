@@ -2,7 +2,7 @@
 title: "Platform Services"
 description: ""
 weight: 1
-icon: "link"
+icon: "rule_settings"
 ---
 
 Platform Services is a shareable object across the all application.
