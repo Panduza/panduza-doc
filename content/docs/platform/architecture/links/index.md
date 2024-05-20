@@ -1,7 +1,7 @@
 ---
 title: "Link"
 description: "How works the connections links"
-weight: 1
+weight: 10
 icon: "link"
 ---
 
