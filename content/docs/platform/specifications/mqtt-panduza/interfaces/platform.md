@@ -99,18 +99,4 @@ Store structure
 }
 ```
 
-### `[PLATF_REQ_ITF_PLATFORM_0120_00]` - Attribute 'ping'
-
-The goal of the ping attribute is to provide a way to test performance of the chain client/network/broker/platform.
-
-This attribute **must** have the following fields:
-
-| Field name |                         Description                          | Default |  Type   | Read-only |
-| :--------- | :----------------------------------------------------------: | :-----: | :-----: | :-------: |
-| value      |     Contains the value set by the user                       |  0      | integer |   False   |
-
-When a client wants to start a perf test, he send 1 and wait for answer, then 2, then 3... the goal is to measure the number of iteration in 1 seconde.
-
-
-
 
