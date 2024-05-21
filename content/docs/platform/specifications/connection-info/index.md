@@ -30,12 +30,12 @@ The file **must** be structured as follow:
 
 ```json
 {
-  "broker_host": {
+  "broker": {
     "addr": "localhost",
     "port": 1883
   },
-  "platform_info": {
-    "platform_name": "panduza_platform"
+  "platform": {
+    "name": "panduza_platform"
   },
   "credentials": {
     "user": "foo",
@@ -50,9 +50,9 @@ The file **must** be structured as follow:
 
 | Field                         | Description                                                                  | Type            | Default            | Mandatory |
 | ----------------------------- | ---------------------------------------------------------------------------- | --------------- | ------------------ | --------- |
-| `broker_host/addr`            | MQTT broker IP address or hostname                                           | String          | "localhost"        | True      |
-| `broker_host/port`            | MQTT broker port                                                             | Integer         | 1883               | True      |
-| `platform_info/platform_name` | Platform name                                                                | String          | "panduza_platform" | False     |
+| `broker/addr`                 | MQTT broker IP address or hostname                                           | String          | "localhost"        | True      |
+| `broker/port`                 | MQTT broker port                                                             | Integer         | 1883               | True      |
+| `platform/name`               | Platform name                                                                | String          | "panduza_platform" | False     |
 | `credentials/user`            | Username                                                                     | String          | ""                 | False     |
 | `credentials/pass`            | Password                                                                     | String          | ""                 | False     |
 | `services/retry_delay`        | Delay between 2 broker connection retry (in seconds)<br> `-1` == never retry | Integer / Float | 1                  | False     |
