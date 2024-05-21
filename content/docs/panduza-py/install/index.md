@@ -5,7 +5,7 @@ bookCollapseSection: true
 icon: star
 ---
 
-### `[PANDUZA_PY_HOW_TO_START_0000_00]` - How to install panduza module
+### How to install panduza module
 
 Panduza module use for scripts can be installed in 2 different way :
 
