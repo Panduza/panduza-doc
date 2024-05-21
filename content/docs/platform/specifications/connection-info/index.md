@@ -30,9 +30,12 @@ The file **must** be structured as follow:
 
 ```json
 {
-  "host": {
+  "broker": {
     "addr": "localhost",
     "port": 1883
+  },
+  "platform": {
+    "name": "panduza_platform"
   },
   "credentials": {
     "user": "foo",
@@ -45,14 +48,15 @@ The file **must** be structured as follow:
 }
 ```
 
-| Field                  | Description                                                                  | Type            | Default     | Mandatory |
-| ---------------------- | ---------------------------------------------------------------------------- | --------------- | ----------- | --------- |
-| `host/addr`            | MQTT broker IP address or hostname                                           | String          | "localhost" | True      |
-| `host/port`            | MQTT broker port                                                             | Integer         | 1883        | True      |
-| `credentials/user`     | Username                                                                     | String          | ""          | False     |
-| `credentials/pass`     | Password                                                                     | String          | ""          | False     |
-| `services/retry_delay` | Delay between 2 broker connection retry (in seconds)<br> `-1` == never retry | Integer / Float | 1           | False     |
-| `services/enable_plbd` | Enable Panduza Local Broker Discovery                                        | Boolean         | true        | False     |
+| Field                         | Description                                                                  | Type            | Default            | Mandatory |
+| ----------------------------- | ---------------------------------------------------------------------------- | --------------- | ------------------ | --------- |
+| `broker/addr`                 | MQTT broker IP address or hostname                                           | String          | "localhost"        | True      |
+| `broker/port`                 | MQTT broker port                                                             | Integer         | 1883               | True      |
+| `platform/name`               | Platform name                                                                | String          | "panduza_platform" | False     |
+| `credentials/user`            | Username                                                                     | String          | ""                 | False     |
+| `credentials/pass`            | Password                                                                     | String          | ""                 | False     |
+| `services/retry_delay`        | Delay between 2 broker connection retry (in seconds)<br> `-1` == never retry | Integer / Float | 1                  | False     |
+| `services/enable_plbd`        | Enable Panduza Local Broker Discovery                                        | Boolean         | true               | False     |
 
 ### `[REQ_CONN_INFO_0025_00]` - Log connection information at platform boot
 
