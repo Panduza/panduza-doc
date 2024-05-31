@@ -7,7 +7,7 @@ icon: cloud
 
 This file is `very important` for the platform because it defines the parameters of the platform connection. Without this connection the platform is useless.
 
-### `[REQ_CONN_INFO_0010_00]` - Name and location
+### `[PLATF_00001_00]` - Name and location
 
 When the platform starts, by default it looks for a file containing the connection information.
 
@@ -22,7 +22,7 @@ The user can bypass this default behavior and pass the file name and location by
 This flag **must** be `-c` or `--config` and the user **must** provide the path to the file. Both relative and absolute paths are accepted.
 
 
-### `[REQ_CONN_INFO_0020_00]` - Content of the configuration file
+### `[PLATF_00002_00]` - Content of the configuration file
 
 The file **must** be in *JSON* format.
 
@@ -58,11 +58,11 @@ The file **must** be structured as follow:
 | `services/retry_delay`        | Delay between 2 broker connection retry (in seconds)<br> `-1` == never retry | Integer / Float | 1                  | False     |
 | `services/enable_plbd`        | Enable Panduza Local Broker Discovery                                        | Boolean         | true               | False     |
 
-### `[REQ_CONN_INFO_0025_00]` - Log connection information at platform boot
+### `[PLATF_00003_00]` - Log connection information at platform boot
 
 When the platform boot, it **must** display the connection info used in logs.
 
-### `[REQ_CONN_INFO_0030_00]` - Platform behavior when file badly formated
+### `[PLATF_00004_00]` - Platform behavior when file badly formated
 
 The user **must** explicitly know if the connection is not configured as requested.
 
@@ -75,13 +75,13 @@ The platform must stop immediately and report an accurate error to the admin thr
 - At platform boot, if there are json fields not indicated in this specification
 
 
-### `[REQ_CONN_INFO_0040_00]` - Platform behavior when missing fields
+### `[PLATF_00005_00]` - Platform behavior when missing fields
 
 If the file exists and is well formatted but some json field are missing, the platform **must** provide the default value for *non-mandatory missing fields*.
 
 The platform must stop immediately and report an accurate error to the admin through the logs for mandatory fields.
 
-### `[REQ_CONN_INFO_0050_00]` - Platform behavior when file not found
+### `[PLATF_00006_00]` - Platform behavior when file not found
 
 If the file does not exist, all fields are considered as missing, so the platform **must** start with all the default connection parameters after asking to users through console if he is ok with this (useful for users that are discovering Panduza on Local Broker).
 

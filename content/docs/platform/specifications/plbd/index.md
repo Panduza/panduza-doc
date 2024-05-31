@@ -9,11 +9,11 @@ This feature allow a client to easily discover brokers on the local network that
 
 ## Requirements
 
-### `[PLATF_REQ_PLBD_0000_00]` - Service Port
+### `[PLATF_00007_00]` - Service Port
 
 This service **must** use the port 53035.
 
-### `[PLATF_REQ_PLBD_0010_00]` - Request Payload
+### `[PLATF_00008_00]` - Request Payload
 
 A client that try to discover platofrm on the network **must** broadcast a json payload with the following *UTF-8* content:
 
@@ -25,7 +25,7 @@ A client that try to discover platofrm on the network **must** broadcast a json 
 
 All other payloads must be ignored and platform must continue working.
 
-### `[PLATF_REQ_PLBD_0020_01]` - Answer Payload
+### `[PLATF_00009_00]` - Answer Payload
 
 The platform **must** answer with the following *UTF-8* content:
 
@@ -47,11 +47,11 @@ The platform **must** answer with the following *UTF-8* content:
 - **broker/addr**: address of the broker
 - **broker/port**: port of the broker
 
-### `[PLATF_REQ_PLBD_0030_00]` - Disable feature manually
+### `[PLATF_00010_00]` - Disable feature manually
 
 The platform **must** provides a way to disable the PLBD feature through the **connection.json** file.
 
-### `[PLATF_REQ_PLBD_0040_00]` - Disable feature when connect to external IP
+### `[PLATF_00011_00]` - Disable feature when connect to external IP
 
 The platform **must** disable the PLBD feature when the broker is not on local network
 
