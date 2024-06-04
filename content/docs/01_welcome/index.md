@@ -21,10 +21,11 @@ You setup your test benches once in your lab then you access it in remote and sh
 
 Great ! You can:
 
-- Setup your test bench with Panduza
+- First setup your test bench with Panduza
 - Then use your freshly installed test bench or use one that someone installed for you
 
-### I want to setup Panduza on my test bench
+[`I want to setup Panduza on my test bench`]( {{< ref "docs/panduza-py/" >}})
+
 
 <!-- Lab server installation section -->
 
