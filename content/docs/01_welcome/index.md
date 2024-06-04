@@ -19,28 +19,16 @@ You setup your test benches once in your lab then you access it in remote and sh
 
 ## I want to use a Panduza Test bench !
 
-Great ! You can:
+Great ! You can first setup your test bench with Panduza, then use your freshly installed test bench or use one that someone installed for you.
 
-- First setup your test bench with Panduza
-- Then use your freshly installed test bench or use one that someone installed for you
-
-[`I want to setup Panduza on my test bench`]( {{< ref "docs/panduza-py/" >}})
-
-
-<!-- Lab server installation section -->
-
-### I want to use a test bench equiped with Panduza
-
-<!-- Client usage section -->
+- [`I want to setup Panduza on my test bench !`]( {{< ref "docs/10_setup-lab-server" >}})
+- [`I want to use a test bench equiped with Panduza !`]()
 
 ## I want to contribute to Panduza !
 
-### I want to add the support to a new device
+- [`I want to add the support to a new device !`]()
 
-[grid_modules] ( {{< ref "docs/panduza-py/" >}})
+## I want to go deeper !
 
-### I need information about how the platform works
-
-<!-- Platform -->
-
+- [`I need information about how the platform works !`]()
 
