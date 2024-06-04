@@ -1,7 +1,7 @@
 ---
 title: "Welcome"
 description: "Lost in project documentation ? Start here !"
-weight: 1
+weight: 01
 icon: mood
 ---
 
@@ -11,11 +11,11 @@ Welcome to the Panduza project documentation.
 
 Panduza is the ultimate solution to modernize your test bench.
 
-Panduza aims the "**B**ench **A**s **A** **S**ervice" concept.
+Panduza aims the "**T**est **B**ench **A**s **A** **S**ervice" concept.
 
 You setup your test benches once in your lab then you access it in remote and share it with your colleague or CI/CD Tools or even IA tools...
 
-SCHEMA
+![](./overview.png)
 
 ## I want to use a Panduza Test bench !
 
@@ -23,26 +23,23 @@ Great ! You can:
 
 - Setup your test bench with Panduza
 - Then use your freshly installed test bench or use one that someone installed for you
-- Report an issue if something went wrong during your experimentations
 
 ### I want to setup Panduza on my test bench
 
--> client usage section
-
+<!-- Lab server installation section -->
 
 ### I want to use a test bench equiped with Panduza
 
-
--> Lab server installation section
-
-### I want to report a problem I saw
-
-
+<!-- Client usage section -->
 
 ## I want to contribute to Panduza !
 
-- I want to add the support to a new device
+### I want to add the support to a new device
 
--> Driver developpement
+[grid_modules] ( {{< ref "docs/panduza-py/" >}})
+
+### I need information about how the platform works
+
+<!-- Platform -->
 
 
