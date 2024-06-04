@@ -18,7 +18,7 @@ hero:
     soft: true
 
   image:
-    path: "panduza-dev-zone/images"
+    path: "https://panduza.github.io/panduza-dev-zone/images"
     filename: "hero.png"
     alt: "How it works"
     boxShadow: true
@@ -35,7 +35,7 @@ hero:
 
 
 # -----------------------------------------------------------------------------
-featureGrid:
+feature-grid:
   enable: true
   weight: 20
 
