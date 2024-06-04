@@ -21,7 +21,7 @@ hero:
     # path: "https://panduza.github.io/panduza-dev-zone/images"
     filename: "hero.png"
     alt: "How it works"
-    boxShadow: true
+    # boxShadow: true
     rounded: true
 
   ctaButton:
