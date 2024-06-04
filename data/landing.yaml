@@ -18,7 +18,7 @@ hero:
     soft: true
 
   image:
-    path: "https://panduza.github.io/panduza-dev-zone/images"
+    # path: "https://panduza.github.io/panduza-dev-zone/images"
     filename: "hero.png"
     alt: "How it works"
     boxShadow: true
@@ -35,9 +35,10 @@ hero:
 
 
 # -----------------------------------------------------------------------------
-feature-grid:
+featureGrid:
   enable: true
   weight: 20
+  template: feature grid
 
   title: Why choose Panduza?
   subtitle: Panduza is a test bench as a service platform that allows you to create, manage, and run test benches in the cloud. It is designed to be easy to use, flexible, and scalable. Here are some of the key features of Panduza
