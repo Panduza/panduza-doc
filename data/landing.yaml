@@ -47,16 +47,30 @@ featureGrid:
     - title: Open Source
       icon: speed
       description: Panduza is an open-source project that is free to use and modify. You can run Panduza on your own infrastructure or use our hosted service.
-      ctaLink:
-        text: learn more
-        url: /docs/
+      # ctaLink:
+      #   text: learn more
+      #   url: /docs/
 
-    - title: Open Source
-      icon: speed
-      description: Panduza is an open-source project that is free to use and modify. You can run Panduza on your own infrastructure or use our hosted service.
-      ctaLink:
-        text: learn more
-        url: /docs/
+    - title: Remote Access
+      icon: language
+      description: Use your test bench from anywhere in the world. Panduza is a cloud-based platform that allows you to access your test benches from any device with an internet connection.
+      # ctaLink:
+      #   text: learn more
+      #   url: /docs/
+
+    - title: Secure
+      icon: security
+      description: Panduza is designed with security in mind. All communication between the client and server is encrypted, and access to test benches is controlled by user permissions.
+      # ctaLink:
+      #   text: learn more
+      #   url: /docs/
+
+    - title: Fast
+      icon: open_run
+      description: Build in Rust, Panduza is designed to be fast and efficient.
+      # ctaLink:
+      #   text: learn more
+      #   url: /docs/
 
 # -----------------------------------------------------------------------------
 imageCompare:
