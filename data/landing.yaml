@@ -18,11 +18,11 @@ hero:
     soft: true
 
   image:
-    path: "images" # path to image under configured assets directory. default 'images'
-    filename: "hero.png" # filename of your hero image (including file extension)
-    alt: "Lotus Docs Screenshot" # Optional but recommended
-    boxShadow: true # default 'false' (excludes .svg images)
-    rounded: true # round the image corners? default 'false' (excludes .svg images)
+    path: "static/images"
+    filename: "hero.png"
+    alt: "How it works"
+    boxShadow: true
+    rounded: true
 
   ctaButton:
     icon: stars
@@ -35,9 +35,10 @@ hero:
 
 
 # -----------------------------------------------------------------------------
-# landing.yaml
 featureGrid:
   enable: true
+  weight: 20
+
   title: Why choose Panduza?
   subtitle: Panduza is a test bench as a service platform that allows you to create, manage, and run test benches in the cloud. It is designed to be easy to use, flexible, and scalable. Here are some of the key features of Panduza
 
