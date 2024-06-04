@@ -18,7 +18,7 @@ hero:
     soft: true
 
   image:
-    path: "static/images"
+    path: "panduza-dev-zone/images"
     filename: "hero.png"
     alt: "How it works"
     boxShadow: true
