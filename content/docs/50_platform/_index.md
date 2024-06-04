@@ -1,8 +1,8 @@
 ---
 title: "Platform"
-weight: 100
+weight: 50
 bookCollapseSection: true
-icon: dns
+icon: developer_mode
 ---
 
 # Platform Guide

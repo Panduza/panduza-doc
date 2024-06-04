@@ -8,8 +8,8 @@ hero:
   weight: 10
   template: hero
 
-  title: "Panduza Dev Zone"
-  subtitle: For users, its is recommend to visit user guide documentation!
+  title: "Panduza Documentation"
+  subtitle: Test Bench as a Service!
 
   badge:
     text: 0.0.0
@@ -17,19 +17,44 @@ hero:
     pill: false
     soft: true
 
+  image:
+    path: "images" # path to image under configured assets directory. default 'images'
+    filename: "hero.png" # filename of your hero image (including file extension)
+    alt: "Lotus Docs Screenshot" # Optional but recommended
+    boxShadow: true # default 'false' (excludes .svg images)
+    rounded: true # round the image corners? default 'false' (excludes .svg images)
+
   ctaButton:
     icon: stars
     btnText: "Enter"
     url: "/panduza-dev-zone/docs/"
-  cta2Button:
-    icon: person
-    btnText: "User Guide Here"
-    url: "https://panduza.github.io/panduza-user-guide/"
+  # cta2Button:
+  #   icon: person
+  #   btnText: "User Guide Here"
+  #   url: "https://panduza.github.io/panduza-user-guide/"
 
 
 # -----------------------------------------------------------------------------
+# landing.yaml
 featureGrid:
-  enable: false
+  enable: true
+  title: Why choose Panduza?
+  subtitle: Panduza is a test bench as a service platform that allows you to create, manage, and run test benches in the cloud. It is designed to be easy to use, flexible, and scalable. Here are some of the key features of Panduza
+
+  items:
+    - title: Open Source
+      icon: speed
+      description: Panduza is an open-source project that is free to use and modify. You can run Panduza on your own infrastructure or use our hosted service.
+      ctaLink:
+        text: learn more
+        url: /docs/
+
+    - title: Open Source
+      icon: speed
+      description: Panduza is an open-source project that is free to use and modify. You can run Panduza on your own infrastructure or use our hosted service.
+      ctaLink:
+        text: learn more
+        url: /docs/
 
 # -----------------------------------------------------------------------------
 imageCompare:

@@ -35,7 +35,7 @@ googleAnalytics="G-HW92G2PF5K"
   mono_font       = "Fira Code" # Default is System font
 
     [params.footer]
-        copyright = "© :YEAR: Panduza. Built with [**Lotus Docs**](https://github.com/colinwilson/lotusdocs)"
+        copyright = "©2024 - Panduza."
         # version = true # includes git commit info
 
     [params.social]
