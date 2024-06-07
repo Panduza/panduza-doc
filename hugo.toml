@@ -1,6 +1,6 @@
 
 languageCode = 'en-us'
-title = 'Panduza - Dev Zone'
+title = 'Panduza - Documentation'
 
 googleAnalytics="G-HW92G2PF5K"
 
@@ -42,7 +42,7 @@ googleAnalytics="G-HW92G2PF5K"
         github = "https://github.com/Panduza"
 
     [params.docs] # Parameters for the /docs 'template'
-        title           = "Panduza - Dev Zone"           # default html title for documentation pages/sections
+        title           = "Panduza - Documentation"           # default html title for documentation pages/sections
 
         # pathName        = "docs"                            # path name for documentation site | default "docs"
 
