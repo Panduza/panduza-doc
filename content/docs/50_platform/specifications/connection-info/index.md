@@ -43,7 +43,7 @@ The file **must** be structured as follow:
   },
   "services": {
     "retry_delay": 1,
-    "enable_plbd": false,
+    "enable_plbd": false
   }
 }
 ```
