@@ -39,7 +39,7 @@ googleAnalytics="G-HW92G2PF5K"
         # version = true # includes git commit info
 
     [params.social]
-        github = "https://github.com/Panduza"
+        github = "Panduza"
 
     [params.docs] # Parameters for the /docs 'template'
         title           = "Panduza - Documentation"           # default html title for documentation pages/sections
