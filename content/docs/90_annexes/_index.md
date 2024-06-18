@@ -1,6 +1,6 @@
 ---
-title: "MQTT"
+title: "Annexes"
 weight: 1
-icon: "hub"
+icon: "inventory_2"
 bookCollapseSection: true
 ---
