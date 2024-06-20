@@ -1,6 +1,6 @@
 ---
 title: "Annexes"
-weight: 1
+weight: 90
 icon: "inventory_2"
 bookCollapseSection: true
 ---
