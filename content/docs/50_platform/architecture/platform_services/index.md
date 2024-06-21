@@ -1,7 +1,7 @@
 ---
 title: "Platform Services"
 description: ""
-weight: 1
+weight: 10
 icon: "rule_settings"
 ---
 
