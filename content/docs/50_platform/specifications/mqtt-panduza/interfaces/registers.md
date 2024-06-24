@@ -53,11 +53,11 @@ To read 3 register from index 0
 
 ## Attributes
 
-| Attribute name | Retain Topic |
-| :------------- | :----------: |
-| map            |     true     |
-| settings       |     true     |
-| commands       |     true     |
+| Name | Type |
+| :------------- | :--: |
+| map            |  A3  |
+| settings       |  A1  |
+| commands       |  A2  |
 
 ### `[PLATF_00016_00]` - map
 
