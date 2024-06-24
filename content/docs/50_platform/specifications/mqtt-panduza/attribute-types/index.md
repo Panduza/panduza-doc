@@ -38,7 +38,7 @@ Some fields or all felds can be ReadOnly.
 
 free cmds (send command on the custom format defined by the interface)
 
-### `[PLATF_00020]` - Attribute A3
+### `[PLATF_00021]` - Attribute A3
 
 free atts (value returned on the custom format defined by the interface)
 

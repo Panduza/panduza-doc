@@ -29,7 +29,17 @@ To write a register
 {
     "cmd": "w",
     "index": 0,
-    "value": 42
+    "values": [42]
+}
+```
+
+To write a multiple continous registers
+
+```json
+{
+    "cmd": "w",
+    "index": 0,
+    "values": [42, 1, 2, 3]
 }
 ```
 
