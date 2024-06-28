@@ -29,7 +29,8 @@ To write a register
 {
     "cmd": "w",
     "index": 0,
-    "values": [42]
+    "values": [42],
+    "repeat": 500
 }
 ```
 
@@ -39,7 +40,8 @@ To write a multiple continous registers
 {
     "cmd": "w",
     "index": 0,
-    "values": [42, 1, 2, 3]
+    "values": [42, 1, 2, 3],
+    "repeat": 500
 }
 ```
 
@@ -58,8 +60,11 @@ To read 3 register from index 0
     "cmd": "r",
     "index": 0,
     "size": 3,
+    "repeat": 500
 }
 ```
+
+- repeat allow to repeat the command every X milliseconds
 
 ## Attributes
 
