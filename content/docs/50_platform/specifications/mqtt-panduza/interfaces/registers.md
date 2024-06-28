@@ -66,6 +66,16 @@ To read 3 register from index 0
 
 - repeat allow to repeat the command every X milliseconds
 
+
+```json
+{
+    "cmd": "stop",
+    "index": 0,
+    "size": 3,
+}
+```
+
+
 ## Attributes
 
 | Name | Type |
