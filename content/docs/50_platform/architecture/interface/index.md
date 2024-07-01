@@ -18,3 +18,10 @@ Other helper components:
 
 - Logger: Helper to log information that come from this specific interface
 
+
+
+## FSM
+
+![](./fsm.png)
+
+
