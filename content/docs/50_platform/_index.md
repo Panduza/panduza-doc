@@ -1,5 +1,6 @@
 ---
 title: "Platform"
+description: "All you need to know about the core of Panduza"
 weight: 50
 bookCollapseSection: true
 icon: developer_mode
