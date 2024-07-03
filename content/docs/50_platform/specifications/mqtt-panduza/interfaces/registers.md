@@ -78,11 +78,11 @@ To read 3 register from index 0
 
 ## Attributes
 
-| Name | Type |
-| :------------- | :--: |
-| map            |  A3  |
-| settings       |  A1  |
-| commands       |  A2  |
+| Name     | Type |
+| :------- | :--: |
+| map      |  A3  |
+| settings |  A1  |
+| commands |  A2  |
 
 ### `[PLATF_00016_00]` - map
 
