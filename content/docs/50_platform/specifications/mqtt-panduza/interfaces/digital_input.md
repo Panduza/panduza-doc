@@ -33,7 +33,7 @@ Please refer to [API interface](../core.md) to get a generic description of the 
 ```json
 {
     "value": 0,
-    "timestamps_ms": 11111111111
+    "timestamp_ms": 11111111111
 }
 ```
 
