@@ -29,7 +29,8 @@ Attribute String =>
 Attribute Numeric => String avec nombre potentiellement en decimal
 
 
-
+Attribute Trigger => pour tuer le polling cycle
+Attribute MemoryCommand => pour interface registers
 
 
 Attribute SI seulement pour faire de l'aquistion
