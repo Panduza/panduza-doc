@@ -1,9 +1,7 @@
 ---
 title: "Overview"
 description: "How attributes are organized ?"
-weight: 2
-bookCollapseSection: true
-weight: 01
+weight: 0000
 icon: grid_view
 ---
 
