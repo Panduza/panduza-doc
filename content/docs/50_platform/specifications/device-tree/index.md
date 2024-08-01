@@ -79,6 +79,22 @@ It **might** also contains 2 other fields: *name* and *settings*
 
 ### `[PLATF_REQ_TREE_0130_00]` - Device Definition Settings Field
 
+#### Proposal for v2:
+Separate connector settings from device settings.
+```json
+{
+    "ref": "ref_example",
+    "name": "name_example",
+    "settings": { 
+        "connector": {
+            "serial_port": "/dev/ttyUSB0"
+        },
+        "my_device_setting": true
+    }
+}
+```
+
+
 
 # Benches Section
 
@@ -145,5 +161,3 @@ Broker definition associate a broker to benches and devices.
 ### `[PLATF_REQ_TREE_0320_00]` - Broker Definition Benches Field
 
 ### `[PLATF_REQ_TREE_0330_00]` - Broker Definition Devices Field
-
-
