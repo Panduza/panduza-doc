@@ -73,6 +73,8 @@ examples
         - name, type and constantes fields of attributes
     - Change only if structure change
 
+
+
 - devices_states (json/protobuf attribute)
     - The state of each device and cause of the error if state error
     - Change only if state of a device change
