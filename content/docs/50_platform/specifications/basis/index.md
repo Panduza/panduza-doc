@@ -58,12 +58,12 @@ Attributes:
 ```
 examples 
 
-<N>/pza/<P>/_/_/structure/att
+<N>/pza/<P>/_/structure/att
 
-<N>/pza/<P>/_/_/devices_states/att
+<N>/pza/<P>/_/devices_states/att
 
-<N>/pza/<P>/_/_/dtree/att
-<N>/pza/<P>/_/_/dtree/cmd
+<N>/pza/<P>/_/dtree/att
+<N>/pza/<P>/_/dtree/cmd
 ```
 
 - structure (json/protobuf attribute)
@@ -75,12 +75,32 @@ examples
 
 
 
-- devices_states (json/protobuf attribute)
+- devices (json/protobuf attribute)
     - The state of each device and cause of the error if state error
     - Change only if state of a device change
 
+OU une interface par device dans _/device_name/
+
+```json
+{
+    "device_name": {
+        "state": "state_string",
+        "notifications": [
+            {
+                "level": "info/warning/error",
+                "message": "this is a warning",
+                "timestamp": 5555555
+            }
+        ]
+    }
+}
+```
+
 - dtree  (json attribute)
     - content of the device tree, allow use to change the configuration
+
+
+
 
 - store (json/protobuf attribute)
 
