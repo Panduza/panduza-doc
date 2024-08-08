@@ -20,6 +20,20 @@ Basic => only a value with a simple type
 - Attribute String => 
 - Attribute Numeric => String avec nombre potentiellement en decimal
 
+
+Ro/Rw/Wo => pas de sens dans les 2 cotés Client/Server
+
+- Bidir (both can send)
+- AttOnly (only platform send)
+- CmdOnly (only client send)
+
+
+More an implemenation consideration
+
+- Only last message matter (olmm) => get method
+- Every Message matter (emm) => pop method
+
+
 # Stream  Attributes
 
 Monitoring Stream => from device to user (only ATTS)
